@@ -23,7 +23,7 @@ function MainPage() {
       style={{
         position: "absolute",
         display: "flex",
-        width: "630px",
+        width: "631px",
         height: "200px",
         top: "60px",
         left: "50%",           // сдвигаем в центр экрана
