@@ -72,7 +72,7 @@ const CustomTonconnectButton = () => {
             paddingBottom:"10px",
             paddingTop:"10px",
             paddingRight: "10px",
-            zIndex: 101,
+            zIndex: 102,
           }}
         >
           <b>⋮</b>
