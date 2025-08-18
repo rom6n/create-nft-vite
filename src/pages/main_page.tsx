@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
 import CustomTonconnectButton from "../component/customTonConnectButton";
-import { type User, useUserInfo } from "../hooks/useUserInfo";
+import { type User, fetchUserInfo } from "../scripts/fetchUserInfo";
 import { fromNano } from "@ton/ton";
 import WebApp from "@twa-dev/sdk";
 import "../styles/main_page.style.css"
 
 function MainPage() {
-  const [user, setUser] = useState<User | undefined>()
-  useEffect(() => {
-    (async () => {
-    if (WebApp.initDataUnsafe.user) {
-      const userID = WebApp.initDataUnsafe.user.id;
-      setUser(await useUserInfo(userID));
+  const [user, setUser] = useState<User | undefined>();
+
+useEffect(() => {
+  const fetchUser = async () => {
+    let userID = 5003727541;
+
+    // Если WebApp.initDataUnsafe.user уже есть, используем его
+    if (WebApp.initDataUnsafe?.user?.id) {
+      userID = WebApp.initDataUnsafe.user.id;
+    } else {
+      console.log("user is not found")
     }
-  })();
-  }, [WebApp.initDataUnsafe.user]);
+
+    const fetchedUser = await fetchUserInfo(userID);
+    setUser(fetchedUser);
+  };
+
+  fetchUser();
+}, []);
 
   const tonAmount = user?.nanoTon ? fromNano(user.nanoTon) : "--";
   return (
     <div>
       <div className="balance-card">
         {CustomTonconnectButton()}
+        <div className="version">v1.0</div>
         <div className='ton-balance'><b>{tonAmount} TON</b></div>
         <button className='deposit-button' onClick={() => {console.log("Deposit")}}>Deposit</button>
         <button className='withdraw-button' onClick={() => {console.log("Withdraw")}}>Withdraw</button>

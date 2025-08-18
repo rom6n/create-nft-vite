@@ -31,8 +31,8 @@
 .ton-balance {
     position: absolute;
     left: 20px;
-    bottom: 6px;
-    font-size: 40px;
+    bottom: 10px;
+    font-size: 30px;
     cursor: default;
 }
 
@@ -50,4 +50,11 @@
     align-items: flex-start;
     justify-content: flex-end;
     z-index: 100;
+}
+
+.version {
+    position: absolute;
+    left: 10px;
+    cursor: default;
+
 }
