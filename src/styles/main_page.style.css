@@ -31,7 +31,7 @@
 .ton-balance {
     position: absolute;
     left: 20px;
-    bottom: 10px;
+    bottom: 65px;
     font-size: 30px;
     cursor: default;
 }
@@ -39,8 +39,8 @@
 .balance-card {
     position: absolute;
     display: flex;
-    width: 631px;
-    height: 200px;
+    width: 500px;
+    height: 250px;
     top: 60px;
     left: 50%;
     transform: translateX(-50%);
@@ -57,4 +57,168 @@
     left: 10px;
     cursor: default;
 
+}
+
+.feed-background {
+    position: absolute;
+    display: grid;
+    background: rgba(0, 0, 0, 0.196);
+    width: 800px;
+    height: 400px;
+    top: 325px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 25px;
+    
+}
+
+.select-nfts {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    width: 385px;
+    height: 50px;
+    left: 10px;
+    top: 10px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.06s, background-color 0.02s;
+    &:active {
+        transform: scale(0.98);
+        background-color: rgba(0, 0, 0, 0.489);;
+    }
+}
+.select-nft-collections {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    width: 385px;
+    height: 50px;
+    top: 10px;
+    right: 10px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.06s, background-color 0.02s;
+    &:active {
+        transform: scale(0.98);
+        background-color: rgba(0, 0, 0, 0.489);;
+    }
+}
+
+.nt {
+    position: absolute;
+    width: 800px;
+    background-color: #2d2c2c;
+    height: 2px;
+    top: 70px;
+}
+
+@media (max-width: 768px) {
+    .balance-card {
+        position: absolute;
+        display: flex;
+        width: 400px;
+        height: 200px;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #44b4f0ff;
+        border-radius: 15px;
+        box-shadow: 0 0 10px #000000ff;
+        align-items: flex-start;
+        justify-content: flex-end;
+        z-index: 100;
+    }
+    .nt {
+        position: absolute;
+        width: 400px;
+        background-color: #2d2c2c;
+        height: 2px;
+        top: 70px;
+    }
+    .feed-background {
+        position: absolute;
+        display: grid;
+        background: rgba(0, 0, 0, 0.196);
+        width: 400px;
+        height: 400px;
+        top: 280px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 25px;
+        
+    }
+    .select-nfts {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.7);
+        width: 185px;
+        height: 50px;
+        left: 10px;
+        top: 10px;
+        border: none;
+        border-radius: 15px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: transform 0.06s, background-color 0.02s;
+        &:active {
+            transform: scale(0.98);
+            background-color: rgba(0, 0, 0, 0.489);;
+        }
+    }
+    .select-nft-collections {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.7);
+        width: 185px;
+        height: 50px;
+        top: 10px;
+        right: 10px;
+        border: none;
+        border-radius: 15px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: transform 0.06s, background-color 0.02s;
+        &:active {
+            transform: scale(0.98);
+            background-color: rgba(0, 0, 0, 0.489);;
+        }
+    }
+    .deposit-button {
+    position: absolute;
+    width: 120px;
+    height: 44px;
+    background: #5ebef3ff;
+    border-radius: 12px;
+    right: 150px;
+    bottom: 13px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 0 5px rgba(50, 50, 50, 0.1);
+    }
+
+    .withdraw-button {
+        position:absolute;
+        width: 120px;
+        height: 44px;
+        background: #5ebef3ff;
+        border-radius: 12px;
+        right: 15px;
+        bottom: 13px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 0 5px rgba(50, 50, 50, 0.1);
+    }
+
+    .ton-balance {
+        position: absolute;
+        left: 20px;
+        bottom: 65px;
+        font-size: 1.7rem;
+        cursor: default;
+    }   
 }

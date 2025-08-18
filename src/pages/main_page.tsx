@@ -34,6 +34,11 @@ useEffect(() => {
         <button className='deposit-button' onClick={() => {console.log("Deposit")}}>Deposit</button>
         <button className='withdraw-button' onClick={() => {console.log("Withdraw")}}>Withdraw</button>
       </div>
+      <div className="feed-background">
+          <button className="select-nfts">🖼️ NFTs 🖼️</button>
+          <button className="select-nft-collections">🔢 Collections 🔢</button>
+          <div className="nt" />
+      </div>
     </div>
   );
 }
