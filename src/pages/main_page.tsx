@@ -24,7 +24,7 @@ useEffect(() => {
   fetchUser();
 }, [WebApp.initDataUnsafe.user]);
 
-  const tonAmount = user?.nanoTon ? fromNano(user.nanoTon) : "--";
+  const tonAmount = user?.nanoTon !== undefined ? fromNano(user.nanoTon) : "--";
   return (
     <div>
       <div className="balance-card">

@@ -119,7 +119,7 @@
     .balance-card {
         position: absolute;
         display: flex;
-        width: 400px;
+        width: 93%;
         height: 200px;
         top: 60px;
         left: 50%;
@@ -133,7 +133,7 @@
     }
     .nt {
         position: absolute;
-        width: 400px;
+        width: 100%;
         background-color: #2d2c2c;
         height: 2px;
         top: 70px;
@@ -142,7 +142,7 @@
         position: absolute;
         display: grid;
         background: rgba(0, 0, 0, 0.196);
-        width: 400px;
+        width: 93%;
         height: 400px;
         top: 280px;
         left: 50%;
@@ -153,7 +153,7 @@
     .select-nfts {
         position: absolute;
         background: rgba(0, 0, 0, 0.7);
-        width: 185px;
+        width: 46%;
         height: 50px;
         left: 10px;
         top: 10px;
@@ -170,7 +170,7 @@
     .select-nft-collections {
         position: absolute;
         background: rgba(0, 0, 0, 0.7);
-        width: 185px;
+        width: 46%;
         height: 50px;
         top: 10px;
         right: 10px;
