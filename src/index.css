@@ -55,6 +55,19 @@ button:focus, a:focus {
   outline: none;
 }
 
+button, a, .no-select {
+  user-select: none;          /* стандарт */
+  -webkit-user-select: none;  /* Safari/Chrome */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE10+ */
+}
+
+button, a, .no-select {
+  -webkit-tap-highlight-color: transparent; /* убирает синий фон */
+  -webkit-touch-callout: none;              /* отключает меню при долгом тапе */
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

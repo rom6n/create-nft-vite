@@ -42,7 +42,7 @@ const CustomTonconnectButton = () => {
           }
         }}
         style={{
-          backgroundColor: "rgba(94, 191, 243, 0.4)",
+          backgroundColor: "rgba(71, 178, 236, 1)",
           color: "#fff",
           padding: "10px 20px",
           borderRadius: "12px",
