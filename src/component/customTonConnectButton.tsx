@@ -30,8 +30,7 @@ const CustomTonconnectButton = () => {
         display: "flex",
         top: "10px",
         right: "15px",
-        borderColor: "#5ebef3ff", 
-        borderWidth: "2px",
+        background: "transparent",
     }}>
       {/* Основная кнопка */}
       <button
@@ -49,6 +48,7 @@ const CustomTonconnectButton = () => {
           border: "none",
           cursor: "pointer",
           fontWeight: 600,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
           zIndex: 1000,
         }}
       >
@@ -72,6 +72,7 @@ const CustomTonconnectButton = () => {
             paddingBottom:"10px",
             paddingTop:"10px",
             paddingRight: "10px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
             zIndex: 102,
           }}
         >

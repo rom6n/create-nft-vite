@@ -7,6 +7,7 @@ import "../styles/main_page.style.css"
 
 function MainPage() {
   const [user, setUser] = useState<User | undefined>();
+  const [activeNav, setActiveNav] = useState(1)
 
 useEffect(() => {
   const fetchUser = async () => {
@@ -31,13 +32,21 @@ useEffect(() => {
         {CustomTonconnectButton()}
         <div className="version">v1.0</div>
         <div className='ton-balance'><b>{tonAmount} TON</b></div>
-        <button className='deposit-button' onClick={() => {console.log("Deposit")}}>Deposit</button>
-        <button className='withdraw-button' onClick={() => {console.log("Withdraw")}}>Withdraw</button>
+
+        <button className="deposit-button" onClick={() => {}}>Deposit</button>
+
+        <button className="withdraw-button" onClick={() => {}}>Withdraw</button>
+
       </div>
       <div className="feed-background">
-          <button className="select-nfts">🖼️ NFTs 🖼️</button>
-          <button className="select-nft-collections">🔢 Collections 🔢</button>
+          <button className={`select-nfts ${activeNav === 1 ? "active" : ""}`} onClick={() => {
+            setActiveNav(1)
+          }}>NFTs</button>
+          <button className={`select-nft-collections ${activeNav === 2 ? "active" : ""}`} onClick={() => {
+            setActiveNav(2)
+          }}>Collections</button>
           <div className="nt" />
+          <div className={`selected ${activeNav === 1 ? "nft" : "collection"}`} />
       </div>
     </div>
   );
