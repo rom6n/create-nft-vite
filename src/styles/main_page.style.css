@@ -124,7 +124,7 @@
         top: 80px;
         left: 50%;
         transform: translateX(-50%);
-        background: #44b4f0ff;
+        background: rgb(43, 144, 199);
         border-radius: 15px;
         box-shadow: 0 0 10px #000000ff;
         align-items: flex-start;
@@ -188,7 +188,7 @@
     position: absolute;
     width: 120px;
     height: 44px;
-    background: #5ebef3ff;
+    background: rgba(94, 191, 243, 0.4);
     border-radius: 12px;
     right: 150px;
     bottom: 13px;
@@ -203,7 +203,7 @@
         position:absolute;
         width: 120px;
         height: 44px;
-        background: #5ebef3ff;
+        background: rgba(94, 191, 243, 0.4);
         border-radius: 12px;
         right: 15px;
         bottom: 13px;
