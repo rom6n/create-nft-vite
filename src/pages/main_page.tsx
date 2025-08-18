@@ -10,21 +10,19 @@ function MainPage() {
 
 useEffect(() => {
   const fetchUser = async () => {
-    let userID = 5003727541;
-
     // Если WebApp.initDataUnsafe.user уже есть, используем его
-    if (WebApp.initDataUnsafe?.user?.id) {
-      userID = WebApp.initDataUnsafe.user.id;
+    if (WebApp.initDataUnsafe.user?.id) {
+      const userID = WebApp.initDataUnsafe.user.id;
+      const fetchedUser = await fetchUserInfo(userID);
+      setUser(fetchedUser);
     } else {
       console.log("user is not found")
+      return
     }
-
-    const fetchedUser = await fetchUserInfo(userID);
-    setUser(fetchedUser);
   };
 
   fetchUser();
-}, []);
+}, [WebApp.initDataUnsafe.user]);
 
   const tonAmount = user?.nanoTon ? fromNano(user.nanoTon) : "--";
   return (
