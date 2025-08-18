@@ -3,6 +3,7 @@ import CustomTonconnectButton from "../component/customTonConnectButton";
 import { type User, useUserInfo } from "../hooks/useUserInfo";
 import { fromNano } from "@ton/ton";
 import WebApp from "@twa-dev/sdk";
+import "../styles/main_page.style.css"
 
 function MainPage() {
   const [user, setUser] = useState<User | undefined>()
@@ -18,70 +19,11 @@ function MainPage() {
   const tonAmount = user?.nanoTon ? fromNano(user.nanoTon) : "--";
   return (
     <div>
-      <div 
-      className="balance-card"
-      style={{
-        position: "absolute",
-        display: "flex",
-        width: "631px",
-        height: "200px",
-        top: "60px",
-        left: "50%",           // сдвигаем в центр экрана
-        transform: "translateX(-50%)", // корректируем так, чтобы центр совпал
-        background: "#44b4f0ff",
-        borderRadius: "15px",
-        boxShadow: "0 0 10px #000000ff",
-        alignItems: "flex-start",
-        justifyContent: "flex-end",
-        zIndex: 100,
-      }}
-      >
-        <div className='div.custom-tonconnect-button'>{CustomTonconnectButton()}</div>
-        <div className="ton-balance"
-          style={{
-            position: "absolute",
-            left: "20px",
-            bottom: "6px",
-            fontSize: "40px",
-            cursor: "default"
-          }}
-        ><b>{tonAmount} TON</b></div>
-        <button 
-          onClick={() => {
-            WebApp.showAlert("Deposit")
-          }}
-          className="deposit-button"
-          style={{
-            position:"absolute",
-            width: "140px",
-            height: "44px",
-            background: "#5ebef3ff",
-            borderRadius: "12px",
-            right: "166px",
-            bottom: "13px",
-            cursor: "pointer",
-            fontSize: "20px",
-            boxShadow: "0 0 10px rgba(50, 50, 50, 0.12)",
-          }}
-        ><b>Deposit</b></button>
-        <button 
-          className="withdraw-button"
-          onClick={() => {
-            WebApp.showAlert("Withdraw")
-          }}
-          style={{
-            position:"absolute",
-            width: "140px",
-            height: "44px",
-            background: "#5ebef3ff",
-            borderRadius: "12px",
-            right: "15px",
-            bottom: "13px",
-            cursor: "pointer",
-            fontSize: "20px",
-            boxShadow: "0 0 10px rgba(50, 50, 50, 0.12)",
-          }}
-        ><b>Withdraw</b></button>
+      <div className="balance-card">
+        {CustomTonconnectButton()}
+        <div className='ton-balance'><b>{tonAmount} TON</b></div>
+        <button className='deposit-button' onClick={() => {console.log("Deposit")}}>Deposit</button>
+        <button className='withdraw-button' onClick={() => {console.log("Withdraw")}}>Withdraw</button>
       </div>
     </div>
   );

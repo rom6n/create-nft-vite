@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface User {
     uuid: string | undefined;
@@ -11,9 +11,18 @@ export interface User {
 
 export async function useUserInfo(userID: number) {
     const [user, setUser] = useState<User>()
-    const response = await fetch(`http://localhost:2000/api/user/${userID}`)
-    const data = await response.json()
-    setUser(data)
+    const response = await fetch(`https://create-nft-go.onrender.com/api/user/${userID}`)
+    if (response.status === 200) {
+        console.log("Status is OK")
+    } else {
+        console.log(`BAD STATUS`)
+        console.log(`${response.text}`)
+    }
+    useEffect(() => {
+        (async () => {
+            setUser(await response.json())
+        })()
+    }, [response])
 
     return {
         uuid: user?.uuid,
