@@ -1,4 +1,4 @@
-import WDIcon from "./wdIcon";
+import WDIcon from "./WDIcon";
 
 type balanceCardProps = {
   tonAmount: string;
