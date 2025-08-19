@@ -37,7 +37,7 @@ const CustomTonconnectButton = () => {
     >
       {/* Основная кнопка */}
       <button
-        className="bg-sky-500 text-white w-33 rounded-xl cursor-pointer font-semibold z-1000 border border-[#00000080]"
+        className="bg-sky-500 text-white w-33 rounded-xl cursor-pointer font-semibold z-1000 border border-black/45 hover:border-black/50"
         onClick={() => {
           if (!connected) {
             tonConnectUI.openModal();
@@ -51,7 +51,7 @@ const CustomTonconnectButton = () => {
       {connected && (
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="bg-[#00000080] ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[40px] pb-[10px] pr-[10px] pt-[10px] z-999"
+          className="bg-black/45 hover:bg-black/50 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[40px] pb-[10px] pr-[10px] pt-[10px] z-999"
         >
           <b>⋮</b>
         </button>
@@ -59,7 +59,7 @@ const CustomTonconnectButton = () => {
 
       {/* Выпадающее меню */}
       {menuOpen && (
-        <div className="absolute flex top-13 bg-[#2c2c2cff] rounded-[10px] shadow-2xl right-0 w-25 h-10 z-1000">
+        <div className="absolute flex top-13 bg-[#2c2c2cff] hover:bg-[#343434] rounded-[10px] shadow-2xl right-0 w-25 h-10 z-1000">
           <button
             onClick={() => {
               tonConnectUI.disconnect();

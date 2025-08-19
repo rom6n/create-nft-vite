@@ -29,10 +29,7 @@ function MainPage() {
   const tonAmount = user?.nanoTon !== undefined ? fromNano(user.nanoTon) : "--";
   return (
     <div>
-      <div className="absolute right-[50%] translate-x-[50%] top-5">
-        <div className="absolute w-60 right-[-75px] top-[8px]">
-          <CustomTonconnectButton />
-        </div>
+      <div className="absolute flex right-[50%] translate-x-[50%] top-5 w-[90%] justify-center">
         <BalanceCard tonAmount={tonAmount} />
       </div>
       <div className="feed-background">
@@ -46,9 +43,11 @@ function MainPage() {
         </button>
         {activeNav === 1 && (
           <button className="absolute cursor-pointer top-20 left-4">
-            <div className="flex bg-white/15 w-40 h-40 justify-center items-center rounded-xl text-white text-[25px] border-[2px] border-white hover:text-white hover:bg-white/20 font-semibold">
-              +NFT
-              <p className="absolute text-[10px] text-white/30 top-25 w-27">Create your own unique NFT</p>
+            <div className="bg-white/15 w-40 h-40 rounded-xl text-white text-[90px] border-[2px] border-white hover:text-white hover:bg-white/20 font-semibold">
+              +
+              <p className="absolute text-[10px] text-white/30 top-29 left-6 w-27">
+                Create your own unique NFT
+              </p>
             </div>
           </button>
         )}
@@ -64,9 +63,11 @@ function MainPage() {
         </button>
         {activeNav === 2 && (
           <button className="absolute cursor-pointer top-20 left-4">
-            <div className="flex bg-white/15 w-40 h-40 justify-center items-center rounded-xl text-white text-[25px] border-[2px] border-white hover:text-white hover:bg-white/20 font-semibold">
-              +Collection
-              <p className="absolute text-[10px] text-white/30 top-25 w-23">Create your own NFT collection</p>
+            <div className="bg-white/15 w-40 h-40 rounded-xl text-white text-[90px] border-[2px] border-white hover:text-white hover:bg-white/20 font-semibold">
+              +
+              <p className="absolute text-[10px] text-white/30 top-29 left-6 w-27">
+                Create your own Collection of NFTs
+              </p>
             </div>
           </button>
         )}
