@@ -11,8 +11,10 @@ const BalanceCard = ({ tonAmount }: balanceCardProps) => {
       <div className="absolute w-60 right-[-75px] top-[8px]">
         <CustomTonconnectButton />
       </div>
-      <div className="absolute top-0.5 left-2">alpha v1.0</div>
-      <div className="absolute left-5 bottom-18 text-3xl">
+      <div className="absolute top-0.5 left-2 hover:text-sky-900 cursor-default z-1002">
+        alpha v1.01
+      </div>
+      <div className="absolute left-5 bottom-18 text-3xl cursor-default">
         <b>{tonAmount} TON</b>
       </div>
       <button className="absolute flex w-20 h-13 bg-black/35 hover:bg-black/40 rounded-[10px] bottom-2 left-2 justify-center items-end text-[12px] font-semibold cursor-pointer">

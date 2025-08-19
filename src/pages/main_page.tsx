@@ -74,6 +74,18 @@ function MainPage() {
         <div className="nt" />
         <div className={`selected ${activeNav === 1 ? "nft" : "collection"}`} />
       </div>
+      <div className="absolute flex space-x-2 bottom-3 right-[50%] translate-x-[50%]">
+        <p>
+          See on{" "}
+          <a
+            href="https://github.com/rom6n/create-nft-vite"
+            className="cursor-pointer text-sky-500 font-semibold hover:w-15 hover:h-3 hover:bg-sky-600 hover:rounded-xs hover:text-white"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

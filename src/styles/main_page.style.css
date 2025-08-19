@@ -63,7 +63,7 @@
   display: grid;
   background: rgba(255, 255, 255, 0.11);
   width: 800px;
-  height: 400px;
+  height: 255px;
   top: 285px;
   left: 50%;
   transform: translateX(-50%);
@@ -155,8 +155,7 @@
     top: 60px;
   }
   .feed-background {
-    width: 93%;
-    height: 400px;
+    width: 90%;
     top: 260px;
   }
   .select-nfts {
