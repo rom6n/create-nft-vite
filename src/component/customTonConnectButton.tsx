@@ -10,7 +10,10 @@ const CustomTonconnectButton = () => {
   // Подписываемся на изменения статуса
   useEffect(() => {
     const unsubscribe = tonConnectUI.onStatusChange((status) => {
-      setConnected(status?.account.address !== undefined && status?.account.address !== null);
+      setConnected(
+        status?.account.address !== undefined &&
+          status?.account.address !== null
+      );
     });
     return () => unsubscribe();
   }, [tonConnectUI]);
@@ -25,31 +28,20 @@ const CustomTonconnectButton = () => {
       : "Connect Wallet";
 
   return (
-    <div style={{ 
-        position: "absolute", 
+    <div
+      style={{
+        position: "absolute",
         display: "flex",
-        top: "10px",
-        right: "15px",
         background: "transparent",
-    }}>
+      }}
+    >
       {/* Основная кнопка */}
       <button
-        className="custom-tonconnect-button"
+        className="bg-sky-500 text-white w-33 rounded-xl cursor-pointer font-semibold z-1000 border border-[#00000080]"
         onClick={() => {
           if (!connected) {
             tonConnectUI.openModal();
           }
-        }}
-        style={{
-          backgroundColor: "rgba(71, 178, 236, 1)",
-          color: "#fff",
-          padding: "10px 20px",
-          borderRadius: "12px",
-          border: "none",
-          cursor: "pointer",
-          fontWeight: 600,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-          zIndex: 1000,
         }}
       >
         {shortAddress}
@@ -59,22 +51,7 @@ const CustomTonconnectButton = () => {
       {connected && (
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            marginLeft: "-30px",
-            background: "#2f2e2eff",
-            border: "none",
-            fontSize: "17px",
-            fontWeight: 900,
-            borderRadius: "12px",
-            cursor: "pointer",
-            color: "#f4f4f4ff",
-            paddingLeft: "40px",
-            paddingBottom:"10px",
-            paddingTop:"10px",
-            paddingRight: "10px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-            zIndex: 102,
-          }}
+          className="bg-[#00000080] ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[40px] pb-[10px] pr-[10px] pt-[10px] z-999"
         >
           <b>⋮</b>
         </button>
@@ -82,33 +59,13 @@ const CustomTonconnectButton = () => {
 
       {/* Выпадающее меню */}
       {menuOpen && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50px",
-            right: 0,
-            background: "#2c2c2cff",
-            border: "none",
-            borderRadius: "6px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-            padding: "5px 0",
-            zIndex: 1000,
-          }}
-        >
+        <div className="absolute flex top-13 bg-[#2c2c2cff] rounded-[10px] shadow-2xl right-0 w-25 h-10 z-1000">
           <button
             onClick={() => {
               tonConnectUI.disconnect();
               setMenuOpen(false);
             }}
-            style={{
-              background: "none",
-              border: "none",
-              width: "100%",
-              padding: "4px 8px",
-              textAlign: "left",
-              cursor: "pointer",
-              color: "#ff4d4f",
-            }}
+            className="flex bg-none w-[100%] items-center justify-center cursor-pointer text-[#ff4d4f]"
           >
             Disconnect
           </button>

@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -35,38 +37,31 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-button, a {
-  -webkit-tap-highlight-color: transparent; 
-}
-
-button:focus, a:focus {
+button:focus,
+a:focus {
   outline: none;
 }
 
-button, a, .no-select {
-  user-select: none;          /* стандарт */
-  -webkit-user-select: none;  /* Safari/Chrome */
-  -moz-user-select: none;     /* Firefox */
-  -ms-user-select: none;      /* IE10+ */
+button,
+a,
+.no-select {
+  user-select: none; /* стандарт */
+  -webkit-user-select: none; /* Safari/Chrome */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
 }
 
-button, a, .no-select {
+button,
+a,
+.no-select {
   -webkit-tap-highlight-color: transparent; /* убирает синий фон */
-  -webkit-touch-callout: none;              /* отключает меню при долгом тапе */
+  -webkit-touch-callout: none; /* отключает меню при долгом тапе */
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -76,9 +71,4 @@ button, a, .no-select {
   a:hover {
     color: #747bff;
   }
-  button {
-    background-color: #f9f9f9;
-  }
 }
-
-
