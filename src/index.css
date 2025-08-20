@@ -54,6 +54,10 @@ a,
   -webkit-touch-callout: none; /* отключает меню при долгом тапе */
 }
 
+button {
+  cursor: pointer;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

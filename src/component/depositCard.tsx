@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import PinPad from "./pinPad";
 
 type DepositCardProps = {
   openDeposit: boolean;
@@ -7,19 +8,7 @@ type DepositCardProps = {
 };
 
 const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
-  const [amount, setAmount] = useState<string>("0");
-
-  const setAmountFunc = (amount: string) => {
-    const amountNumber = Number(amount);
-    console.log(amountNumber);
-    if (Number.isNaN(amountNumber)) {
-      setAmount("Error");
-    } else if (amountNumber > 99999999) {
-      setAmount("99999999");
-    } else {
-      setAmount(amount);
-    }
-  };
+  const [amount, setAmount] = useState<string>("");
   return (
     <AnimatePresence>
       {openDeposit && (
@@ -35,7 +24,7 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
 
           {/* само окно */}
           <motion.div
-            className="fixed bottom-0 left-0 right-0 h-3/13 bg-[#353535] rounded-t-2xl shadow-lg p-4"
+            className="fixed bottom-0 left-0 right-0 h-5/7 bg-[#353535] rounded-t-2xl shadow-lg p-4"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -49,24 +38,18 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
                 ✕
               </button>
               <div className="absolute top-3 left-4">
-                <span className="absolute flex content-between gap-1 font-serif left-1 text-3xl cursor-default">
-                  Amount
+                <span className="absolute flex content-between gap-1 font-mono top-0 left-1 text-xl cursor-default">
+                  DEPOSIT
                 </span>
-                <div className="absolute left-[-10px] top-9 text-5xl font-bold bg-transparent w-35 h-11">
-                  <label className="w-[100%] h-[100%] flex content-between gap-3 cursor-text">
-                    <input
-                      type="text"
-                      className=" w-0 h-0 opacity-0"
-                      onChange={(a) => {
-                        setAmountFunc(a.target.value);
-                      }}
-                    />
-                    <span>{amount === "" ? "0" : amount}</span>
-                    <span className="font-bold">TON</span>
-                  </label>
-                </div>
               </div>
-              <button className="absolute bottom-2 rounded-2xl w-[25%] h-15 border border-white/50 font-semibold text-md bg-sky-600 cursor-pointer hover:bg-sky-500">
+              <div className="absolute flex content-between gap-3 right-[65%] translate-x-[50%] top-17 text-5xl font-bold bg-transparent w-35 h-11">
+                <span>{amount === "" ? "0" : amount}</span>
+                <span className="font-bold">TON</span>
+              </div>
+              <div className="absolute top-35 right-[60%] translate-x-[50%]">
+                <PinPad numbers={amount} setNumber={setAmount} />
+              </div>
+              <button className="absolute top-124 left-3 rounded-2xl w-[25%] h-16 border border-white/50 font-semibold text-md bg-sky-500/80 cursor-pointer hover:bg-sky-500">
                 Tonkeeper
               </button>
             </div>

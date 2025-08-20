@@ -44,7 +44,7 @@ function MainPage() {
       <div className="absolute flex w-[93%] top-65 right-[50%] translate-x-[50%]">
         <Feed setActivePage={setActivePage} />
       </div>
-      <div className="absolute flex space-x-2 top-190 right-[50%] translate-x-[50%]">
+      <div className="absolute flex space-x-2 bottom-3 right-[50%] translate-x-[50%]">
         <p>
           See on{" "}
           <a
