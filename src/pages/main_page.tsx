@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import CustomTonconnectButton from "../component/customTonConnectButton";
 import BalanceCard from "../component/balanceCard";
 import { type User, fetchUserInfo } from "../scripts/fetchUserInfo";
 import { fromNano } from "@ton/ton";
