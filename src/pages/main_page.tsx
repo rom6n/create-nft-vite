@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import BalanceCard from "../component/balanceCard";
+import Feed from "../component/feed";
 import { type User, fetchUserInfo } from "../scripts/fetchUserInfo";
 import { fromNano } from "@ton/ton";
 import WebApp from "@twa-dev/sdk";
 import "../styles/main_page.style.css";
+import CreateNftPage from "./create_nft";
 
 function MainPage() {
   const [user, setUser] = useState<User | undefined>();
-  const [activeNav, setActiveNav] = useState(1);
+  const [activePage, setActivePage] = useState(0)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,63 +30,27 @@ function MainPage() {
   const tonAmount = user?.nanoTon !== undefined ? fromNano(user.nanoTon) : "--";
   return (
     <div>
-      <div className="absolute flex right-[50%] translate-x-[50%] top-5 w-[90%] justify-center">
+      <div className="absolute overflow-x-hidden flex right-[50%] translate-x-[50%] top-5 w-[93%] justify-center">
         <BalanceCard tonAmount={tonAmount} />
       </div>
-      <div className="feed-background">
-        <button
-          className={`select-nfts ${activeNav === 1 ? "active" : ""}`}
-          onClick={() => {
-            setActiveNav(1);
-          }}
-        >
-          NFTs
-        </button>
-        {activeNav === 1 && (
-          <button className="absolute cursor-pointer top-20 left-4">
-            <div className="bg-white/15 w-40 h-40 rounded-xl text-white text-[90px] border-[2px] border-white hover:text-white hover:bg-white/20 font-semibold">
-              +
-              <p className="absolute text-[10px] text-white/30 top-29 left-6 w-27">
-                Create your own unique NFT
-              </p>
-            </div>
-          </button>
-        )}
-        <button
-          className={`select-nft-collections ${
-            activeNav === 2 ? "active" : ""
-          }`}
-          onClick={() => {
-            setActiveNav(2);
-          }}
-        >
-          Collections
-        </button>
-        {activeNav === 2 && (
-          <button className="absolute cursor-pointer top-20 left-4">
-            <div className="bg-white/15 w-40 h-40 rounded-xl text-white text-[90px] border-[2px] border-white hover:text-white hover:bg-white/20 font-semibold">
-              +
-              <p className="absolute text-[10px] text-white/30 top-29 left-6 w-27">
-                Create your own Collection of NFTs
-              </p>
-            </div>
-          </button>
-        )}
-        <div className="nt" />
-        <div className={`selected ${activeNav === 1 ? "nft" : "collection"}`} />
+      <div className="absolute flex w-[93%] top-65 right-[50%] translate-x-[50%]">
+        <Feed setActivePage={setActivePage}/>
       </div>
       <div className="absolute flex space-x-2 bottom-3 right-[50%] translate-x-[50%]">
         <p>
           See on{" "}
           <a
             href="https://github.com/rom6n/create-nft-vite"
-            className="cursor-pointer text-sky-500 font-semibold hover:w-15 hover:h-3 hover:bg-sky-600 hover:rounded-xs hover:text-white"
+            className="cursor-pointer text-sky-500 font-semibold hover:w-15 hover:h-3 hover:bg-sky-600 hover:rounded-xs hover:text-white active:border-none"
             rel="noopener noreferrer"
           >
             GitHub
           </a>
         </p>
       </div>
+      {activePage === 1 && (
+      <CreateNftPage setActivePage={setActivePage}/>
+      )}
     </div>
   );
 }

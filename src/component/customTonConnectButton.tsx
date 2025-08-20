@@ -36,22 +36,35 @@ const CustomTonconnectButton = () => {
       }}
     >
       {/* Основная кнопка */}
-      <button
-        className="bg-sky-500 text-white w-33 rounded-xl cursor-pointer font-semibold z-1000 border border-black/45 hover:border-black/50"
-        onClick={() => {
-          if (!connected) {
-            tonConnectUI.openModal();
-          }
-        }}
-      >
-        {shortAddress}
-      </button>
+      {connected ? (
+        <button
+          className="bg-sky-500 text-white w-33 h-10 rounded-xl cursor-pointer font-semibold z-1000 border border-black/45 hover:border-black/50"
+          onClick={() => {
+            if (!connected) {
+              tonConnectUI.openModal();
+            }
+          }}
+        >
+          {shortAddress}
+        </button>
+      ) : (
+        <button
+          className="absolute bg-sky-500 left-6 text-white w-33 h-10 rounded-xl cursor-pointer font-semibold z-1000 border border-black/45 hover:border-black/50"
+          onClick={() => {
+            if (!connected) {
+              tonConnectUI.openModal();
+            }
+          }}
+        >
+          {shortAddress}
+        </button>
+      )}
 
       {/* Иконка меню показывается только если подключен */}
       {connected && (
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="bg-black/45 hover:bg-black/50 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[40px] pb-[10px] pr-[10px] pt-[10px] z-999"
+          className="bg-black/45 hover:bg-black/50 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[40px] pb-[3px] pr-[10px] pt-[3px] z-999"
         >
           <b>⋮</b>
         </button>
