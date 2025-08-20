@@ -23,9 +23,9 @@ const Feed = ({ setActivePage }: FeedProps) => {
             setActivePage(1);
           }}
         >
-          <p className="absolute top-[-10px] left-9 text-white text-[90px] font-semibold">
+          <p className="absolute top-[-10px] right-[50%] translate-x-[50%] text-white text-[90px] font-semibold">
             +
-            <p className="absolute text-[10px] text-white/20 top-27 left-[-20px] w-27 font-semibold group-hover:text-white">
+            <p className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
               Create your own unique NFT
             </p>
           </p>
@@ -46,9 +46,9 @@ const Feed = ({ setActivePage }: FeedProps) => {
             setActivePage(2);
           }}
         >
-          <p className="absolute top-[-10px] left-9 text-white text-[90px] font-semibold">
+          <p className="absolute top-[-10px] right-[50%] translate-x-[50%] text-white text-[90px] font-semibold">
             +
-            <p className="absolute text-[10px] text-white/20 top-27 left-[-20px] w-27 font-semibold group-hover:text-white">
+            <p className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
               Create your own Collection of NFTs
             </p>
           </p>

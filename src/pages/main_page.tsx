@@ -6,10 +6,14 @@ import { fromNano } from "@ton/ton";
 import WebApp from "@twa-dev/sdk";
 import "../styles/main_page.style.css";
 import CreateNftPage from "./create_nft";
+import DepositCard from "../component/depositCard";
+import WithdrawCard from "../component/withdrawCard";
 
 function MainPage() {
   const [user, setUser] = useState<User | undefined>();
-  const [activePage, setActivePage] = useState(0)
+  const [activePage, setActivePage] = useState(0);
+  const [openDeposit, setOpenDeposit] = useState<boolean>(false);
+  const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,12 +35,16 @@ function MainPage() {
   return (
     <div>
       <div className="absolute overflow-x-hidden flex right-[50%] translate-x-[50%] top-5 w-[93%] justify-center">
-        <BalanceCard tonAmount={tonAmount} />
+        <BalanceCard
+          tonAmount={tonAmount}
+          setOpenDeposit={setOpenDeposit}
+          setOpenWithdraw={setOpenWithdraw}
+        />
       </div>
       <div className="absolute flex w-[93%] top-65 right-[50%] translate-x-[50%]">
-        <Feed setActivePage={setActivePage}/>
+        <Feed setActivePage={setActivePage} />
       </div>
-      <div className="absolute flex space-x-2 bottom-3 right-[50%] translate-x-[50%]">
+      <div className="absolute flex space-x-2 top-190 right-[50%] translate-x-[50%]">
         <p>
           See on{" "}
           <a
@@ -48,9 +56,12 @@ function MainPage() {
           </a>
         </p>
       </div>
-      {activePage === 1 && (
-      <CreateNftPage setActivePage={setActivePage}/>
-      )}
+      {activePage === 1 && <CreateNftPage setActivePage={setActivePage} />}
+      <DepositCard openDeposit={openDeposit} setOpenDeposit={setOpenDeposit} />
+      <WithdrawCard
+        openWithdraw={openWithdraw}
+        setOpenWithdraw={setOpenWithdraw}
+      />
     </div>
   );
 }

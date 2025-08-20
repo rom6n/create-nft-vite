@@ -19,22 +19,23 @@ const CreateNftPage = ({ setActivePage }: CreateNftPageProps) => {
   return (
     <div className="absolute right-[50%] translate-x-[50%] top-0 w-full h-full text-[17px] bg-black">
       <button
-        className="absolute w-22 h-8 left-2 top-3 bg-white/20 font-semibold rounded-full cursor-pointer hover:bg-white/25"
+        className="absolute w-22 h-8 left-2 top-3 bg-white/20 font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2"
         onClick={() => {
           setActivePage(0);
         }}
       >{`< Back`}</button>
-      <div className="absolute top-18 text-5xl w-full right-[50%] translate-x-[50%]">
+      <div className="absolute top-18 text-5xl font-bold w-full right-[50%] translate-x-[50%] z-1">
         <b
           className="cursor-default"
           style={{
-            textShadow: "0 10px 80px white, 0 0px 170px white",
+            filter:
+              "drop-shadow(0 10px 50px white) drop-shadow(0 10px 80px white)",
           }}
         >
           Create NFT
         </b>
       </div>
-      <div className="absolute w-[97%] h-148 top-37 bg-white/20 right-[50%] translate-x-[50%] rounded-xl">
+      <div className="absolute w-full h-[651px] overflow-y-hidden top-37 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
         <div className="absolute w-45 h-45 left-4 top-4 rounded-xl">
           <span className="absolute left-47 top-0 text-[12px] text-red-500 cursor-default">
             *required
@@ -94,7 +95,7 @@ const CreateNftPage = ({ setActivePage }: CreateNftPageProps) => {
           />
         </div>
         <button
-          className="absolute bottom-5 left-5 w-25 h-10 bg-gradient-to-r from-sky-400 to-sky-700 rounded-full text-[20px] cursor-pointer hover:from-sky-400 hover:to-sky-600"
+          className="absolute bottom-5 left-5 w-[90%] h-15 bg-gradient-to-r from-sky-400 to-sky-700 rounded-2xl text-[20px] cursor-pointer hover:from-sky-400 hover:to-sky-600"
           onClick={() => {
             if (name && description) {
               alert("NFT will deploy soon");
