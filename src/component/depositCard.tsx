@@ -42,14 +42,14 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
                   DEPOSIT
                 </span>
               </div>
-              <div className="absolute flex content-between gap-3 right-[65%] translate-x-[50%] top-17 text-5xl font-bold bg-transparent w-35 h-11">
-                <span>{amount === "" ? "0" : amount}</span>
-                <span className="font-bold">TON</span>
+              <div className="absolute flex content-between gap-3 right-[67%] translate-x-[50%] top-17 text-5xl font-bold bg-transparent w-35 h-11">
+                <b>{amount === "" ? "0" : amount}</b>
+                <b>TON</b>
               </div>
-              <div className="absolute top-35 right-[60%] translate-x-[50%]">
+              <div className="absolute top-35 right-[62%] translate-x-[50%]">
                 <PinPad numbers={amount} setNumber={setAmount} />
               </div>
-              <button className="absolute top-124 left-3 rounded-2xl w-[25%] h-16 border border-white/50 font-semibold text-md bg-sky-500/80 cursor-pointer hover:bg-sky-500">
+              <button className="absolute left-3 bottom-2 rounded-2xl w-[27%] h-15 border-3 border-white/50 font-semibold text-xl bg-sky-500/70 cursor-pointer hover:bg-sky-500/80">
                 Tonkeeper
               </button>
             </div>

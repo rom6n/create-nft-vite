@@ -5,7 +5,7 @@ type PinPadProps = {
 
 const PinPad = ({ numbers, setNumber }: PinPadProps) => {
   const setNumberFunc = (newNumber: string) => {
-    const haveDot = numbers.includes(".");
+    const haveDot = numbers.includes(",");
     const numberNumeric = Number(numbers + newNumber);
     if (numberNumeric > 9999999) {
       setNumber("9999999");
@@ -13,8 +13,8 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
     } else if ((numbers + newNumber).length > 7) {
       return;
     } else if (
-      (numbers === "" && (newNumber === "0" || newNumber === ".")) ||
-      (newNumber === "." && haveDot)
+      (numbers === "" && (newNumber === "0" || newNumber === ",")) ||
+      (newNumber === "," && haveDot)
     ) {
       return;
     }
@@ -30,14 +30,6 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
   return (
     <div>
       <div className="grid grid-cols-3 gap-x-25 gap-y-3">
-        <button
-          className="w-23 h-18 bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 "
-          onClick={() => {
-            setNumberFunc("0");
-          }}
-        >
-          0
-        </button>
         <button
           className="w-23 h-18 bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20"
           onClick={() => {
@@ -111,12 +103,20 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           9
         </button>
         <button
-          className="w-23 h-18 bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20"
+          className="w-23 h-18 bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 "
           onClick={() => {
-            setNumberFunc(".");
+            setNumberFunc("0");
           }}
         >
-          .
+          0
+        </button>
+        <button
+          className="w-23 h-18 bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20"
+          onClick={() => {
+            setNumberFunc(",");
+          }}
+        >
+          ,
         </button>
       </div>
       <button
