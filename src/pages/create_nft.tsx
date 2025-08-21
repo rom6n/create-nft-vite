@@ -8,6 +8,11 @@ type CreateNftPageProps = {
   userBalance: number | undefined;
 };
 
+type Attribute = {
+  attribute: string;
+  value: string;
+};
+
 const CreateNftPage = ({
   setActivePage,
   userNftCollections,
@@ -20,6 +25,34 @@ const CreateNftPage = ({
   const [selectedCollection, setSelectedCollection] = useState("Collection");
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+  const [attributeInputs, setAttributeInputs] = useState<Attribute[]>([
+    {
+      attribute: "",
+      value: "",
+    },
+  ]);
+
+  const addAttributeInput = () => {
+    setAttributeInputs([...attributeInputs, { attribute: "", value: "" }]);
+  };
+  const removeAttributeInput = () => {
+    if (attributeInputs.length === 1) {
+      return;
+    }
+    setAttributeInputs(attributeInputs.slice(0, attributeInputs.length - 1));
+  };
+
+  const updateAttributeInput = (index: number, value: string) => {
+    const newInputs = [...attributeInputs];
+    newInputs[index].attribute = value;
+    setAttributeInputs(newInputs);
+  };
+
+  const updateValueInput = (index: number, value: string) => {
+    const newInputs = [...attributeInputs];
+    newInputs[index].value = value;
+    setAttributeInputs(newInputs);
+  };
 
   const mintCost = 100000000;
 
@@ -53,7 +86,10 @@ const CreateNftPage = ({
   return (
     <div className="absolute right-[50%] translate-x-[50%] top-0 w-full h-full text-[17px] bg-black">
       <button
-        className="absolute w-22 h-8 left-2 top-3 bg-white/20 font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2"
+        className="sticky w-22 h-8 mr-80 top-4 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
+        style={{
+          boxShadow: "0 2px 8px #FFFFFF42",
+        }}
         onClick={() => {
           setActivePage(0);
         }}
@@ -69,9 +105,9 @@ const CreateNftPage = ({
           Create NFT
         </b>
       </div>
-      <div className="absolute w-full h-[651px] bottom-0 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
-        <div className="absolute w-45 h-45 left-4 top-4 rounded-xl">
-          <label className="relative w-full h-full block cursor-pointer">
+      <div className="absolute block w-full pb-4 top-37 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
+        <div className="w-45 h-45 left-4 top-4 rounded-xl">
+          <label className="relative w-full h-full mt-4 ml-4 block cursor-pointer">
             {image ? (
               <img
                 src={image}
@@ -95,7 +131,7 @@ const CreateNftPage = ({
           </label>
         </div>
         <button
-          className="absolute flex justify-center w-[43%] h-8 right-[27%] translate-x-[50%] top-4 rounded-xl text-[13px] z-2000 bg-white/20"
+          className="absolute flex justify-center w-[43%] h-8 right-[25%] translate-x-[50%] top-4 rounded-xl text-[13px] z-2000 bg-white/20"
           onClick={() => {
             setSelectOpen(!selectOpen);
           }}
@@ -141,7 +177,7 @@ const CreateNftPage = ({
             </div>
           )}
         </button>
-        <div className="absolute left-4 top-53">
+        <div className="-ml-22 mt-5 top-53">
           <textarea
             value={name}
             placeholder="Name"
@@ -151,7 +187,7 @@ const CreateNftPage = ({
           />
         </div>
 
-        <div className="absolute left-4 top-72">
+        <div className="-ml-15 mt-3">
           <textarea
             value={description}
             placeholder="Description"
@@ -160,7 +196,43 @@ const CreateNftPage = ({
             onChange={setDescriptionFunc}
           />
         </div>
-        <div className="absolute top-130 w-full">
+        <div className="relative flex flex-col space-y-2 ml-4 mt-7 rounded-xl w-[80%]">
+          {attributeInputs.map((attribute, idx) => (
+            <div className="flex gap-2 focus:outline-none">
+              <textarea
+                key={idx}
+                value={attribute.attribute}
+                maxLength={25}
+                onChange={(e) => updateAttributeInput(idx, e.target.value)}
+                className="p-1.5 border border-white/60 rounded-lg h-10 w-[51%] focus:outline-none focus:border-white"
+                placeholder={`Attribute`}
+              />
+              <textarea
+                key={idx}
+                value={attribute.value}
+                maxLength={25}
+                onChange={(e) => updateValueInput(idx, e.target.value)}
+                className="p-1.5 border border-white/60 rounded-lg h-10 w-[51%] focus:outline-none focus:border-white"
+                placeholder={`Value`}
+              />
+            </div>
+          ))}
+          <div className="left-55 bg-white/9 top-12">
+            <button
+              onClick={removeAttributeInput}
+              className="absolute p-2 left-10 h-8 w-8 bg-red-400/30 font-semibold text-white rounded-lg hover:bg-white/20 transition"
+            >
+              <span className="absolute -top-0.5 left-2.5 text-2xl">-</span>
+            </button>
+            <button
+              onClick={addAttributeInput}
+              className="absolute p-2 left-0 h-8 w-8 bg-green-400/30 text-white rounded-lg hover:bg-white/20 transition"
+            >
+              <span className="absolute top-0 left-2 text-2xl">+</span>
+            </button>
+          </div>
+        </div>
+        <div className="relative mt-15 w-full">
           <span className="absolute top-0 left-6 text-white/20 font-mono text-[13px]">
             {`Cost: ${fromNano(mintCost)} TON`}
           </span>
@@ -178,7 +250,13 @@ const CreateNftPage = ({
           </span>
         </div>
         <button
-          className="absolute bottom-5 left-5 w-[90%] h-15 bg-gradient-to-r from-sky-400 to-sky-700 rounded-2xl text-[20px] cursor-pointer hover:from-sky-400 hover:to-sky-600"
+          className={`relative mt-12 w-[90%] h-15 ${
+            userBalance
+              ? userBalance - mintCost < 0
+                ? "bg-red-500/75"
+                : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
+              : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
+          } rounded-2xl text-[20px] cursor-pointer`}
           onClick={() => {
             if (name && description && selectedCollection !== "Collection") {
               alert("NFT will deploy soon");
@@ -187,7 +265,13 @@ const CreateNftPage = ({
             }
           }}
         >
-          <b>Mint</b>
+          <b>{`${
+            userBalance
+              ? userBalance - mintCost < 0
+                ? "Not enough TON"
+                : "Mint"
+              : "Mint"
+          }`}</b>
         </button>
       </div>
       <div

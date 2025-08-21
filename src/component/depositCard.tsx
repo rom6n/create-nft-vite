@@ -49,7 +49,7 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
               <div className="absolute top-35 right-[62%] translate-x-[50%]">
                 <PinPad numbers={amount} setNumber={setAmount} />
               </div>
-              <button className="absolute left-3 top-125 rounded-2xl w-[27%] h-15 border-3 border-white/50 font-semibold text-xl bg-sky-500/70 cursor-pointer hover:bg-sky-500/80">
+              <button className="absolute left-3 bottom-3 top-125 rounded-2xl w-[27%] h-15 border-3 border-white/50 font-semibold text-xl bg-sky-500/70 cursor-pointer hover:bg-sky-500/80">
                 Tonkeeper
               </button>
             </div>

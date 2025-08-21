@@ -50,7 +50,7 @@ const WithdrawCard = ({ openWithdraw, setOpenWithdraw }: WithdrawCardProps) => {
               <div className="absolute top-35 right-[62%] translate-x-[50%]">
                 <PinPad numbers={amount} setNumber={setAmount} />
               </div>
-              <button className="absolute right-[50%] translate-x-[50%] top-124 rounded-2xl w-[91%] h-15 border-3 border-white/50 font-semibold text-2xl bg-gradient-to-r from-sky-400/80 to-sky-700/80 cursor-pointer hover:to-sky-500/80">
+              <button className="absolute right-[50%] translate-x-[50%] bottom-3 top-124 rounded-2xl w-[91%] h-15 border-3 border-white/50 font-semibold text-2xl bg-gradient-to-r from-sky-400/80 to-sky-700/80 cursor-pointer hover:to-sky-500/80">
                 Withdraw
               </button>
             </div>
