@@ -1,20 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { NftCollection } from "../scripts/fetchUserData";
+import { fromNano } from "@ton/ton";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
   userNftCollections: NftCollection[] | undefined;
+  userBalance: number | undefined;
 };
 
 const CreateNftPage = ({
   setActivePage,
   userNftCollections,
+  userBalance,
 }: CreateNftPageProps) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<string | null>("");
   const [selectOpen, setSelectOpen] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState("Collection");
+  const [isTransition, setIsTransition] = useState(false);
+  const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+
+  const mintCost = 100000000;
+
+  function wait(millisecond: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, millisecond));
+  }
+
+  useEffect(() => {
+    (async () => {
+      await wait(50);
+      setIsTransition(true);
+      return;
+    })();
+    // запускаем анимацию сразу после монтирования
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -49,7 +69,7 @@ const CreateNftPage = ({
           Create NFT
         </b>
       </div>
-      <div className="absolute w-full h-[651px] top-37 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
+      <div className="absolute w-full h-[651px] bottom-0 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
         <div className="absolute w-45 h-45 left-4 top-4 rounded-xl">
           <label className="relative w-full h-full block cursor-pointer">
             {image ? (
@@ -75,7 +95,7 @@ const CreateNftPage = ({
           </label>
         </div>
         <button
-          className="absolute flex justify-center w-48 h-8 right-5 top-4 rounded-xl text-[13px] z-2000 bg-white/20"
+          className="absolute flex justify-center w-[43%] h-8 right-[27%] translate-x-[50%] top-4 rounded-xl text-[13px] z-2000 bg-white/20"
           onClick={() => {
             setSelectOpen(!selectOpen);
           }}
@@ -87,14 +107,14 @@ const CreateNftPage = ({
           >
             {"<"}
           </label>
-          <label className="absolute flex top-1.5 right-[50%] translate-x-[50%] items-center justify-center font-semibold cursor-pointer">
+          <label className="absolute flex w-full h-full right-[50%] translate-x-[50%] items-center justify-center font-semibold cursor-pointer">
             {selectedCollection}
           </label>
           {selectOpen && (
-            <div className="absolute top-10 w-full max-h-35 overflow-y-auto bg-white/20 font-semibold rounded-xl">
+            <div className="absolute top-10 w-full max-h-35 overflow-y-auto border border-white/40 bg-white/25 font-semibold rounded-xl">
               <button
                 className={`w-full h-9 rounded-t-xl border-b ${
-                  0 === userNftCollections?.length ? "border-none" : "border-b"
+                  0 !== userNftCollections?.length ? "border-none" : "border-b"
                 }`}
                 onClick={() => {
                   setSelectedCollection("None");
@@ -104,7 +124,7 @@ const CreateNftPage = ({
               </button>
               {userNftCollections?.map((value, idx) => (
                 <button
-                  className={`w-full h-9  ${
+                  className={`w-full h-9 border-white/40 ${
                     idx === userNftCollections.length - 1
                       ? "border-none"
                       : "border-b"
@@ -125,13 +145,13 @@ const CreateNftPage = ({
           <textarea
             value={name}
             placeholder="Name"
-            maxLength={40}
-            className="bg-transparent w-78 h-19.5 pl-2 pr-2 min-h-19.5 max-h-19.5 rounded-xl border border-white/60 focus:outline-none focus:border-white"
+            maxLength={35}
+            className="bg-transparent w-78 h-15.5 pl-2 pr-2 min-h-15.5 max-h-15.5 rounded-xl border border-white/60 focus:outline-none focus:border-white"
             onChange={setNameFunc}
           />
         </div>
 
-        <div className="absolute left-4 top-75">
+        <div className="absolute left-4 top-72">
           <textarea
             value={description}
             placeholder="Description"
@@ -142,10 +162,19 @@ const CreateNftPage = ({
         </div>
         <div className="absolute top-130 w-full">
           <span className="absolute top-0 left-6 text-white/20 font-mono text-[13px]">
-            Cost: 0.1 TON
+            {`Cost: ${fromNano(mintCost)} TON`}
           </span>
-          <span className="absolute top-4.5 left-6 text-white/20 font-mono text-[13px]">
-            Balance after process: 1.427 TON
+          <span
+            className={`absolute top-4.5 left-6 ${
+              userBalance
+                ? userBalance - mintCost < 0
+                  ? "text-red-500/60"
+                  : "text-white/20"
+                : "text-white/20"
+            } font-mono text-[13px]`}
+          >
+            Balance after process: {""}
+            {`${userBalance ? fromNano(userBalance - mintCost) : "--"} TON`}
           </span>
         </div>
         <button
@@ -161,6 +190,12 @@ const CreateNftPage = ({
           <b>Mint</b>
         </button>
       </div>
+      <div
+        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-500 ease-in-out z-[3000] 
+          ${isTransition ? "opacity-0" : "opacity-100"} 
+          ${isTransitionEnded ? "hidden" : ""}`}
+        onTransitionEnd={() => setIsTransitionEnded(true)}
+      />
     </div>
   );
 };

@@ -4,7 +4,7 @@ type FeedProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Feed = ({ setActivePage }: FeedProps) => {
+const Feed = ({ setActivePage,}: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
   return (
     <div className="grid w-[100%] bg-white/10 h-59 rounded-[25px]">

@@ -22,6 +22,21 @@ function MainPage() {
   const [activePage, setActivePage] = useState(0);
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
+  const [isTransition, setIsTransition] = useState(false);
+  const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+
+  function wait(millisecond: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, millisecond));
+  }
+
+  useEffect(() => {
+    (async () => {
+      await wait(50);
+      setIsTransition(true);
+      return;
+    })();
+    // запускаем анимацию сразу после монтирования
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -71,12 +86,19 @@ function MainPage() {
         <CreateNftPage
           setActivePage={setActivePage}
           userNftCollections={userCollections}
+          userBalance={user?.nano_ton}
         />
       )}
       <DepositCard openDeposit={openDeposit} setOpenDeposit={setOpenDeposit} />
       <WithdrawCard
         openWithdraw={openWithdraw}
         setOpenWithdraw={setOpenWithdraw}
+      />
+      <div
+        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-600 ease-in-out z-[3000] 
+          ${isTransition ? "opacity-0" : "opacity-100"} 
+          ${isTransitionEnded ? "hidden" : ""}`}
+        onTransitionEnd={() => setIsTransitionEnded(true)}
       />
     </div>
   );
