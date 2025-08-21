@@ -10,11 +10,18 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
     if (numberNumeric > 9999999) {
       setNumber("9999999");
       return;
-    } else if ((numbers + newNumber).length > 7) {
+    } else if (
+      (numbers + newNumber).length > 7 ||
+      (numbers.length > 5 && newNumber === ",")
+    ) {
+      return;
+    } else if (numbers === "0" && newNumber !== ",") {
+      setNumber(newNumber);
       return;
     } else if (
-      (numbers === "" && (newNumber === "0" || newNumber === ",")) ||
-      (newNumber === "," && haveDot)
+      (numbers === "0" && newNumber === "0") ||
+      (newNumber === "," && haveDot) ||
+      (numbers === "0" && newNumber !== ",")
     ) {
       return;
     }
@@ -22,6 +29,12 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
     setNumber(numbers + newNumber);
   };
   const delLastNumber = () => {
+    if (numbers === "0") {
+      return;
+    } else if (numbers.length === 1) {
+      setNumber("0");
+      return;
+    }
     const numbersLen = numbers.length;
     const newNumbers = numbers.slice(0, numbersLen - 1);
     setNumber(newNumbers);

@@ -8,7 +8,7 @@ type DepositCardProps = {
 };
 
 const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
-  const [amount, setAmount] = useState<string>("");
+  const [amount, setAmount] = useState<string>("0");
   return (
     <AnimatePresence>
       {openDeposit && (
@@ -43,7 +43,7 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
                 </span>
               </div>
               <div className="absolute flex content-between gap-3 right-[67%] translate-x-[50%] top-17 text-5xl font-bold bg-transparent w-35 h-11">
-                <b>{amount === "" ? "0" : amount}</b>
+                <b>{amount}</b>
                 <b>TON</b>
               </div>
               <div className="absolute top-35 right-[62%] translate-x-[50%]">

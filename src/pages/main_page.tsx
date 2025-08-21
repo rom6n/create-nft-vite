@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import BalanceCard from "../component/balanceCard";
 import Feed from "../component/feed";
-import { type User, fetchUserInfo } from "../scripts/fetchUserInfo";
+import {
+  type NftCollection,
+  type User,
+  fetchUserCollections,
+  fetchUserInfo,
+} from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import WebApp from "@twa-dev/sdk";
 import "../styles/main_page.style.css";
@@ -11,6 +16,9 @@ import WithdrawCard from "../component/withdrawCard";
 
 function MainPage() {
   const [user, setUser] = useState<User | undefined>();
+  const [userCollections, setUserCollections] = useState<
+    NftCollection[] | undefined
+  >();
   const [activePage, setActivePage] = useState(0);
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
@@ -21,7 +29,9 @@ function MainPage() {
       if (WebApp.initDataUnsafe.user?.id) {
         const userID = WebApp.initDataUnsafe.user.id;
         const fetchedUser = await fetchUserInfo(userID);
+        const fetchedUserCollections = await fetchUserCollections(userID);
         setUser(fetchedUser);
+        setUserCollections(fetchedUserCollections);
       } else {
         console.log("user is not found");
         return;
@@ -31,7 +41,8 @@ function MainPage() {
     fetchUser();
   }, [WebApp.initDataUnsafe.user]);
 
-  const tonAmount = user?.nanoTon !== undefined ? fromNano(user.nanoTon) : "--";
+  const tonAmount =
+    user?.nano_ton !== undefined ? fromNano(user.nano_ton) : "--";
   return (
     <div>
       <div className="absolute overflow-x-hidden flex right-[50%] translate-x-[50%] top-5 w-[93%] justify-center">
@@ -56,7 +67,12 @@ function MainPage() {
           </a>
         </p>
       </div>
-      {activePage === 1 && <CreateNftPage setActivePage={setActivePage} />}
+      {activePage === 1 && (
+        <CreateNftPage
+          setActivePage={setActivePage}
+          userNftCollections={userCollections}
+        />
+      )}
       <DepositCard openDeposit={openDeposit} setOpenDeposit={setOpenDeposit} />
       <WithdrawCard
         openWithdraw={openWithdraw}

@@ -1,19 +1,33 @@
 import { useState } from "react";
+import type { NftCollection } from "../scripts/fetchUserData";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
+  userNftCollections: NftCollection[] | undefined;
 };
 
-const CreateNftPage = ({ setActivePage }: CreateNftPageProps) => {
-  const [name, setName] = useState<string>();
-  const [description, setDescription] = useState<string>();
-  const [image, setImage] = useState<string | null>();
+const CreateNftPage = ({
+  setActivePage,
+  userNftCollections,
+}: CreateNftPageProps) => {
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [image, setImage] = useState<string | null>("");
+  const [selectOpen, setSelectOpen] = useState(false);
+  const [selectedCollection, setSelectedCollection] = useState("Collection");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setImage(URL.createObjectURL(file));
     }
+  };
+
+  const setNameFunc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setName(e.target.value);
+  };
+  const setDescriptionFunc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(e.target.value);
   };
 
   return (
@@ -35,11 +49,8 @@ const CreateNftPage = ({ setActivePage }: CreateNftPageProps) => {
           Create NFT
         </b>
       </div>
-      <div className="absolute w-full h-[651px] overflow-y-hidden top-37 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
+      <div className="absolute w-full h-[651px] top-37 bg-[#2c2c2c] right-[50%] translate-x-[50%] rounded-t-3xl z-2">
         <div className="absolute w-45 h-45 left-4 top-4 rounded-xl">
-          <span className="absolute left-47 top-0 text-[12px] text-red-500 cursor-default">
-            *required
-          </span>
           <label className="relative w-full h-full block cursor-pointer">
             {image ? (
               <img
@@ -63,41 +74,84 @@ const CreateNftPage = ({ setActivePage }: CreateNftPageProps) => {
             />
           </label>
         </div>
+        <button
+          className="absolute flex justify-center w-48 h-8 right-5 top-4 rounded-xl text-[13px] z-2000 bg-white/20"
+          onClick={() => {
+            setSelectOpen(!selectOpen);
+          }}
+        >
+          <label
+            className={`absolute top-[1px] h-full right-3 ${
+              selectOpen ? "rotate-90" : "rotate-270"
+            } text-white text-xl cursor-pointer`}
+          >
+            {"<"}
+          </label>
+          <label className="absolute flex top-1.5 right-[50%] translate-x-[50%] items-center justify-center font-semibold cursor-pointer">
+            {selectedCollection}
+          </label>
+          {selectOpen && (
+            <div className="absolute top-10 w-full max-h-35 overflow-y-auto bg-white/20 font-semibold rounded-xl">
+              <button
+                className={`w-full h-9 rounded-t-xl border-b ${
+                  0 === userNftCollections?.length ? "border-none" : "border-b"
+                }`}
+                onClick={() => {
+                  setSelectedCollection("None");
+                }}
+              >
+                None
+              </button>
+              {userNftCollections?.map((value, idx) => (
+                <button
+                  className={`w-full h-9  ${
+                    idx === userNftCollections.length - 1
+                      ? "border-none"
+                      : "border-b"
+                  }`}
+                  onClick={() => {
+                    setSelectedCollection(
+                      value.metadata.name ? value.metadata.name : "underfined"
+                    );
+                  }}
+                >
+                  {value.metadata.name ? value.metadata.name : "underfined"}
+                </button>
+              ))}
+            </div>
+          )}
+        </button>
         <div className="absolute left-4 top-53">
-          <p className="absolute font-semibold left-1 text-2xl cursor-default">
-            Name
-          </p>
-          <p className="absolute left-19 top-2 text-[12px] text-red-500 cursor-default">
-            *required
-          </p>
-          <input
-            placeholder="Sad Face #2451"
-            className="absolute p-3 w-50 h-8 top-9 border-2 border-white/50 rounded-[10px] focus:outline-0 focus:border-white"
-            onChange={(a) => {
-              setName(a.target.value);
-            }}
+          <textarea
+            value={name}
+            placeholder="Name"
+            maxLength={40}
+            className="bg-transparent w-78 h-19.5 pl-2 pr-2 min-h-19.5 max-h-19.5 rounded-xl border border-white/60 focus:outline-none focus:border-white"
+            onChange={setNameFunc}
           />
         </div>
 
-        <div className="absolute left-4 top-76">
-          <p className="absolute font-semibold left-1 text-2xl cursor-default">
-            Description
-          </p>
-          <p className="absolute left-34 top-2 text-[12px] text-red-500 cursor-default">
-            *required
-          </p>
-          <input
-            placeholder="Don't be sad, be happy"
-            className="absolute p-3 w-50 h-8 top-9 border-2 border-white/50 rounded-[10px] focus:outline-0 focus:border-white"
-            onChange={(a) => {
-              setDescription(a.target.value);
-            }}
+        <div className="absolute left-4 top-75">
+          <textarea
+            value={description}
+            placeholder="Description"
+            maxLength={80}
+            className="bg-transparent w-85 h-29 pl-2 pr-2 min-h-29 max-h-29 rounded-xl border border-white/60 focus:outline-none focus:border-white"
+            onChange={setDescriptionFunc}
           />
+        </div>
+        <div className="absolute top-130 w-full">
+          <span className="absolute top-0 left-6 text-white/20 font-mono text-[13px]">
+            Cost: 0.1 TON
+          </span>
+          <span className="absolute top-4.5 left-6 text-white/20 font-mono text-[13px]">
+            Balance after process: 1.427 TON
+          </span>
         </div>
         <button
           className="absolute bottom-5 left-5 w-[90%] h-15 bg-gradient-to-r from-sky-400 to-sky-700 rounded-2xl text-[20px] cursor-pointer hover:from-sky-400 hover:to-sky-600"
           onClick={() => {
-            if (name && description) {
+            if (name && description && selectedCollection !== "Collection") {
               alert("NFT will deploy soon");
             } else {
               alert("Not all fields filled in");

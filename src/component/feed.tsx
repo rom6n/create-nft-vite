@@ -25,9 +25,9 @@ const Feed = ({ setActivePage }: FeedProps) => {
         >
           <p className="absolute top-[-10px] right-[50%] translate-x-[50%] text-white text-[90px] font-semibold">
             +
-            <p className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
+            <span className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
               Create your own unique NFT
-            </p>
+            </span>
           </p>
         </button>
       )}
