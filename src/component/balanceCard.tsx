@@ -27,7 +27,7 @@ const BalanceCard = ({
           setDevPageClicks(devPageClicks + 1);
         }}
       >
-        alpha v1.01
+        alpha v1.02
       </div>
       <div className="absolute left-5 bottom-18 text-3xl cursor-default">
         <b>{tonAmount} TON</b>
