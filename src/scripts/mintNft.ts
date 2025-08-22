@@ -1,5 +1,7 @@
 import { WebUploader } from "@irys/web-upload";
 import WebEthereum from "@irys/web-upload-ethereum";
+import { ethers } from "ethers";
+import { EthersV6Adapter } from "@irys/web-upload-ethereum-ethers-v6";
 
 export interface NftItemMetadata {
   name: string;
@@ -15,31 +17,48 @@ export interface Attribute {
 }
 
 const getIrysUploader = async () => {
-  const irysUploader = await WebUploader(WebEthereum);
-  return irysUploader;
+  try {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const irysUploader = await WebUploader(WebEthereum).withAdapter(
+      EthersV6Adapter(provider)
+    );
+    alert(`Connected to Irys: ${irysUploader.address}`);
+    return irysUploader;
+  } catch (error) {
+    console.error("Error connecting to Irys:", error);
+    alert("Error connecting to Irys");
+    return;
+  }
 };
 
 export async function mintNft(
-  image: File,
+  image: File | undefined,
   name: string,
   description: string,
   attributes: Attribute[]
   //collectionAddress?: string | undefined
 ) {
-  let uploadedImageURL: string;
+  let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
   const irys = await getIrysUploader();
-  try {
-    const tags = [{ name: "Content-Type", value: "image/*" }];
-    const receipt = await irys.upload(Buffer.from(await image.arrayBuffer()), {
-      tags: tags,
-    });
-    uploadedImageURL = `https://gateway.irys.xyz/${receipt.id}`;
-
-    console.log(`Data uploaded ==> https://gateway.irys.xyz/${receipt.id}`);
-  } catch (e) {
-    console.log("Error uploading image ", e);
+  if (irys === undefined) {
     return "Error";
+  }
+
+  if (image) {
+    try {
+      const tags = [{ name: "Content-Type", value: "image/*" }];
+      const receipt = await irys.upload(Buffer.from(await image.bytes()), {
+        tags: tags,
+      });
+      uploadedImageURL = `https://gateway.irys.xyz/${receipt.id}`;
+
+      console.log(`Data uploaded ==> https://gateway.irys.xyz/${receipt.id}`);
+    } catch (e) {
+      console.log("Error uploading image ", e);
+      alert("Error uploading image ");
+      return "Error";
+    }
   }
 
   const metadata = JSON.stringify({
@@ -58,6 +77,7 @@ export async function mintNft(
     console.log(`Data uploaded ==> https://gateway.irys.xyz/${receipt.id}`);
   } catch (e) {
     console.log("Error uploading metadata ", e);
+    alert("Error uploading metadata");
     return "Error";
   }
 
@@ -71,7 +91,8 @@ export async function mintNft(
   const contentType = res.headers.get("content-type");
 
   if (!contentType?.includes("application/json")) {
-    console.log(`error minting NFT: ${await res.text}`);
+    console.log(`error minting NFT: ${await res.text()}`);
+    alert("error minting NFT");
     return "Error";
   }
 

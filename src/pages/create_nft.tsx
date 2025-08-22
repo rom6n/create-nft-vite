@@ -26,7 +26,7 @@ const CreateNftPage = ({
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
   const [isError, setIsError] = useState(false);
-  let imageByte: File;
+  const [imageByte, setImageByte] = useState<File>();
   const [isSuccess, setIsSuccess] = useState(0);
   const [attributeInputs, setAttributeInputs] = useState<Attribute[]>([
     {
@@ -81,7 +81,7 @@ const CreateNftPage = ({
         return;
       }
       setIsError(false);
-      imageByte = file;
+      setImageByte(file);
       setImage(URL.createObjectURL(file));
     }
   };
@@ -294,7 +294,7 @@ const CreateNftPage = ({
                   name !== "" &&
                   description !== "" &&
                   image !== ""
-                : false
+                : true
             ) {
               const res = await mintNft(
                 imageByte,
