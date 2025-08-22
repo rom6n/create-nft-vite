@@ -5,19 +5,28 @@ type balanceCardProps = {
   tonAmount: string;
   setOpenDeposit: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenWithdraw: React.Dispatch<React.SetStateAction<boolean>>;
+  setDevPageClicks: React.Dispatch<React.SetStateAction<number>>;
+  devPageClicks: number;
 };
 
 const BalanceCard = ({
   tonAmount,
   setOpenDeposit,
   setOpenWithdraw,
+  setDevPageClicks,
+  devPageClicks,
 }: balanceCardProps) => {
   return (
     <div className="relative w-[100%] h-55 lg:w-112.5 lg:h-62 bg-gradient-to-bl from-sky-500 to-sky-600 rounded-[15px]">
       <div className="absolute w-60 right-[-75px] top-[8px]">
         <CustomTonconnectButton />
       </div>
-      <div className="absolute top-0.5 left-2 hover:text-sky-900 cursor-default z-1002">
+      <div
+        className="absolute top-0.5 w-40 h-5 -left-8 hover:text-sky-900 cursor-default z-1002"
+        onClick={() => {
+          setDevPageClicks(devPageClicks + 1);
+        }}
+      >
         alpha v1.01
       </div>
       <div className="absolute left-5 bottom-18 text-3xl cursor-default">

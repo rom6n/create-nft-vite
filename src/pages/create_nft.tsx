@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { NftCollection } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
+import { mintNft } from "../scripts/mintNft";
+import { type Attribute } from "../scripts/mintNft";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -8,10 +10,7 @@ type CreateNftPageProps = {
   userBalance: number | undefined;
 };
 
-type Attribute = {
-  attribute: string;
-  value: string;
-};
+const MAX_FILE_SIZE = 99 * 1024; // 99 KB
 
 const CreateNftPage = ({
   setActivePage,
@@ -20,20 +19,24 @@ const CreateNftPage = ({
 }: CreateNftPageProps) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [image, setImage] = useState<string | null>("");
+  const [image, setImage] = useState<string>("");
   const [selectOpen, setSelectOpen] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState("Collection");
+  let selectedCollectionID: number;
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+  const [isError, setIsError] = useState(false);
+  let imageByte: File;
+  const [isSuccess, setIsSuccess] = useState(0);
   const [attributeInputs, setAttributeInputs] = useState<Attribute[]>([
     {
-      attribute: "",
+      trait_type: "",
       value: "",
     },
   ]);
 
   const addAttributeInput = () => {
-    setAttributeInputs([...attributeInputs, { attribute: "", value: "" }]);
+    setAttributeInputs([...attributeInputs, { trait_type: "", value: "" }]);
   };
   const removeAttributeInput = () => {
     if (attributeInputs.length === 1) {
@@ -44,7 +47,7 @@ const CreateNftPage = ({
 
   const updateAttributeInput = (index: number, value: string) => {
     const newInputs = [...attributeInputs];
-    newInputs[index].attribute = value;
+    newInputs[index].trait_type = value;
     setAttributeInputs(newInputs);
   };
 
@@ -72,6 +75,13 @@ const CreateNftPage = ({
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      if (file.size > MAX_FILE_SIZE) {
+        setIsError(true);
+        setImage(URL.createObjectURL(file));
+        return;
+      }
+      setIsError(false);
+      imageByte = file;
       setImage(URL.createObjectURL(file));
     }
   };
@@ -86,7 +96,7 @@ const CreateNftPage = ({
   return (
     <div className="absolute right-[50%] translate-x-[50%] top-0 w-full h-full text-[17px] bg-black">
       <button
-        className="sticky w-22 h-8 mr-80 top-4 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
+        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{
           boxShadow: "0 2px 8px #FFFFFF42",
         }}
@@ -150,7 +160,11 @@ const CreateNftPage = ({
             <div className="absolute top-10 w-full max-h-35 overflow-y-auto border border-white/40 bg-white/25 font-semibold rounded-xl">
               <button
                 className={`w-full h-9 rounded-t-xl border-b ${
-                  0 !== userNftCollections?.length ? "border-none" : "border-b"
+                  userNftCollections
+                    ? userNftCollections.length === 0
+                      ? "border-none"
+                      : "border-b"
+                    : "border-none"
                 }`}
                 onClick={() => {
                   setSelectedCollection("None");
@@ -169,6 +183,7 @@ const CreateNftPage = ({
                     setSelectedCollection(
                       value.metadata.name ? value.metadata.name : "underfined"
                     );
+                    selectedCollectionID = idx;
                   }}
                 >
                   {value.metadata.name ? value.metadata.name : "underfined"}
@@ -177,7 +192,7 @@ const CreateNftPage = ({
             </div>
           )}
         </button>
-        <div className="-ml-22 mt-5 top-53">
+        <div className="flex ml-4 mt-5 top-53">
           <textarea
             value={name}
             placeholder="Name"
@@ -187,7 +202,7 @@ const CreateNftPage = ({
           />
         </div>
 
-        <div className="-ml-15 mt-3">
+        <div className="flex ml-4 mt-3">
           <textarea
             value={description}
             placeholder="Description"
@@ -201,7 +216,7 @@ const CreateNftPage = ({
             <div className="flex gap-2 focus:outline-none">
               <textarea
                 key={idx}
-                value={attribute.attribute}
+                value={attribute.trait_type}
                 maxLength={25}
                 onChange={(e) => updateAttributeInput(idx, e.target.value)}
                 className="p-1.5 border border-white/60 rounded-lg h-10 w-[51%] focus:outline-none focus:border-white"
@@ -232,6 +247,17 @@ const CreateNftPage = ({
             </button>
           </div>
         </div>
+        {isSuccess !== 0 && (
+          <div
+            className={`absolute right-[50%] translate-x-[50%] mt-10 ${
+              isSuccess === 1 ? "text-green-500" : "text-red-500/90"
+            } text-xl font-semibold`}
+          >
+            <span>
+              {isSuccess === 1 ? "Successfully minted" : "Error minting"}
+            </span>
+          </div>
+        )}
         <div className="relative mt-15 w-full">
           <span className="absolute top-0 left-6 text-white/20 font-mono text-[13px]">
             {`Cost: ${fromNano(mintCost)} TON`}
@@ -255,14 +281,39 @@ const CreateNftPage = ({
               ? userBalance - mintCost < 0
                 ? "bg-red-500/75"
                 : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
+              : isError
+              ? "bg-red-500/75"
               : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
           } rounded-2xl text-[20px] cursor-pointer`}
-          onClick={() => {
-            if (name && description && selectedCollection !== "Collection") {
-              alert("NFT will deploy soon");
-            } else {
-              alert("Not all fields filled in");
-            }
+          onClick={async () => {
+            console.log(selectedCollectionID);
+            if (
+              userBalance
+                ? userBalance > mintCost &&
+                  !isError &&
+                  name !== "" &&
+                  description !== "" &&
+                  image !== ""
+                : false
+            ) {
+              const res = await mintNft(
+                imageByte,
+                name,
+                description,
+                attributeInputs
+                /*selectedCollection !== "None" &&
+                  selectedCollection !== "Collection"
+                  ? userNftCollections
+                    ? userNftCollections[selectedCollectionID].address
+                    : undefined
+                  : undefined*/
+              );
+              if (res === "OK") {
+                setIsSuccess(1);
+              } else {
+                setIsSuccess(2);
+              }
+            } else alert("Impossible");
           }}
         >
           <b>{`${
@@ -270,6 +321,8 @@ const CreateNftPage = ({
               ? userBalance - mintCost < 0
                 ? "Not enough TON"
                 : "Mint"
+              : isError
+              ? "Image max size is 100KB"
               : "Mint"
           }`}</b>
         </button>

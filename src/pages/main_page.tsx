@@ -13,6 +13,7 @@ import "../styles/main_page.style.css";
 import CreateNftPage from "./create_nft";
 import DepositCard from "../component/depositCard";
 import WithdrawCard from "../component/withdrawCard";
+import ConnectIrysPage from "./connect_irys";
 
 function MainPage() {
   const [user, setUser] = useState<User | undefined>();
@@ -24,6 +25,8 @@ function MainPage() {
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+  const [devPageClicks, setDevPageClicks] = useState(0);
+
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -65,6 +68,8 @@ function MainPage() {
           tonAmount={tonAmount}
           setOpenDeposit={setOpenDeposit}
           setOpenWithdraw={setOpenWithdraw}
+          setDevPageClicks={setDevPageClicks}
+          devPageClicks={devPageClicks}
         />
       </div>
       <div className="absolute flex w-[93%] top-65 right-[50%] translate-x-[50%]">
@@ -100,6 +105,9 @@ function MainPage() {
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}
       />
+      {devPageClicks === 4 && (
+        <ConnectIrysPage setDevPageClicks={setDevPageClicks} />
+      )}
     </div>
   );
 }
