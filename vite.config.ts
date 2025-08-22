@@ -27,4 +27,5 @@ export default defineConfig({
       path: "path-browserify",
     },
   },
+  base: "/create-nft-vite/",
 });
