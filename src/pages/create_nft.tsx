@@ -311,7 +311,7 @@ const CreateNftPage = ({
                   name !== "" &&
                   description !== "" &&
                   image !== ""
-                : true
+                : false
             ) {
               const res = await mintNft(
                 imageByte,
