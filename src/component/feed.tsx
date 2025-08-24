@@ -4,7 +4,7 @@ type FeedProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Feed = ({ setActivePage,}: FeedProps) => {
+const Feed = ({ setActivePage }: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
   return (
     <div className="grid w-[100%] bg-white/10 h-59 rounded-[25px]">
@@ -18,7 +18,7 @@ const Feed = ({ setActivePage,}: FeedProps) => {
       </button>
       {activeNav === 1 && (
         <button
-          className="absolute group cursor-pointer top-20 left-4 bg-white/15 w-35 h-35 rounded-xl border-[2px] border-white hover:bg-white/20"
+          className="absolute group cursor-pointer top-20 left-4 bg-white/15 w-35 h-35 rounded-xl border-[2px] border-sky-200 hover:bg-white/20"
           onClick={() => {
             setActivePage(1);
           }}
@@ -41,16 +41,16 @@ const Feed = ({ setActivePage,}: FeedProps) => {
       </button>
       {activeNav === 2 && (
         <button
-          className="absolute group cursor-pointer top-20 left-4 bg-white/15 w-35 h-35 rounded-xl border-[2px] border-white hover:bg-white/20"
+          className="absolute group cursor-pointer top-20 left-4 bg-white/15 w-35 h-35 rounded-xl border-[2px] border-sky-200 hover:bg-white/20"
           onClick={() => {
             setActivePage(2);
           }}
         >
           <p className="absolute top-[-10px] right-[50%] translate-x-[50%] text-white text-[90px] font-semibold">
             +
-            <p className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
+            <span className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
               Create your own Collection of NFTs
-            </p>
+            </span>
           </p>
         </button>
       )}

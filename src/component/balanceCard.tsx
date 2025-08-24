@@ -17,7 +17,7 @@ const BalanceCard = ({
   devPageClicks,
 }: balanceCardProps) => {
   return (
-    <div className="relative w-[100%] h-55 lg:w-112.5 lg:h-62 bg-gradient-to-bl from-sky-500 to-sky-600 rounded-[15px]">
+    <div className="relative w-[100%] h-55 lg:w-112.5 lg:h-62 bg-gradient-to-bl from-sky-500 to-sky-700 rounded-[15px]">
       <div className="absolute w-60 right-[-75px] top-[8px]">
         <CustomTonconnectButton />
       </div>

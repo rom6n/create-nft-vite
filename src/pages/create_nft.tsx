@@ -78,10 +78,12 @@ const CreateNftPage = ({
       if (file.size > MAX_FILE_SIZE) {
         setIsError(true);
         setImage(URL.createObjectURL(file));
+        console.log("image size is more than limit");
         return;
       }
       setIsError(false);
       setImageByte(file);
+      console.log("image size is OK");
       setImage(URL.createObjectURL(file));
     }
   };
@@ -328,7 +330,7 @@ const CreateNftPage = ({
         </button>
       </div>
       <div
-        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-500 ease-in-out z-[3000] 
+        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
           ${isTransition ? "opacity-0" : "opacity-100"} 
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}

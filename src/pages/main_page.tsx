@@ -15,18 +15,17 @@ import DepositCard from "../component/depositCard";
 import WithdrawCard from "../component/withdrawCard";
 import ConnectIrysPage from "./connect_irys";
 
-function MainPage() {
-  const [user, setUser] = useState<User | undefined>();
-  const [userCollections, setUserCollections] = useState<
-    NftCollection[] | undefined
-  >();
-  const [activePage, setActivePage] = useState(0);
+type MainPageProps = {
+  user: User | undefined;
+  setActivePage: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function MainPage({ user, setActivePage }: MainPageProps) {
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
   const [devPageClicks, setDevPageClicks] = useState(0);
-
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -40,24 +39,6 @@ function MainPage() {
     })();
     // запускаем анимацию сразу после монтирования
   }, []);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      // Если WebApp.initDataUnsafe.user уже есть, используем его
-      if (WebApp.initDataUnsafe.user?.id) {
-        const userID = WebApp.initDataUnsafe.user.id;
-        const fetchedUser = await fetchUserInfo(userID);
-        const fetchedUserCollections = await fetchUserCollections(userID);
-        setUser(fetchedUser);
-        setUserCollections(fetchedUserCollections);
-      } else {
-        console.log("user is not found");
-        return;
-      }
-    };
-
-    fetchUser();
-  }, [WebApp.initDataUnsafe.user]);
 
   const tonAmount =
     user?.nano_ton !== undefined ? fromNano(user.nano_ton) : "--";
@@ -87,20 +68,13 @@ function MainPage() {
           </a>
         </p>
       </div>
-      {activePage === 1 && (
-        <CreateNftPage
-          setActivePage={setActivePage}
-          userNftCollections={userCollections}
-          userBalance={user?.nano_ton}
-        />
-      )}
       <DepositCard openDeposit={openDeposit} setOpenDeposit={setOpenDeposit} />
       <WithdrawCard
         openWithdraw={openWithdraw}
         setOpenWithdraw={setOpenWithdraw}
       />
       <div
-        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-600 ease-in-out z-[3000] 
+        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
           ${isTransition ? "opacity-0" : "opacity-100"} 
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}
