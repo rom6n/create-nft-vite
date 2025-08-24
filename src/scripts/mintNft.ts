@@ -28,6 +28,9 @@ export async function mintNft(
       `https://create-nft-node.onrender.com/api/upload-image`,
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/octet-stream",
+        },
         body: await image.arrayBuffer(),
       }
     );
