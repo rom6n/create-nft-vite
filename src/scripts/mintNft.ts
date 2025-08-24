@@ -32,7 +32,7 @@ export async function mintNft(
       }
     );
     const image_link = await res1.text();
-    if (image_link.startsWith("Error")) {
+    if (res1.status === 400) {
       console.log(`${image_link}`);
       return "Error";
     }
@@ -60,7 +60,7 @@ export async function mintNft(
     }
   );
   const metadata_link = await res2.text();
-  if (metadata_link.startsWith("Error")) {
+  if (res2.status === 400) {
     console.log(`${metadata_link}`);
     return "Error";
   }
