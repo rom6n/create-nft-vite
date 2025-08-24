@@ -34,13 +34,13 @@ export async function mintNft(
         body: await image.arrayBuffer(),
       }
     );
-    const image_link = await res1.text();
+    const image_txid = await res1.text();
     if (res1.status === 400) {
-      console.log(`${image_link}`);
+      console.log(`${image_txid}`);
       return "Error";
     }
 
-    uploadedImageURL = image_link;
+    uploadedImageURL = `https://gateway.irys.xyz/${image_txid}`;
   }
   alert("got 2");
 
@@ -62,14 +62,14 @@ export async function mintNft(
       body: metadata,
     }
   );
-  const metadata_link = await res2.text();
+  const metadata_txid = await res2.text();
   if (res2.status === 400) {
-    console.log(`${metadata_link}`);
+    console.log(`${metadata_txid}`);
     return "Error";
   }
   alert("got 3");
 
-  uploadedMetadataURL = metadata_link;
+  uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
 
   const res3 = await fetch(
     `https://create-nft-go.onrender.com/api/nft-item/mint?owner-wallet=0QDU46qYz4rHAJhszrW9w6imF8p4Cw5dS1GpPTcJ9vqNSmnf&owner-id=5003727541&content=${uploadedMetadataURL}&forward-amount=10000000&forward-message=${fwdMsg}&nft-collection-address=${

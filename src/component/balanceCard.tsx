@@ -30,7 +30,7 @@ const BalanceCard = ({
           setDevPageClicks(devPageClicks + 1);
         }}
       >
-        alpha v1.03
+        alpha v1.04
       </div>
       <div className="absolute left-2 top-7 flex items-center space-x-2">
         <Switch
