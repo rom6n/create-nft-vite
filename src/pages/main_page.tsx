@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BalanceCard from "../component/balanceCard";
 import Feed from "../component/feed";
-import { type User } from "../scripts/fetchUserData";
+import { type NftItem, type User } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import "../styles/main_page.style.css";
 import DepositCard from "../component/depositCard";
@@ -11,9 +11,10 @@ import ConnectIrysPage from "./connect_irys";
 type MainPageProps = {
   user: User | undefined;
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
+  userNftItems: NftItem[] | undefined;
 };
 
-function MainPage({ user, setActivePage }: MainPageProps) {
+function MainPage({ user, setActivePage, userNftItems }: MainPageProps) {
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
   const [isTransition, setIsTransition] = useState(false);
@@ -36,8 +37,8 @@ function MainPage({ user, setActivePage }: MainPageProps) {
   const tonAmount =
     user?.nano_ton !== undefined ? fromNano(user.nano_ton) : "--";
   return (
-    <div>
-      <div className="absolute overflow-x-hidden flex right-[50%] translate-x-[50%] top-5 w-[93%] justify-center">
+    <div className="absolute top-0 left-0 w-full h-full">
+      <div className="relative flex overflow-x-hidden right-[50%] translate-x-[57.5%] mt-3 w-[93%] justify-center">
         <BalanceCard
           tonAmount={tonAmount}
           setOpenDeposit={setOpenDeposit}
@@ -46,10 +47,10 @@ function MainPage({ user, setActivePage }: MainPageProps) {
           devPageClicks={devPageClicks}
         />
       </div>
-      <div className="absolute flex w-[93%] top-65 right-[50%] translate-x-[50%]">
-        <Feed setActivePage={setActivePage} />
+      <div className="relative flex w-[93%] mt-4 right-[50%] translate-x-[57.5%]">
+        <Feed setActivePage={setActivePage} userNftItems={userNftItems} />
       </div>
-      <div className="absolute flex space-x-2 bottom-3 right-[50%] translate-x-[50%]">
+      <div className="relative overflow-x-hidden space-x-2 mt-3 pb-3 right-[50%] translate-x-[50%]">
         <p>
           See on{" "}
           <a

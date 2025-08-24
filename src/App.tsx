@@ -4,7 +4,9 @@ import MainPage from "./pages/main_page";
 import {
   fetchUserCollections,
   fetchUserInfo,
+  fetchUserNftItems,
   type NftCollection,
+  type NftItem,
   type User,
 } from "./scripts/fetchUserData";
 import WebApp from "@twa-dev/sdk";
@@ -15,6 +17,7 @@ function App() {
   const [userCollections, setUserCollections] = useState<
     NftCollection[] | undefined
   >();
+  const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
@@ -24,9 +27,18 @@ function App() {
         const userID = WebApp.initDataUnsafe.user.id;
         const fetchedUser = await fetchUserInfo(userID);
         const fetchedUserCollections = await fetchUserCollections(userID);
+        const fetchedUserNftItems = await fetchUserNftItems(userID);
         setUser(fetchedUser);
         setUserCollections(fetchedUserCollections);
+        setUserNftItems(fetchedUserNftItems);
       } else {
+        const userID = 5003727541;
+        const fetchedUser = await fetchUserInfo(userID);
+        const fetchedUserCollections = await fetchUserCollections(userID);
+        const fetchedUserNftItems = await fetchUserNftItems(userID);
+        setUser(fetchedUser);
+        setUserCollections(fetchedUserCollections);
+        setUserNftItems(fetchedUserNftItems);
         console.log("user is not found");
         return;
       }
@@ -44,7 +56,7 @@ function App() {
           userBalance={user?.nano_ton}
         />
       ) : (
-        <MainPage setActivePage={setActivePage} user={user} />
+        <MainPage setActivePage={setActivePage} userNftItems={userNftItems} user={user} />
       )}
     </>
   );

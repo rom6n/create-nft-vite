@@ -32,23 +32,19 @@ const BalanceCard = ({
       >
         alpha v1.04
       </div>
-      <div className="absolute left-2 top-7 flex items-center space-x-2">
+      <div className="absolute left-2 top-8 flex items-center space-x-2">
         <Switch
           checked={checked}
-          className="peer inline-flex h-6 w-24 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=checked]:bg-black/40 data-[state=unchecked]:bg-black/30"
+          className="peer flex h-5 w-11 shrink-0 cursor-pointer items-center rounded-full border-white/50 border transition-colors data-[state=checked]:bg-black/40 data-[state=unchecked]:bg-black/30"
         >
+          <span className={`absolute left-12 bottom-[0.5px] font-semibold`}>
+            testnet
+          </span>
           <span
-            className={`pointer-events-none block h-3.5 w-3.5 rounded-full bg-white shadow-lg ring-0 transition-transform ${
-              checked ? "translate-x-19" : "translate-x-0.5"
+            className={`pointer-events-none block h-3 w-3 rounded-full bg-white shadow-lg ring-0 transition-transform ${
+              checked ? "translate-x-6.5" : "translate-x-0.5"
             }`}
           />
-          <span
-            className={`absolute ${
-              checked ? "left-3" : "left-6"
-            } font-semibold`}
-          >
-            {checked ? "Testnet" : "Mainnet"}
-          </span>
         </Switch>
       </div>
       <div className="absolute left-5 bottom-18 text-3xl cursor-default">
