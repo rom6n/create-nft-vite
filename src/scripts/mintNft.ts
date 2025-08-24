@@ -1,8 +1,3 @@
-import { WebUploader } from "@irys/web-upload";
-import WebEthereum from "@irys/web-upload-ethereum";
-import { ethers } from "ethers";
-import { EthersV6Adapter } from "@irys/web-upload-ethereum-ethers-v6";
-
 export interface NftItemMetadata {
   name: string;
   image: string;
@@ -16,21 +11,6 @@ export interface Attribute {
   value: string;
 }
 
-const getIrysUploader = async () => {
-  try {
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const irysUploader = await WebUploader(WebEthereum).withAdapter(
-      EthersV6Adapter(provider)
-    );
-    alert(`Connected to Irys: ${irysUploader.address}`);
-    return irysUploader;
-  } catch (error) {
-    console.error("Error connecting to Irys:", error);
-    alert("Error connecting to Irys");
-    return;
-  }
-};
-
 export async function mintNft(
   image: File | undefined,
   name: string,
@@ -41,26 +21,25 @@ export async function mintNft(
 ) {
   let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
-  const irys = await getIrysUploader();
-  if (irys === undefined) {
-    return "Error";
-  }
+  alert("got 1");
 
   if (image) {
-    try {
-      const tags = [{ name: "Content-Type", value: "image/*" }];
-      const receipt = await irys.upload(Buffer.from(await image.bytes()), {
-        tags: tags,
-      });
-      uploadedImageURL = `https://gateway.irys.xyz/${receipt.id}`;
-
-      console.log(`Data uploaded ==> https://gateway.irys.xyz/${receipt.id}`);
-    } catch (e) {
-      console.log("Error uploading image ", e);
-      alert("Error uploading image ");
+    const res1 = await fetch(
+      `https://create-nft-node.onrender.com/api/upload-image`,
+      {
+        method: "POST",
+        body: await image.arrayBuffer(),
+      }
+    );
+    const image_link = await res1.text();
+    if (image_link.startsWith("Error")) {
+      console.log(`${image_link}`);
       return "Error";
     }
+
+    uploadedImageURL = image_link;
   }
+  alert("got 2");
 
   const metadata = JSON.stringify({
     name: name,
@@ -70,19 +49,26 @@ export async function mintNft(
     external_url: "",
   });
 
-  try {
-    const tags = [{ name: "Content-Type", value: "application/json" }];
-    const receipt = await irys.upload(metadata, { tags: tags });
-    uploadedMetadataURL = `https://gateway.irys.xyz/${receipt.id}`;
-
-    console.log(`Data uploaded ==> https://gateway.irys.xyz/${receipt.id}`);
-  } catch (e) {
-    console.log("Error uploading metadata ", e);
-    alert("Error uploading metadata");
+  const res2 = await fetch(
+    `https://create-nft-node.onrender.com/api/upload-metadata`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: metadata,
+    }
+  );
+  const metadata_link = await res2.text();
+  if (metadata_link.startsWith("Error")) {
+    console.log(`${metadata_link}`);
     return "Error";
   }
+  alert("got 3");
 
-  const res = await fetch(
+  uploadedMetadataURL = metadata_link;
+
+  const res3 = await fetch(
     `https://create-nft-go.onrender.com/api/nft-item/mint?owner-wallet=0QDU46qYz4rHAJhszrW9w6imF8p4Cw5dS1GpPTcJ9vqNSmnf&owner-id=5003727541&content=${uploadedMetadataURL}&forward-amount=10000000&forward-message=${fwdMsg}&nft-collection-address=${
       collectionAddress
         ? collectionAddress
@@ -93,10 +79,12 @@ export async function mintNft(
     }
   );
 
-  const contentType = res.headers.get("content-type");
+  alert("got 4");
+
+  const contentType = res3.headers.get("content-type");
 
   if (!contentType?.includes("application/json")) {
-    console.log(`error minting NFT: ${await res.text()}`);
+    console.log(`error minting NFT: ${await res3.text()}`);
     alert("error minting NFT");
     return "Error";
   }
