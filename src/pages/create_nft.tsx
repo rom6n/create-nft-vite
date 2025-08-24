@@ -20,9 +20,12 @@ const CreateNftPage = ({
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<string>("");
+  const [fwdMsg, setFwdMsg] = useState<string>("");
   const [selectOpen, setSelectOpen] = useState(false);
   const [selectedCollection, setSelectedCollection] = useState("Collection");
-  let selectedCollectionID: number;
+  const [selectedCollectionAddress, setSelectedCollectionAddress] = useState<
+    string | undefined
+  >();
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -72,6 +75,10 @@ const CreateNftPage = ({
     // запускаем анимацию сразу после монтирования
   }, []);
 
+  const handleFwdMsgChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const msg = e.target.value;
+    setFwdMsg(msg);
+  };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -129,7 +136,7 @@ const CreateNftPage = ({
             ) : (
               <div className="w-full h-full flex items-center justify-center rounded-xl border-2 border-dashed border-white/30 bg-white/15 hover:bg-white/20">
                 <span className="text-white/50 text-sm">
-                  Press to select a photo
+                  Press to select a photo (optionally)
                 </span>
               </div>
             )}
@@ -185,7 +192,7 @@ const CreateNftPage = ({
                     setSelectedCollection(
                       value.metadata.name ? value.metadata.name : "underfined"
                     );
-                    selectedCollectionID = idx;
+                    setSelectedCollectionAddress(value.address);
                   }}
                 >
                   {value.metadata.name ? value.metadata.name : "underfined"}
@@ -197,7 +204,7 @@ const CreateNftPage = ({
         <div className="flex ml-4 mt-5 top-53">
           <textarea
             value={name}
-            placeholder="Name"
+            placeholder="Name (optionally)"
             maxLength={35}
             className="bg-transparent w-78 h-15.5 pl-2 pr-2 min-h-15.5 max-h-15.5 rounded-xl border border-white/60 focus:outline-none focus:border-white"
             onChange={setNameFunc}
@@ -207,7 +214,7 @@ const CreateNftPage = ({
         <div className="flex ml-4 mt-3">
           <textarea
             value={description}
-            placeholder="Description"
+            placeholder="Description (optionally)"
             maxLength={80}
             className="bg-transparent w-85 h-29 pl-2 pr-2 min-h-29 max-h-29 rounded-xl border border-white/60 focus:outline-none focus:border-white"
             onChange={setDescriptionFunc}
@@ -221,16 +228,16 @@ const CreateNftPage = ({
                 value={attribute.trait_type}
                 maxLength={25}
                 onChange={(e) => updateAttributeInput(idx, e.target.value)}
-                className="p-1.5 border border-white/60 rounded-lg h-10 w-[51%] focus:outline-none focus:border-white"
-                placeholder={`Attribute`}
+                className="p-1.5 border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] focus:outline-none focus:border-white"
+                placeholder={`Attribute (option.)`}
               />
               <textarea
                 key={idx}
                 value={attribute.value}
                 maxLength={25}
                 onChange={(e) => updateValueInput(idx, e.target.value)}
-                className="p-1.5 border border-white/60 rounded-lg h-10 w-[51%] focus:outline-none focus:border-white"
-                placeholder={`Value`}
+                className="p-1.5 border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] focus:outline-none focus:border-white"
+                placeholder={`Value (option.)`}
               />
             </div>
           ))}
@@ -248,6 +255,14 @@ const CreateNftPage = ({
               <span className="absolute top-0 left-2 text-2xl">+</span>
             </button>
           </div>
+        </div>
+        <div className="relative w-[79%] flex ml-4 mt-15">
+          <textarea
+            maxLength={50}
+            placeholder="Mint message (optionally)"
+            onChange={handleFwdMsgChange}
+            className="border p-1.5 w-full border-white/60 rounded-xl max-h-17 min-h-17 focus:outline-none"
+          ></textarea>
         </div>
         {isSuccess !== 0 && (
           <div
@@ -288,7 +303,7 @@ const CreateNftPage = ({
               : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
           } rounded-2xl text-[20px] cursor-pointer`}
           onClick={async () => {
-            console.log(selectedCollectionID);
+            console.log("selected collection: ", selectedCollectionAddress);
             if (
               userBalance
                 ? userBalance > mintCost &&
@@ -296,19 +311,15 @@ const CreateNftPage = ({
                   name !== "" &&
                   description !== "" &&
                   image !== ""
-                : true
+                : false
             ) {
               const res = await mintNft(
                 imageByte,
                 name,
                 description,
-                attributeInputs
-                /*selectedCollection !== "None" &&
-                  selectedCollection !== "Collection"
-                  ? userNftCollections
-                    ? userNftCollections[selectedCollectionID].address
-                    : undefined
-                  : undefined*/
+                attributeInputs,
+                fwdMsg,
+                selectedCollectionAddress
               );
               if (res === "OK") {
                 setIsSuccess(1);

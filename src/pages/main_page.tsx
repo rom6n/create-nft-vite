@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react";
 import BalanceCard from "../component/balanceCard";
 import Feed from "../component/feed";
-import {
-  type NftCollection,
-  type User,
-  fetchUserCollections,
-  fetchUserInfo,
-} from "../scripts/fetchUserData";
+import { type User } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
-import WebApp from "@twa-dev/sdk";
 import "../styles/main_page.style.css";
-import CreateNftPage from "./create_nft";
 import DepositCard from "../component/depositCard";
 import WithdrawCard from "../component/withdrawCard";
 import ConnectIrysPage from "./connect_irys";
