@@ -48,9 +48,13 @@ function MainPage({ user, setActivePage, userNftItems }: MainPageProps) {
         />
       </div>
       <div className="relative flex w-[93%] mt-4 right-[50%] translate-x-[57.5%]">
-        <Feed setActivePage={setActivePage} userNftItems={userNftItems} />
+        <Feed
+          setActivePage={setActivePage}
+          userNftItems={userNftItems}
+          connected={user ? true : false}
+        />
       </div>
-      <div className="relative overflow-x-hidden space-x-2 mt-3 pb-3 right-[50%] translate-x-[50%]">
+      <div className="relative overflow-x-hidden space-x-2 mt-2 pb-0 right-[50%] translate-x-[50%]">
         <p>
           See on{" "}
           <a
