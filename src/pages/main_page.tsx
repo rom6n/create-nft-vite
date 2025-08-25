@@ -12,9 +12,15 @@ type MainPageProps = {
   user: User | undefined;
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
   userNftItems: NftItem[] | undefined;
+  setSelectedNft: React.Dispatch<React.SetStateAction<NftItem | undefined>>;
 };
 
-function MainPage({ user, setActivePage, userNftItems }: MainPageProps) {
+function MainPage({
+  user,
+  setActivePage,
+  userNftItems,
+  setSelectedNft,
+}: MainPageProps) {
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
   const [isTransition, setIsTransition] = useState(false);
@@ -51,7 +57,7 @@ function MainPage({ user, setActivePage, userNftItems }: MainPageProps) {
         <Feed
           setActivePage={setActivePage}
           userNftItems={userNftItems}
-          connected={user ? true : false}
+          setSelectedNft={setSelectedNft}
         />
       </div>
       <div className="relative overflow-x-hidden space-x-2 mt-2 pb-0 right-[50%] translate-x-[50%]">
@@ -72,7 +78,7 @@ function MainPage({ user, setActivePage, userNftItems }: MainPageProps) {
         setOpenWithdraw={setOpenWithdraw}
       />
       <div
-        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
+        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
           ${isTransition ? "opacity-0" : "opacity-100"} 
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}

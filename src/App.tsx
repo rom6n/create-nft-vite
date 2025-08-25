@@ -11,14 +11,18 @@ import {
 } from "./scripts/fetchUserData";
 import WebApp from "@twa-dev/sdk";
 import CreateNftPage from "./pages/create_nft";
+import NftCardPage from "./pages/nft_card_page";
+import { useTonConnectUI } from "@tonconnect/ui-react";
 
 function App() {
   const [user, setUser] = useState<User | undefined>();
   const [userCollections, setUserCollections] = useState<
     NftCollection[] | undefined
   >();
+  const [selectedNft, setSelectedNft] = useState<NftItem>();
   const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
+  const [tonConnectUI] = useTonConnectUI();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,11 +59,18 @@ function App() {
           userNftCollections={userCollections}
           user={user}
         />
+      ) : activePage === 2 ? (
+        <NftCardPage
+          setActivePage={setActivePage}
+          nftItem={selectedNft}
+          connected={tonConnectUI.connected}
+        />
       ) : (
         <MainPage
           setActivePage={setActivePage}
           userNftItems={userNftItems}
           user={user}
+          setSelectedNft={setSelectedNft}
         />
       )}
     </>

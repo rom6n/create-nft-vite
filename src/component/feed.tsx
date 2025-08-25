@@ -1,17 +1,14 @@
 import { useState } from "react";
 import type { NftItem } from "../scripts/fetchUserData";
-import NftCardPage from "../pages/nft_card_page";
 
 type FeedProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
   userNftItems: NftItem[] | undefined;
-  connected: boolean;
+  setSelectedNft: React.Dispatch<React.SetStateAction<NftItem | undefined>>;
 };
 
-const Feed = ({ setActivePage, userNftItems, connected }: FeedProps) => {
+const Feed = ({ setActivePage, userNftItems, setSelectedNft }: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
-  const [nftCard, setNftCard] = useState(false);
-  const [selectedNft, setSelectedNft] = useState<NftItem>();
 
   return (
     <div className="w-[100%] min-w-80 min-h-125 bg-white/8 pb-3 rounded-2xl">
@@ -44,7 +41,7 @@ const Feed = ({ setActivePage, userNftItems, connected }: FeedProps) => {
                 className="relative flex flex-col mt-17 justify-between bg-white/10 h-52 w-[47%] rounded-2xl border border-white/40 overflow-hidden"
                 onClick={() => {
                   setSelectedNft(value);
-                  setNftCard(true);
+                  setActivePage(2);
                 }}
               >
                 <img
@@ -84,7 +81,7 @@ const Feed = ({ setActivePage, userNftItems, connected }: FeedProps) => {
                 className="relative flex flex-col justify-between bg-white/10 h-52 rounded-2xl border border-white/40 overflow-hidden"
                 onClick={() => {
                   setSelectedNft(value);
-                  setNftCard(true);
+                  setActivePage(2);
                 }}
               >
                 <img
@@ -145,9 +142,6 @@ const Feed = ({ setActivePage, userNftItems, connected }: FeedProps) => {
         <div className="absolute w-16 h-[3px] rounded-full right-[77%] translate-x-[50%] bg-white top-[54.5px] transition-[right] duration-150 ease-out" />
       ) : (
         <div className="absolute w-16 h-[3px] rounded-full right-[30%] translate-x-[50%] bg-white top-[54.5px] transition-[right] duration-150 ease-out" />
-      )}
-      {nftCard && (
-        <NftCardPage nftItem={selectedNft} setNftCard={setNftCard} connected={connected} />
       )}
     </div>
   );

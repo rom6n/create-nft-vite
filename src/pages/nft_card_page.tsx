@@ -1,23 +1,154 @@
+import { useEffect, useState } from "react";
 import type { NftItem } from "../scripts/fetchUserData";
 
 type NftCardPageProps = {
   connected: boolean;
   nftItem: NftItem | undefined;
-  setNftCard: React.Dispatch<React.SetStateAction<boolean>>;
+  setActivePage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const NftCardPage = ({ connected, nftItem, setNftCard }: NftCardPageProps) => {
+const NftCardPage = ({
+  connected,
+  nftItem,
+  setActivePage,
+}: NftCardPageProps) => {
+  const [hasAttributes, setHasAttributes] = useState<boolean>(false);
+  const [isTransition, setIsTransition] = useState(false);
+  const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+
+  function wait(millisecond: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, millisecond));
+  }
+
+  useEffect(() => {
+    (async () => {
+      await wait(50);
+      setIsTransition(true);
+      return;
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (nftItem) {
+      for (const attribute of nftItem.metadata.attributes) {
+        if (attribute.trait_type !== "" && attribute.value !== "") {
+          setHasAttributes(true);
+        }
+      }
+    }
+  }, []);
+
   return (
     <div className="absolute w-full h-full top-0 left-0 bg-black">
       <button
-        className="absolute top-2 left-2 bg-white/13 w-20 h-6 rounded-full"
+        className="absolute top-4 left-4 bg-[#282828] w-22 h-8 font-semibold rounded-full z-1"
+        style={{
+          boxShadow: "0 2px 5px #000000D1",
+        }}
         onClick={() => {
-          setNftCard(false);
+          setActivePage(0);
         }}
       >
-        Back
+        {"< Back"}
       </button>
-      <div className="flex flex-col"></div>
+      <div>
+        <img src={nftItem?.metadata.image} className="relative rounded-b-4xl" />
+      </div>
+      <div className="flex flex-col w-full justify-center">
+        <div className="flex flex-col items-start w-full h-25 mt-3 rounded-4xl bg-white/13">
+          <a
+            className="flex h-[50%] w-full items-center"
+            href={`${
+              nftItem?.is_testnet
+                ? "https://testnet.tonviewer.com/" + nftItem?.address
+                : "https://tonviewer.com/" + nftItem?.address
+            }`}
+            rel="noopener noreferrer"
+          >
+            <span className="relative text-md mt-0 ml-10 font-semibold text-white/80">
+              Tonviewer
+            </span>
+            <span className="absolute right-10 text-2xl text-white/80">
+              {">"}
+            </span>
+          </a>
+          <div className="w-full h-[1px] bg-white/20" />
+          <a
+            className="flex h-[50%] w-full items-center"
+            href={`${
+              nftItem?.is_testnet
+                ? "https://testnet.tonviewer.com/" + nftItem?.collection_address
+                : "https://tonviewer.com/" + nftItem?.collection_address
+            }`}
+            rel="noopener noreferrer"
+          >
+            <span className="relative text-md mt-0 ml-10 font-semibold text-white/80">
+              {nftItem?.collection_name}
+            </span>
+            <span className="absolute text-2xl right-10 text-white/80">
+              {">"}
+            </span>
+          </a>
+        </div>
+        <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
+          <div className="flex gap-4 w-full">
+            <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[44.5%] border rounded-3xl items-start ">
+              <span className="text-2xl font-semibold">Index</span>
+              <span className="text-xl text-start font-mono">
+                {nftItem?.index}
+              </span>
+            </div>
+            <div className="flex flex-col mr-4 mt-4 p-2 pl-4 pr-4 w-full min-w-[20%] border rounded-3xl items-start ">
+              <span className="text-2xl font-semibold">Network</span>
+              <span className="text-xl text-start font-mono">
+                {nftItem?.is_testnet ? "Testnet" : "Mainnet"}
+              </span>
+            </div>
+          </div>
+          <div className="flex flex-col ml-4 mt-4 p-2 pl-4 w-[50%] border rounded-3xl items-start ">
+            <span className="text-2xl font-semibold">Name</span>
+            <span className="text-xl text-start font-mono">
+              {nftItem?.metadata.name}
+            </span>
+          </div>
+          <div className="flex flex-col ml-4 mt-2.5 p-2 pl-4 min-w-[65%] max-w-[80%] border rounded-3xl items-start ">
+            <span className="text-2xl font-semibold">Description</span>
+            <span className="text-xl text-start font-mono">
+              {nftItem?.metadata.description}
+            </span>
+          </div>
+          <div className="flex flex-col ml-4 mt-4 p-2 pl-4 min-w-[57%] max-w-[80%] border rounded-3xl items-start ">
+            <span className="text-2xl font-semibold">Collection</span>
+            <span className="text-xl text-start font-mono">
+              {nftItem?.collection_name}
+            </span>
+          </div>
+        </div>
+        {hasAttributes && (
+          <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
+            {nftItem?.metadata.attributes.map(
+              (value) =>
+                value.trait_type && (
+                  <div className="flex flex-col ml-4 mt-4 p-2 pl-4 min-w-[92%] max-w-[92%] border rounded-3xl items-start ">
+                    <span className="text-2xl font-semibold">
+                      {value.trait_type}
+                    </span>
+                    <span className="text-xl text-start font-mono">
+                      {value.value}
+                    </span>
+                  </div>
+                )
+            )}
+          </div>
+        )}
+        {connected}
+      </div>
+      <div
+        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
+          ${isTransition ? "opacity-0" : "opacity-100"} 
+          ${isTransitionEnded ? "hidden" : ""}`}
+        onTransitionEnd={() => setIsTransitionEnded(true)}
+      />
     </div>
   );
 };
