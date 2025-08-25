@@ -10,7 +10,7 @@ const Feed = ({ setActivePage, userNftItems }: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
 
   return (
-    <div className="w-[100%] bg-white/8 pb-3 rounded-2xl">
+    <div className="w-[100%] min-w-80 min-h-125 bg-white/8 pb-3 rounded-2xl">
       <button
         className={`select-nfts ${activeNav === 1 ? "active" : ""}`}
         onClick={() => {
@@ -23,7 +23,7 @@ const Feed = ({ setActivePage, userNftItems }: FeedProps) => {
         <div className="min-h-120">
           <div className="flex ml-2 w-full h-full gap-2">
             <button
-              className="relative group cursor-pointer mt-17 bg-white/25 w-[47%] h-60 rounded-2xl border border-white/40 hover:bg-white/35 hover:border-white"
+              className="relative group cursor-pointer mt-17 bg-white/25 w-[47%] h-52 rounded-2xl border border-white/40 hover:bg-white/35 hover:border-white"
               onClick={() => {
                 setActivePage(1);
               }}
@@ -36,60 +36,69 @@ const Feed = ({ setActivePage, userNftItems }: FeedProps) => {
               </p>
             </button>
             {userNftItems?.slice(0, 1).map((value) => (
-              <button className="relative cursor-pointer bg-white/10 h-58 rounded-2xl border border-white/40 hover:bg-white/35 hover:border-white">
+              <button className="relative flex flex-col mt-17 justify-between bg-white/10 h-52 w-[47%] rounded-2xl border border-white/40 overflow-hidden">
                 <img
                   src={value.metadata.image}
-                  className="absolute top-0 right-[50%] translate-x-[50%] rounded-t-2xl"
+                  className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
                 />
-                <div className="absolute block w-full bottom-10.5 -left-33">
-                  <span className="absolute w-full font-semibold">
+
+                <div className="flex flex-col mb-2 items-start justify-end px-2">
+                  <span className="font-semibold text-sm truncate">
                     {value.metadata.name}
                   </span>
-                  <span className="absolute top-5 w-full text-[10px]">
+                  <span className="text-[10px] text-gray-400 truncate">
                     {value.collection_name}
                   </span>
                 </div>
-                <span
-                  className={`absolute bottom-3 right-1 font-semibold ${
-                    value.is_testnet ? "text-red-500/60" : "text-sky-500/80"
-                  }`}
+
+                <div
+                  className={`absolute flex w-13 h-5 justify-center items-center rounded-full ${
+                    value.is_testnet ? "bg-red-500/70" : "bg-sky-500/70"
+                  } bottom-1 right-1`}
                 >
-                  {value.is_testnet ? "Testnet" : "Mainnet"}
-                </span>
+                  <span className="text-[10px] font-semibold text-white">
+                    {value.is_testnet ? "Testnet" : "Mainnet"}
+                  </span>
+                </div>
               </button>
             ))}
           </div>
           <div className="grid grid-cols-2 ml-2 mr-2 mt-2 gap-2">
             {userNftItems?.slice(1).map((value) => (
-              <button className="relative cursor-pointer bg-white/10 h-58 rounded-2xl border border-white/40 hover:bg-white/35 hover:border-white">
+              <button className="relative flex flex-col justify-between bg-white/10 h-52 rounded-2xl border border-white/40 overflow-hidden">
                 <img
                   src={value.metadata.image}
-                  className="absolute top-0 right-[50%] translate-x-[50%] rounded-t-2xl"
+                  className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
                 />
-                <div className="absolute block w-full bottom-10.5 -left-33">
-                  <span className="absolute w-full font-semibold">
+
+                <div className="flex flex-col mb-2 items-start justify-end px-2">
+                  <span className="font-semibold text-sm truncate">
                     {value.metadata.name}
                   </span>
-                  <span className="absolute top-5 w-full text-[10px]">
+                  <span className="text-[10px] text-gray-400 truncate">
                     {value.collection_name}
                   </span>
                 </div>
-                <span
-                  className={`absolute bottom-3 right-1 font-semibold ${
-                    value.is_testnet ? "text-red-500/60" : "text-sky-500/80"
-                  }`}
+
+                <div
+                  className={`absolute flex w-13 h-5 justify-center items-center rounded-full ${
+                    value.is_testnet ? "bg-red-500/70" : "bg-sky-500/70"
+                  } bottom-1 right-1`}
                 >
-                  {value.is_testnet ? "Testnet" : "Mainnet"}
-                </span>
+                  <span className="text-[10px] font-semibold text-white">
+                    {value.is_testnet ? "Testnet" : "Mainnet"}
+                  </span>
+                </div>
               </button>
             ))}
           </div>
         </div>
       )}
       <button
+        disabled={true}
         className={`select-nft-collections ${activeNav === 2 ? "active" : ""}`}
         onClick={() => {
-          setActiveNav(2);
+          //setActiveNav(2);
         }}
       >
         Collections

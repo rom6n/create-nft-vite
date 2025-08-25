@@ -17,7 +17,8 @@ export async function mintNft(
   description: string,
   attributes: Attribute[],
   fwdMsg: string,
-  collectionAddress: string | undefined
+  collectionAddress: string | undefined,
+  userId: number | undefined
 ) {
   let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
@@ -72,7 +73,9 @@ export async function mintNft(
   uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
 
   const res3 = await fetch(
-    `https://create-nft-go.onrender.com/api/nft-item/mint?owner-wallet=0QDU46qYz4rHAJhszrW9w6imF8p4Cw5dS1GpPTcJ9vqNSmnf&owner-id=5003727541&content=${uploadedMetadataURL}&forward-amount=10000000&forward-message=${fwdMsg}&nft-collection-address=${
+    `https://create-nft-go.onrender.com/api/nft-item/mint?owner-wallet=&owner-id=${
+      userId ? userId : "5003727541"
+    }&content=${uploadedMetadataURL}&forward-amount=10000000&forward-message=${fwdMsg}&nft-collection-address=${
       collectionAddress
         ? collectionAddress
         : "kQB253d_QpJsEgBszsjTZlhh8mZi9XX4nKq1H9I5iVWDzz6j"

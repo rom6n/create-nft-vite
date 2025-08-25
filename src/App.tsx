@@ -53,10 +53,14 @@ function App() {
         <CreateNftPage
           setActivePage={setActivePage}
           userNftCollections={userCollections}
-          userBalance={user?.nano_ton}
+          user={user}
         />
       ) : (
-        <MainPage setActivePage={setActivePage} userNftItems={userNftItems} user={user} />
+        <MainPage
+          setActivePage={setActivePage}
+          userNftItems={userNftItems}
+          user={user}
+        />
       )}
     </>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { NftCollection } from "../scripts/fetchUserData";
+import type { NftCollection, User } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import { mintNft } from "../scripts/mintNft";
 import { type Attribute } from "../scripts/mintNft";
@@ -7,7 +7,7 @@ import { type Attribute } from "../scripts/mintNft";
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
   userNftCollections: NftCollection[] | undefined;
-  userBalance: number | undefined;
+  user: User | undefined;
 };
 
 const MAX_FILE_SIZE = 99 * 1024; // 99 KB
@@ -15,7 +15,7 @@ const MAX_FILE_SIZE = 99 * 1024; // 99 KB
 const CreateNftPage = ({
   setActivePage,
   userNftCollections,
-  userBalance,
+  user,
 }: CreateNftPageProps) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -103,7 +103,7 @@ const CreateNftPage = ({
   };
 
   return (
-    <div className="absolute right-[50%] translate-x-[50%] top-0 w-full h-full text-[17px] bg-black">
+    <div className="absolute right-[50%] translate-x-[50%] min-w-94 top-0 w-full h-full text-[17px] bg-black">
       <button
         className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{
@@ -220,7 +220,7 @@ const CreateNftPage = ({
             onChange={setDescriptionFunc}
           />
         </div>
-        <div className="relative flex flex-col space-y-2 ml-4 mt-7 rounded-xl w-[80%]">
+        <div className="relative flex flex-col space-y-2 ml-4 mt-7 rounded-xl w-85">
           {attributeInputs.map((attribute, idx) => (
             <div className="flex gap-2 focus:outline-none">
               <textarea
@@ -256,12 +256,12 @@ const CreateNftPage = ({
             </button>
           </div>
         </div>
-        <div className="relative w-[79%] flex ml-4 mt-15">
+        <div className="relative flex ml-4 mt-15">
           <textarea
             maxLength={50}
             placeholder="Mint message (optionally)"
             onChange={handleFwdMsgChange}
-            className="border p-1.5 w-full border-white/60 rounded-xl max-h-17 min-h-17 focus:outline-none"
+            className="border p-1.5 w-85 border-white/60 rounded-xl max-h-17 min-h-17 focus:outline-none"
           ></textarea>
         </div>
         {isSuccess !== 0 && (
@@ -281,21 +281,21 @@ const CreateNftPage = ({
           </span>
           <span
             className={`absolute top-4.5 left-6 ${
-              userBalance
-                ? userBalance - mintCost < 0
+              user?.nano_ton
+                ? user.nano_ton - mintCost < 0
                   ? "text-red-500/60"
                   : "text-white/20"
                 : "text-white/20"
             } font-mono text-[13px]`}
           >
             Balance after process: {""}
-            {`${userBalance ? fromNano(userBalance - mintCost) : "--"} TON`}
+            {`${user?.nano_ton ? fromNano(user.nano_ton - mintCost) : "--"} TON`}
           </span>
         </div>
         <button
           className={`relative mt-12 w-[90%] h-15 ${
-            userBalance
-              ? userBalance - mintCost < 0
+            user?.nano_ton
+              ? user.nano_ton - mintCost < 0
                 ? "bg-red-500/75"
                 : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
               : isError
@@ -305,8 +305,8 @@ const CreateNftPage = ({
           onClick={async () => {
             console.log("selected collection: ", selectedCollectionAddress);
             if (
-              userBalance
-                ? userBalance > mintCost &&
+              user?.nano_ton
+                ? user.nano_ton > mintCost &&
                   !isError &&
                   name !== "" &&
                   description !== "" &&
@@ -319,7 +319,8 @@ const CreateNftPage = ({
                 description,
                 attributeInputs,
                 fwdMsg,
-                selectedCollectionAddress
+                selectedCollectionAddress,
+                user?.id
               );
               if (res === "OK") {
                 setIsSuccess(1);
@@ -330,8 +331,8 @@ const CreateNftPage = ({
           }}
         >
           <b>{`${
-            userBalance
-              ? userBalance - mintCost < 0
+            user?.nano_ton
+              ? user?.nano_ton - mintCost < 0
                 ? "Not enough TON"
                 : "Mint"
               : isError
