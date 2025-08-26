@@ -14,7 +14,7 @@ const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
   const [hasAttributes, setHasAttributes] = useState<boolean>(false);
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
-  const [isWithdraw, setIsWithdraw] = useState(true);
+  const [isWithdraw, setIsWithdraw] = useState(false);
   const [isSuccess, setIsSuccess] = useState(0);
   const [tonConnectUI] = useTonConnectUI();
 
