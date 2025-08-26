@@ -39,20 +39,25 @@ const NftCardPage = ({
   }, []);
 
   return (
-    <div className="absolute w-full h-full top-0 left-0 bg-black">
-      <button
-        className="absolute top-4 left-4 bg-[#282828] w-22 h-8 font-semibold rounded-full z-1"
-        style={{
-          boxShadow: "0 2px 5px #000000D1",
-        }}
-        onClick={() => {
-          setActivePage(0);
-        }}
-      >
-        {"< Back"}
-      </button>
-      <div>
-        <img src={nftItem?.metadata.image} className="relative rounded-b-4xl" />
+    <div className="absolute w-full h-full min-w-80 max-w-150 top-0 left-0 bg-black">
+      <div className="flex w-full p-4">
+        <button
+          className="bg-[#282828] w-22 h-8 font-semibold rounded-full z-1"
+          style={{
+            boxShadow: "0 2px 5px #000000D1",
+          }}
+          onClick={() => {
+            setActivePage(0);
+          }}
+        >
+          {"< Back"}
+        </button>
+      </div>
+      <div className="flex w-full">
+        <img
+          src={nftItem?.metadata.image}
+          className="relative w-full rounded-4xl object-cover"
+        />
       </div>
       <div className="flex flex-col w-full justify-center">
         <div className="flex flex-col items-start w-full h-25 mt-3 rounded-4xl bg-white/13">
@@ -144,7 +149,7 @@ const NftCardPage = ({
         {connected}
       </div>
       <div
-        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
+        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-1000 overflow-y-hidden bg-black transition-opacity duration-400 ease-in-out z-[3000] 
           ${isTransition ? "opacity-0" : "opacity-100"} 
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}
