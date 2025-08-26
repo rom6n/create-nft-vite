@@ -149,14 +149,14 @@ const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
           </div>
         )}
         {tonConnectUI.account?.address &&
-          WebApp.initDataUnsafe.user?.id &&
+          //WebApp.initDataUnsafe.user?.id &&
           nftItem?.address && (
             <button
-              className={`flex items-center justify-center mt-2 mb-2 w-full h-20 ${
+              className={`flex items-center transition-colors duration-200 justify-center mt-2 mb-2 w-full h-20 ${
                 isSuccess === 1
                   ? "bg-green-600/90"
                   : isSuccess === 2
-                  ? "bg-red-600/80"
+                  ? "bg-red-600/70"
                   : "bg-sky-600"
               } rounded-4xl`}
               onClick={
