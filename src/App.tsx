@@ -12,7 +12,6 @@ import {
 import WebApp from "@twa-dev/sdk";
 import CreateNftPage from "./pages/create_nft";
 import NftCardPage from "./pages/nft_card_page";
-import { useTonConnectUI } from "@tonconnect/ui-react";
 
 function App() {
   const [user, setUser] = useState<User | undefined>();
@@ -22,7 +21,6 @@ function App() {
   const [selectedNft, setSelectedNft] = useState<NftItem>();
   const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
-  const [tonConnectUI] = useTonConnectUI();
 
   useEffect(() => {
     const fetchUser = async () => {
