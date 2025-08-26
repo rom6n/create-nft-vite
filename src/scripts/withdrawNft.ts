@@ -10,9 +10,10 @@ export async function withdrawNftItem(
       method: "GET",
     }
   );
-  if (res.status === 400) {
-    console.log(await res.text());
-    return "Error";
+  if (res.status !== 200) {
+    const resultMsg = await res.text();
+    console.log(resultMsg);
+    return resultMsg;
   }
   return "OK";
 }

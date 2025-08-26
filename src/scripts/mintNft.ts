@@ -22,7 +22,6 @@ export async function mintNft(
 ) {
   let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
-  alert("got 1");
 
   if (image) {
     const res1 = await fetch(
@@ -43,7 +42,6 @@ export async function mintNft(
 
     uploadedImageURL = `https://gateway.irys.xyz/${image_txid}`;
   }
-  alert("got 2");
 
   const metadata = JSON.stringify({
     name: name,
@@ -68,7 +66,6 @@ export async function mintNft(
     console.log(`${metadata_txid}`);
     return "Error";
   }
-  alert("got 3");
 
   uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
 
@@ -84,8 +81,6 @@ export async function mintNft(
       method: "GET",
     }
   );
-
-  alert("got 4");
 
   const contentType = res3.headers.get("content-type");
 

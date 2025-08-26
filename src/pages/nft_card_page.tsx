@@ -16,6 +16,7 @@ const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
   const [isWithdraw, setIsWithdraw] = useState(false);
   const [isSuccess, setIsSuccess] = useState(0);
+  const [error, setError] = useState("");
   const [tonConnectUI] = useTonConnectUI();
 
   function wait(millisecond: number): Promise<void> {
@@ -152,7 +153,7 @@ const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
           WebApp.initDataUnsafe.user?.id &&
           nftItem?.address && (
             <button
-              className={`flex items-center transition-colors duration-200 justify-center mt-2 mb-2 w-full h-20 ${
+              className={`flex items-center transition-colors duration-200 justify-center mt-2 mb-2 w-full min-h-20 ${
                 isSuccess === 1
                   ? "bg-green-600/90"
                   : isSuccess === 2
@@ -171,8 +172,9 @@ const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
                         nftItem.is_testnet
                       );
                       setIsWithdraw(false);
-                      if (result === "Error") {
+                      if (result !== "OK") {
                         setIsSuccess(2);
+                        setError(result);
                         return;
                       }
                       setIsSuccess(1);
@@ -186,7 +188,14 @@ const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
               ) : isSuccess === 1 ? (
                 <span className="text-2xl font-semibold">Success</span>
               ) : isSuccess === 2 ? (
-                <span className="text-2xl font-semibold">Failed</span>
+                <div className="w-full h-full">
+                  <div className="flex w-full h-full items-center justify-center">
+                    <span className="text-2xl font-semibold">Failed</span>
+                  </div>
+                  <span className="text-[10px] max-w-100 font-semibold">
+                    {error}
+                  </span>
+                </div>
               ) : (
                 <span className="text-2xl font-semibold">Withdraw</span>
               )}
