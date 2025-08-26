@@ -60,11 +60,7 @@ function App() {
           user={user}
         />
       ) : activePage === 2 ? (
-        <NftCardPage
-          setActivePage={setActivePage}
-          nftItem={selectedNft}
-          connected={tonConnectUI.connected}
-        />
+        <NftCardPage setActivePage={setActivePage} nftItem={selectedNft} />
       ) : (
         <MainPage
           setActivePage={setActivePage}

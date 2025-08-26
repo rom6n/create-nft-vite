@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import type { NftItem } from "../scripts/fetchUserData";
+import LoadingIcon from "../component/loadingIcon";
+import { withdrawNftItem } from "../scripts/withdrawNft";
+import { useTonConnectUI } from "@tonconnect/ui-react";
+import WebApp from "@twa-dev/sdk";
 
 type NftCardPageProps = {
-  connected: boolean;
   nftItem: NftItem | undefined;
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const NftCardPage = ({
-  connected,
-  nftItem,
-  setActivePage,
-}: NftCardPageProps) => {
+const NftCardPage = ({ nftItem, setActivePage }: NftCardPageProps) => {
   const [hasAttributes, setHasAttributes] = useState<boolean>(false);
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+  const [isWithdraw, setIsWithdraw] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(0);
+  const [tonConnectUI] = useTonConnectUI();
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -146,7 +148,50 @@ const NftCardPage = ({
             )}
           </div>
         )}
-        {connected}
+        {tonConnectUI.account?.address &&
+          WebApp.initDataUnsafe.user?.id &&
+          nftItem?.address && (
+            <button
+              className={`flex items-center justify-center mt-2 mb-2 w-full h-20 ${
+                isSuccess === 1
+                  ? "bg-green-600/90"
+                  : isSuccess === 2
+                  ? "bg-red-600/80"
+                  : "bg-sky-600"
+              } rounded-4xl`}
+              onClick={
+                isWithdraw
+                  ? () => {}
+                  : async () => {
+                      setIsWithdraw(true);
+                      const result = await withdrawNftItem(
+                        nftItem?.address,
+                        tonConnectUI.account?.address,
+                        WebApp.initDataUnsafe.user?.id,
+                        nftItem.is_testnet
+                      );
+                      setIsWithdraw(false);
+                      if (result === "Error") {
+                        setIsSuccess(2);
+                        return;
+                      }
+                      setIsSuccess(1);
+                    }
+              }
+            >
+              {isWithdraw ? (
+                <div className="w-10 h-10">
+                  <LoadingIcon />
+                </div>
+              ) : isSuccess === 1 ? (
+                <span className="text-2xl font-semibold">Success</span>
+              ) : isSuccess === 2 ? (
+                <span className="text-2xl font-semibold">Failed</span>
+              ) : (
+                <span className="text-2xl font-semibold">Withdraw</span>
+              )}
+            </button>
+          )}
       </div>
       <div
         className={`absolute left-0 top-0 bottom-0 right-0 w-full h-1000 overflow-y-hidden bg-black transition-opacity duration-400 ease-in-out z-[3000] 
