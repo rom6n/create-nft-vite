@@ -3,6 +3,7 @@ import type { NftCollection, User } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import { mintNft } from "../scripts/mintNft";
 import { type Attribute } from "../scripts/mintNft";
+import LoadingIcon from "../component/loadingIcon";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -31,6 +32,8 @@ const CreateNftPage = ({
   const [isError, setIsError] = useState(false);
   const [imageByte, setImageByte] = useState<File>();
   const [isSuccess, setIsSuccess] = useState(0);
+  const [isMinting, setIsMinting] = useState(false);
+  const [error, setError] = useState("");
   const [attributeInputs, setAttributeInputs] = useState<Attribute[]>([
     {
       trait_type: "",
@@ -84,6 +87,7 @@ const CreateNftPage = ({
       const file = e.target.files[0];
       if (file.size > MAX_FILE_SIZE) {
         setIsError(true);
+        setError("max image size is 100KB");
         setImage(URL.createObjectURL(file));
         console.log("image size is more than limit");
         return;
@@ -289,56 +293,78 @@ const CreateNftPage = ({
             } font-mono text-[13px]`}
           >
             Balance after process: {""}
-            {`${user?.nano_ton ? fromNano(user.nano_ton - mintCost) : "--"} TON`}
+            {`${
+              user?.nano_ton ? fromNano(user.nano_ton - mintCost) : "--"
+            } TON`}
           </span>
         </div>
         <button
           className={`relative mt-12 w-[90%] h-15 ${
-            user?.nano_ton
+            isError
+              ? "bg-red-600/70"
+              : isSuccess === 1
+              ? "bg-green-600/90"
+              : isSuccess === 2
+              ? "bg-red-600/70"
+              : user?.nano_ton
               ? user.nano_ton - mintCost < 0
                 ? "bg-red-500/75"
                 : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
-              : isError
-              ? "bg-red-500/75"
               : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
           } rounded-2xl text-[20px] cursor-pointer`}
           onClick={async () => {
             console.log("selected collection: ", selectedCollectionAddress);
-            if (
-              user?.nano_ton
-                ? user.nano_ton > mintCost &&
-                  !isError &&
-                  name !== "" &&
-                  description !== "" &&
-                  image !== ""
-                : false
-            ) {
-              const res = await mintNft(
-                imageByte,
-                name,
-                description,
-                attributeInputs,
-                fwdMsg,
-                selectedCollectionAddress,
-                user?.id
-              );
-              if (res === "OK") {
-                setIsSuccess(1);
-              } else {
-                setIsSuccess(2);
+            if (!isMinting) {
+              if (user?.nano_ton ? user.nano_ton > mintCost : false) {
+                if (!isError) {
+                  setIsMinting(true);
+                  const res = await mintNft(
+                    imageByte,
+                    name,
+                    description,
+                    attributeInputs,
+                    fwdMsg,
+                    selectedCollectionAddress,
+                    user?.id
+                  );
+                  setIsMinting(false);
+                  if (res !== "OK") {
+                    setError(res);
+                    setIsSuccess(2);
+                    return;
+                  }
+                  setIsSuccess(1);
+                }
               }
-            } else alert("Impossible");
+            }
           }}
         >
-          <b>{`${
-            user?.nano_ton
-              ? user?.nano_ton - mintCost < 0
-                ? "Not enough TON"
-                : "Mint"
-              : isError
-              ? "Image max size is 100KB"
-              : "Mint"
-          }`}</b>
+          <b>
+            {isMinting ? (
+              <div className="w-10 h-10">
+                <LoadingIcon />
+              </div>
+            ) : isSuccess === 1 ? (
+              <span className="text-2xl font-semibold">Success</span>
+            ) : isSuccess === 2 ? (
+              <div className="w-full h-full">
+                <div className="flex w-full h-full items-center justify-center">
+                  <span className="text-2xl font-semibold">Failed</span>
+                </div>
+                <span className="text-[10px] max-w-100 font-semibold">
+                  {error}
+                </span>
+              </div>
+            ) : user?.nano_ton ? (
+              user.nano_ton - mintCost < 0 ? (
+                <span className="text-2xl font-semibold">Not enough TON</span>
+              ) : (
+                <span className="text-2xl font-semibold">Mint</span>
+              )
+            ) : (
+              <span className="text-2xl font-semibold">Mint</span>
+            )}
+          </b>
         </button>
       </div>
       <div
