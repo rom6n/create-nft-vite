@@ -22,7 +22,6 @@ export async function mintNft(
 ) {
   let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
-
   if (image) {
     const res1 = await fetch(
       `https://create-nft-node.onrender.com/api/upload-image`,
@@ -42,7 +41,6 @@ export async function mintNft(
 
     uploadedImageURL = `https://gateway.irys.xyz/${image_txid}`;
   }
-
   const metadata = JSON.stringify({
     name: name,
     image: uploadedImageURL,
@@ -50,7 +48,6 @@ export async function mintNft(
     description: description,
     external_url: "",
   });
-
   const res2 = await fetch(
     `https://create-nft-node.onrender.com/api/upload-metadata`,
     {
@@ -66,7 +63,6 @@ export async function mintNft(
     console.log(`${metadata_txid}`);
     return "Error";
   }
-
   uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
 
   const res3 = await fetch(
@@ -81,7 +77,6 @@ export async function mintNft(
       method: "GET",
     }
   );
-
   const contentType = res3.headers.get("content-type");
 
   if (!contentType?.includes("application/json")) {

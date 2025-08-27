@@ -12,6 +12,7 @@ import {
 import WebApp from "@twa-dev/sdk";
 import CreateNftPage from "./pages/create_nft";
 import NftCardPage from "./pages/nft_card_page";
+import { pingServers } from "./scripts/pingServers";
 
 function App() {
   const [user, setUser] = useState<User | undefined>();
@@ -24,6 +25,7 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
+      await pingServers();
       // Если WebApp.initDataUnsafe.user уже есть, используем его
       if (WebApp.initDataUnsafe.user?.id) {
         const userID = WebApp.initDataUnsafe.user.id;

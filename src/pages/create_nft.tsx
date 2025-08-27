@@ -268,17 +268,6 @@ const CreateNftPage = ({
             className="border p-1.5 w-85 border-white/60 rounded-xl max-h-17 min-h-17 focus:outline-none"
           ></textarea>
         </div>
-        {isSuccess !== 0 && (
-          <div
-            className={`absolute right-[50%] translate-x-[50%] mt-10 ${
-              isSuccess === 1 ? "text-green-500" : "text-red-500/90"
-            } text-xl font-semibold`}
-          >
-            <span>
-              {isSuccess === 1 ? "Successfully minted" : "Error minting"}
-            </span>
-          </div>
-        )}
         <div className="relative mt-15 w-full">
           <span className="absolute top-0 left-6 text-white/20 font-mono text-[13px]">
             {`Cost: ${fromNano(mintCost)} TON`}
@@ -298,74 +287,80 @@ const CreateNftPage = ({
             } TON`}
           </span>
         </div>
-        <button
-          className={`relative mt-12 w-[90%] h-15 ${
-            isError
-              ? "bg-red-600/70"
-              : isSuccess === 1
-              ? "bg-green-600/90"
-              : isSuccess === 2
-              ? "bg-red-600/70"
-              : user?.nano_ton
-              ? user.nano_ton - mintCost < 0
-                ? "bg-red-500/75"
+        <div className="w-full flex items-center justify-center">
+          <button
+            className={`relative flex items-center transition-colors duration-200 justify-center mt-11 mb-1 w-[90%] min-h-15 ${
+              isError
+                ? "bg-red-600/70"
+                : isSuccess === 1
+                ? "bg-green-600/90"
+                : isSuccess === 2
+                ? "bg-red-600/70"
+                : user?.nano_ton
+                ? user.nano_ton - mintCost < 0
+                  ? "bg-red-500/75"
+                  : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
                 : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
-              : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
-          } rounded-2xl text-[20px] cursor-pointer`}
-          onClick={async () => {
-            console.log("selected collection: ", selectedCollectionAddress);
-            if (!isMinting) {
-              if (user?.nano_ton ? user.nano_ton > mintCost : false) {
-                if (!isError) {
-                  setIsMinting(true);
-                  const res = await mintNft(
-                    imageByte,
-                    name,
-                    description,
-                    attributeInputs,
-                    fwdMsg,
-                    selectedCollectionAddress,
-                    user?.id
-                  );
-                  setIsMinting(false);
-                  if (res !== "OK") {
-                    setError(res);
-                    setIsSuccess(2);
-                    return;
+            } rounded-2xl text-[20px] cursor-pointer`}
+            onClick={async () => {
+              console.log("selected collection: ", selectedCollectionAddress);
+              if (!isMinting) {
+                if (user?.nano_ton ? user.nano_ton > mintCost : false) {
+                  if (!isError) {
+                    setIsMinting(true);
+                    const res = await mintNft(
+                      imageByte,
+                      name,
+                      description,
+                      attributeInputs,
+                      fwdMsg,
+                      selectedCollectionAddress,
+                      user?.id
+                    );
+                    setIsMinting(false);
+                    if (res !== "OK") {
+                      setError(res);
+                      setIsSuccess(2);
+                      return;
+                    }
+                    setIsSuccess(1);
                   }
-                  setIsSuccess(1);
                 }
               }
-            }
-          }}
-        >
-          <b>
-            {isMinting ? (
-              <div className="w-10 h-10">
-                <LoadingIcon />
-              </div>
-            ) : isSuccess === 1 ? (
-              <span className="text-2xl font-semibold">Success</span>
-            ) : isSuccess === 2 ? (
-              <div className="w-full h-full">
-                <div className="flex w-full h-full items-center justify-center">
-                  <span className="text-2xl font-semibold">Failed</span>
+            }}
+          >
+            <b>
+              {isMinting ? (
+                <div className="w-10 h-10">
+                  <LoadingIcon />
                 </div>
-                <span className="text-[10px] max-w-100 font-semibold">
-                  {error}
+              ) : isError ? (
+                <span className="text-2xl font-semibold">
+                  Max image size is 100KB
                 </span>
-              </div>
-            ) : user?.nano_ton ? (
-              user.nano_ton - mintCost < 0 ? (
-                <span className="text-2xl font-semibold">Not enough TON</span>
+              ) : isSuccess === 1 ? (
+                <span className="text-2xl font-semibold">Success</span>
+              ) : isSuccess === 2 ? (
+                <div className="w-full h-full">
+                  <div className="flex w-full h-full items-center justify-center">
+                    <span className="text-2xl font-semibold">Failed</span>
+                  </div>
+                  <span className="text-[10px] max-w-100 font-semibold">
+                    {error}
+                  </span>
+                </div>
+              ) : user?.nano_ton ? (
+                user.nano_ton - mintCost < 0 ? (
+                  <span className="text-2xl font-semibold">Not enough TON</span>
+                ) : (
+                  <span className="text-2xl font-semibold">Mint</span>
+                )
               ) : (
                 <span className="text-2xl font-semibold">Mint</span>
-              )
-            ) : (
-              <span className="text-2xl font-semibold">Mint</span>
-            )}
-          </b>
-        </button>
+              )}
+            </b>
+          </button>
+        </div>
       </div>
       <div
         className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
