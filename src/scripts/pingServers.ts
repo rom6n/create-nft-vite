@@ -6,4 +6,6 @@ export async function pingServers() {
   await fetch(`https://create-nft-node.onrender.com/ping`, {
     method: "GET",
   });
+
+  return;
 }

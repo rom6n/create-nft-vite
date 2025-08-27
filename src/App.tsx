@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      await pingServers();
+      pingServers();
       // Если WebApp.initDataUnsafe.user уже есть, используем его
       if (WebApp.initDataUnsafe.user?.id) {
         const userID = WebApp.initDataUnsafe.user.id;
@@ -60,11 +60,16 @@ function App() {
           user={user}
         />
       ) : activePage === 2 ? (
-        <NftCardPage setActivePage={setActivePage} nftItem={selectedNft} />
+        <NftCardPage
+          setActivePage={setActivePage}
+          nftItem={selectedNft}
+          userBalance={user?.nano_ton}
+        />
       ) : (
         <MainPage
           setActivePage={setActivePage}
           userNftItems={userNftItems}
+          userCollections={userCollections}
           user={user}
           setSelectedNft={setSelectedNft}
         />

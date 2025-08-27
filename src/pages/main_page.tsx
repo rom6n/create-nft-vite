@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import BalanceCard from "../component/balanceCard";
 import Feed from "../component/feed";
-import { type NftItem, type User } from "../scripts/fetchUserData";
+import {
+  type NftCollection,
+  type NftItem,
+  type User,
+} from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import "../styles/main_page.style.css";
 import DepositCard from "../component/depositCard";
@@ -12,6 +16,7 @@ type MainPageProps = {
   user: User | undefined;
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
   userNftItems: NftItem[] | undefined;
+  userCollections: NftCollection[] | undefined;
   setSelectedNft: React.Dispatch<React.SetStateAction<NftItem | undefined>>;
 };
 
@@ -20,6 +25,7 @@ function MainPage({
   setActivePage,
   userNftItems,
   setSelectedNft,
+  userCollections,
 }: MainPageProps) {
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
@@ -57,6 +63,7 @@ function MainPage({
         <Feed
           setActivePage={setActivePage}
           userNftItems={userNftItems}
+          userNftCollections={userCollections}
           setSelectedNft={setSelectedNft}
         />
       </div>

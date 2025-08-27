@@ -1,13 +1,19 @@
 import { useState } from "react";
-import type { NftItem } from "../scripts/fetchUserData";
+import type { NftCollection, NftItem } from "../scripts/fetchUserData";
 
 type FeedProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
   userNftItems: NftItem[] | undefined;
+  userNftCollections: NftCollection[] | undefined;
   setSelectedNft: React.Dispatch<React.SetStateAction<NftItem | undefined>>;
 };
 
-const Feed = ({ setActivePage, userNftItems, setSelectedNft }: FeedProps) => {
+const Feed = ({
+  setActivePage,
+  userNftItems,
+  setSelectedNft,
+  userNftCollections,
+}: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
 
   return (
@@ -119,23 +125,83 @@ const Feed = ({ setActivePage, userNftItems, setSelectedNft }: FeedProps) => {
         </div>
       )}
       <button
-        disabled={true}
         className={`select-nft-collections ${activeNav === 2 ? "active" : ""}`}
         onClick={() => {
-          //setActiveNav(2);
+          setActiveNav(2);
         }}
       >
         Collections
       </button>
       {activeNav === 2 && (
-        <button className="absolute group cursor-pointer top-20 left-4 bg-white/15 w-35 h-35 rounded-xl border-[2px] border-sky-200 hover:bg-white/20">
-          <p className="absolute top-[-10px] right-[50%] translate-x-[50%] text-white text-[90px] font-semibold">
-            +
-            <span className="absolute text-[10px] text-white/20 top-27 right-[50%] translate-x-[50%] w-27 font-semibold group-hover:text-white">
-              Create your own Collection of NFTs
-            </span>
-          </p>
-        </button>
+        <div className="flex flex-col gap-2 w-full items-center">
+          <button className="flex items-center w-[94%] h-25 mt-17 group cursor-pointer bg-white/25 rounded-xl border-[1px] border-white/50 hover:bg-white/35 hover:border-white">
+            <div className="flex w-[33%] h-full items-center justify-center rounded-l-xl border-r-[1px] border-white/50">
+              <span className="text-6xl mb-2 font-semibold">+</span>
+            </div>
+            <div className="flex flex-col items-start w-[67%] h-full ">
+              <span className="mt-1.5 ml-2 font-semibold text-lg">
+                Create new Collection
+              </span>
+              <span className="ml-2 mr-2 text-left text-[9px] font-semibold text-white/30">
+                You can create your own fully decentralized NFT Collection with
+                no commission
+              </span>
+              <div className="flex ml-2 mt-2.5 gap-1 w-full">
+                <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-black/60 rounded-full text-[10px] font-semibold">
+                  4152 items
+                </div>
+                <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-blue-500/60 rounded-full text-[10px] font-semibold">
+                  Decentralized
+                </div>
+                <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-orange-500/60 rounded-full text-[10px] font-semibold">
+                  Devnet
+                </div>
+              </div>
+            </div>
+          </button>
+          {userNftCollections?.map((value) => (
+            <button className="flex items-center w-[94%] h-25 group cursor-pointer bg-white/13 rounded-xl border-[1px] border-white/50">
+              <div className="flex w-[33%] h-full items-center justify-center rounded-l-xl border-r-[1px] border-white/50">
+                <img
+                  src={value.metadata.image}
+                  className="h-full w-full object-cover rounded-l-xl"
+                />
+              </div>
+              <div className="flex pt-1.5 flex-col justify-around items-start w-[67%] h-full ">
+                <div className="flex flex-col min-h-[50%] max-h-[50%] items-start">
+                  <span className="ml-2 font-semibold text-lg">
+                    {value.metadata.name}
+                  </span>
+                  <span className="ml-2 mr-2 text-left text-[9px] font-semibold text-white/30">
+                    {value.metadata.description
+                      ? value.metadata.description.slice(0, 100)
+                      : ""}
+                  </span>
+                </div>
+                <div className="flex pb-1.5 items-end ml-2 w-full min-h-[50%] max-h-[50%] gap-1">
+                  <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-black/60 rounded-full text-[10px] font-semibold">
+                    {value.next_item_index ? value.next_item_index - 1 : "--"}{" "}
+                    items
+                  </div>
+                  <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-blue-500/60 rounded-full text-[10px] font-semibold">
+                    {value.metadata.marketplace
+                      ? value.metadata.marketplace === "my-store.io"
+                        ? "Decentralized"
+                        : "Centralized"
+                      : "Centralized"}
+                  </div>
+                  <div
+                    className={`flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center ${
+                      value.is_testnet ? "bg-red-500/70" : "bg-sky-600"
+                    } rounded-full text-[10px] font-semibold`}
+                  >
+                    {value.is_testnet ? "Testnet" : "Mainnet"}
+                  </div>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
       )}
       <div className="absolute w-[100%] bg-[#2d2c2c] h-0.5 top-[55px]" />
       {activeNav === 1 ? (
