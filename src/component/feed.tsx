@@ -135,7 +135,7 @@ const Feed = ({
       {activeNav === 2 && (
         <div className="flex flex-col gap-2 w-full items-center">
           <button
-            className="flex items-center w-[94%] h-25 mt-17 group cursor-pointer bg-white/25 rounded-xl border-[1px] border-white/50 hover:bg-white/35 hover:border-white"
+            className="flex items-center w-[94%] h-25 mt-17 group cursor-pointer bg-white/25 rounded-xl border-[1px] border-white/50"
             onClick={() => {
               setActivePage(3);
             }}

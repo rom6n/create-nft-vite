@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { User } from "../scripts/fetchUserData";
 import UploadImageIcon from "../component/uploadImage";
 
@@ -7,7 +7,7 @@ type CreateCollectionPageProps = {
   user: User | undefined;
 };
 
-const MAX_FILE_SIZE = 99000 * 1024; // 99 KB
+const MAX_FILE_SIZE = 99 * 1024; // 99 KB
 
 const CreateCollectionPage = ({
   setActivePage,
@@ -21,10 +21,30 @@ const CreateCollectionPage = ({
   const [name, setName] = useState("My Collection");
   const [description, setDescription] = useState("My decentralized collection");
   const [error, setError] = useState("");
-  const [links, setLinks] = useState<string[]>(["https://", "fe"]);
+  const [links, setLinks] = useState<string[]>(["https://"]);
+  const [isTransition, setIsTransition] = useState(false);
+  const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+  const [numerator, setNumerator] = useState(0);
+  const [denominator, setDenominator] = useState(0);
 
   // To delete errors
   console.log(isError, imageByte, coverImageByte, error, user);
+
+  const HandleNumeratorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newNumber = Number(e.target.value);
+    if (isNaN(newNumber) || newNumber > 65535 || newNumber > denominator) {
+      return;
+    }
+    setNumerator(newNumber);
+  };
+
+  const HandleDenominatorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newNumber = Number(e.target.value);
+    if (isNaN(newNumber) || newNumber > 65535) {
+      return;
+    }
+    setDenominator(newNumber);
+  };
 
   const HandleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -46,6 +66,9 @@ const CreateCollectionPage = ({
   };
 
   const addLinks = () => {
+    if (links.length >= 30) {
+      return;
+    }
     setLinks([...links, ""]);
   };
 
@@ -88,6 +111,20 @@ const CreateCollectionPage = ({
       setCoverImage(URL.createObjectURL(file));
     }
   };
+
+  function wait(millisecond: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, millisecond));
+  }
+
+  useEffect(() => {
+    (async () => {
+      await wait(50);
+      setIsTransition(true);
+      return;
+    })();
+    // запускаем анимацию сразу после монтирования
+  }, []);
+
   return (
     <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] min-w-94 top-0 w-full text-[17px] bg-[#101010]">
       <button
@@ -99,7 +136,7 @@ const CreateCollectionPage = ({
           setActivePage(0);
         }}
       >{`< Back`}</button>
-      <div className="flex w-[93%] h-40 mt-17 items-center justify-center rounded-2xl border-2 border-[#636363]">
+      <div className="flex w-[93%] h-45 mt-17 items-center justify-center rounded-2xl border-2 border-[#636363]">
         <label className="flex w-full h-full items-center justify-center rounded-2xl bg-[#3c3c3c] cursor-pointer">
           {coverImage ? (
             <img
@@ -120,7 +157,7 @@ const CreateCollectionPage = ({
           />
         </label>
       </div>
-      <div className="absolute flex w-35 h-35 top-40 left-10 items-center justify-center rounded-2xl border-2 border-[#636363]">
+      <div className="absolute flex w-35 h-35 top-43 left-10 items-center justify-center rounded-2xl border-2 border-[#636363]">
         <label className="flex w-full h-full items-center justify-center rounded-2xl bg-[#4b4b4b] cursor-pointer">
           {image ? (
             <img
@@ -142,7 +179,7 @@ const CreateCollectionPage = ({
         </label>
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-22 font-semibold text-sm text-white/40">
+        <span className="ml-5 mt-21 font-semibold text-sm text-white/40">
           Name
         </span>
         <input
@@ -150,7 +187,7 @@ const CreateCollectionPage = ({
           value={name}
           onChange={HandleNameChange}
           maxLength={150}
-          className="w-[70%] ml-3 mt-1 p-1.5 border bg-white/20 font-semibold text-xl border-white/0 rounded-xl focus:outline-0"
+          className="w-[70%] ml-3 mt-1 p-1.5 border bg-white/20 text-lg border-white/0 rounded-xl focus:outline-0"
         />
       </div>
       <div className="flex flex-col w-full text-start">
@@ -162,14 +199,14 @@ const CreateCollectionPage = ({
           rows={3}
           onChange={HandleDescriptionChange}
           maxLength={600}
-          className="w-[70%] ml-3 mt-1 p-1.5 border bg-white/20 resize-none font-semibold text-lg border-white/0 rounded-xl focus:outline-0"
+          className="w-[70%] ml-3 mt-1 p-1.5 border bg-white/20 resize-none text-md border-white/0 rounded-xl focus:outline-0"
         />
       </div>
-      <div className="flex flex-col w-full mt-5 font-semibold">
+      <div className="flex flex-col w-full mt-5">
         <span className="ml-5 font-semibold text-sm text-start text-white/40">
           Links
         </span>
-        <div className="flex flex-col w-full mt-1 gap-3 font-semibold">
+        <div className="flex flex-col w-full max-h-30 overflow-y-auto mt-1 gap-2.5">
           {links.map((value, idx) => (
             <div className="flex gap-1 ml-3">
               <input
@@ -180,7 +217,7 @@ const CreateCollectionPage = ({
                 onChange={(e) => {
                   HandleLinksChange(e, idx);
                 }}
-                className="w-[72%] p-1.5 bg-white/20 rounded-xl text-lg focus:outline-none"
+                className="w-[72%] p-1.5 bg-white/20 rounded-xl text-md focus:outline-none"
               />
               {links.length - 1 === idx && (
                 <button
@@ -205,12 +242,48 @@ const CreateCollectionPage = ({
             </div>
           ))}
         </div>
-        <div className="w-full mt-10 pb-3">
-          <button className="w-[93%] h-16 bg-sky-600 rounded-full text-2xl font-semibold">
-            Create
-          </button>
-        </div>
       </div>
+      <div className="flex flex-col w-full text-start">
+        <span className="ml-5 mt-5 font-semibold text-sm text-white/40">
+          Royalty params
+        </span>
+        <div className="flex ml-3 w-[40%] gap-5">
+          <input
+            type="text"
+            value={numerator}
+            onChange={HandleNumeratorChange}
+            maxLength={150}
+            className="w-[70%] mt-1 p-1.5 border bg-white/20 text-lg border-white/0 rounded-xl focus:outline-0"
+          />
+          <span className="absolute text-3xl right-[77%] translate-x-[50%]">
+            :
+          </span>
+          <input
+            type="text"
+            value={denominator}
+            onChange={HandleDenominatorChange}
+            maxLength={150}
+            className="w-[70%] mt-1 p-1.5 border bg-white/20 text-lg border-white/0 rounded-xl focus:outline-0"
+          />
+        </div>
+        <span className="ml-5 mt-2 font-semibold text-md text-white/40">
+          {numerator / denominator
+            ? ((numerator / denominator) * 100).toFixed(3)
+            : 0}
+          %
+        </span>
+      </div>
+      <div className="w-full mt-10 pb-3">
+        <button className="w-[93%] h-16 bg-sky-600 rounded-full text-2xl font-semibold">
+          Create
+        </button>
+      </div>
+      <div
+        className={`absolute left-0 top-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 
+          ${isTransition ? "opacity-0" : "opacity-100"} 
+          ${isTransitionEnded ? "hidden" : ""}`}
+        onTransitionEnd={() => setIsTransitionEnded(true)}
+      />
     </div>
   );
 };
