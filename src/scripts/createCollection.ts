@@ -4,7 +4,7 @@ export async function mintNft(
   name: string,
   description: string,
   links: string[],
-  fwdMsg: string,
+  //fwdMsg: string,
   royaltyDividend: number,
   royaltyDivisor: number,
   userId: number | undefined
