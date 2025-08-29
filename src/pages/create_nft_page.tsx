@@ -63,7 +63,7 @@ const CreateNftPage = ({
     setAttributeInputs(newInputs);
   };
 
-  const mintCost = 100000000;
+  const mintCost = 85000000;
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -274,7 +274,7 @@ const CreateNftPage = ({
           </span>
           <span
             className={`absolute top-4.5 left-6 ${
-              user?.nano_ton
+              user?.nano_ton || user?.nano_ton === 0
                 ? user.nano_ton - mintCost < 0
                   ? "text-red-500/60"
                   : "text-white/20"
@@ -283,7 +283,9 @@ const CreateNftPage = ({
           >
             Balance after process: {""}
             {`${
-              user?.nano_ton ? fromNano(user.nano_ton - mintCost) : "--"
+              user?.nano_ton || user?.nano_ton === 0
+                ? fromNano(user.nano_ton - mintCost)
+                : "--"
             } TON`}
           </span>
         </div>
@@ -296,7 +298,7 @@ const CreateNftPage = ({
                 ? "bg-green-600/90"
                 : isSuccess === 2
                 ? "bg-red-600/70"
-                : user?.nano_ton
+                : user?.nano_ton || user?.nano_ton === 0
                 ? user.nano_ton - mintCost < 0
                   ? "bg-red-500/75"
                   : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
@@ -305,7 +307,11 @@ const CreateNftPage = ({
             onClick={async () => {
               console.log("selected collection: ", selectedCollectionAddress);
               if (!isMinting) {
-                if (user?.nano_ton ? user.nano_ton > mintCost : false) {
+                if (
+                  user?.nano_ton || user?.nano_ton === 0
+                    ? user.nano_ton > mintCost
+                    : false
+                ) {
                   if (!isError) {
                     setIsMinting(true);
                     const res = await mintNft(
@@ -349,7 +355,7 @@ const CreateNftPage = ({
                     {error}
                   </span>
                 </div>
-              ) : user?.nano_ton ? (
+              ) : user?.nano_ton || user?.nano_ton === 0 ? (
                 user.nano_ton - mintCost < 0 ? (
                   <span className="text-2xl font-semibold">Not enough TON</span>
                 ) : (

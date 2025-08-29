@@ -21,6 +21,7 @@
     "@ton/ton": "^15.2.1",
     "@tonconnect/ui-react": "^2.2.0",
     "@twa-dev/sdk": "^8.0.2",
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
     "@vitejs/plugin-react": "^5.0.0",
     "arweave": "^1.10.0",
     "axios": "^1.11.0",

@@ -10,9 +10,12 @@ import {
   type User,
 } from "./scripts/fetchUserData";
 import WebApp from "@twa-dev/sdk";
-import CreateNftPage from "./pages/create_nft";
+import CreateNftPage from "./pages/create_nft_page";
 import NftCardPage from "./pages/nft_card_page";
 import { pingServers } from "./scripts/pingServers";
+import CreateCollectionPage from "./pages/create_collection_page";
+
+WebApp.ready();
 
 function App() {
   const [user, setUser] = useState<User | undefined>();
@@ -65,6 +68,8 @@ function App() {
           nftItem={selectedNft}
           userBalance={user?.nano_ton}
         />
+      ) : activePage === 3 ? (
+        <CreateCollectionPage setActivePage={setActivePage} user={user} />
       ) : (
         <MainPage
           setActivePage={setActivePage}

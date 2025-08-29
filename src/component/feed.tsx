@@ -134,7 +134,12 @@ const Feed = ({
       </button>
       {activeNav === 2 && (
         <div className="flex flex-col gap-2 w-full items-center">
-          <button className="flex items-center w-[94%] h-25 mt-17 group cursor-pointer bg-white/25 rounded-xl border-[1px] border-white/50 hover:bg-white/35 hover:border-white">
+          <button
+            className="flex items-center w-[94%] h-25 mt-17 group cursor-pointer bg-white/25 rounded-xl border-[1px] border-white/50 hover:bg-white/35 hover:border-white"
+            onClick={() => {
+              setActivePage(3);
+            }}
+          >
             <div className="flex w-[33%] h-full items-center justify-center rounded-l-xl border-r-[1px] border-white/50">
               <span className="text-6xl mb-2 font-semibold">+</span>
             </div>
@@ -148,7 +153,7 @@ const Feed = ({
               </span>
               <div className="flex ml-2 mt-2.5 gap-1 w-full">
                 <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-black/60 rounded-full text-[10px] font-semibold">
-                  4152 items
+                  0 items
                 </div>
                 <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-blue-500/60 rounded-full text-[10px] font-semibold">
                   Decentralized

@@ -24,6 +24,18 @@ const NftCardPage = ({
   const [isSuccess, setIsSuccess] = useState(0);
   const [error, setError] = useState("");
   const [tonConnectUI] = useTonConnectUI();
+  const [connected, setConnected] = useState(tonConnectUI.connected);
+
+  // Подписываемся на изменения статуса
+  useEffect(() => {
+    const unsubscribe = tonConnectUI.onStatusChange((status) => {
+      setConnected(
+        status?.account.address !== undefined &&
+          status?.account.address !== null
+      );
+    });
+    return () => unsubscribe();
+  }, [tonConnectUI]);
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -139,7 +151,7 @@ const NftCardPage = ({
           </div>
         </div>
         {hasAttributes && (
-          <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
+          <div className="flex flex-col items-start w-full pb-4 mt-2 mb-2 rounded-4xl bg-white/13">
             {nftItem?.metadata.attributes.map(
               (value) =>
                 value.trait_type && (
@@ -156,66 +168,77 @@ const NftCardPage = ({
           </div>
         )}
         {tonConnectUI.account?.address &&
-          //WebApp.initDataUnsafe.user?.id &&
-          nftItem?.address && (
-            <div className="flex flex-col items-start mt-2 mb-2 w-full min-h-30 rounded-4xl bg-white/13">
-              <div className="flex flex-col ml-5 m-2 text-left text-white/30 font-mono text-[13px] ">
-                <span>Cost 0.05 TON</span>
-                <span>
-                  Balance after process:{" "}
-                  {userBalance ? fromNano(userBalance - 50000000) : "--"} TON
-                </span>
-              </div>
-              <button
-                className={`flex items-center transition-colors duration-200 justify-center w-full min-h-18 ${
-                  isSuccess === 1
-                    ? "bg-green-600/90"
-                    : isSuccess === 2
-                    ? "bg-red-600/70"
-                    : "bg-sky-600"
-                } rounded-4xl`}
-                onClick={
-                  isWithdraw
-                    ? () => {}
-                    : async () => {
-                        setIsWithdraw(true);
-                        const result = await withdrawNftItem(
-                          nftItem?.address,
-                          tonConnectUI.account?.address,
-                          WebApp.initDataUnsafe.user?.id,
-                          nftItem.is_testnet
-                        );
-                        setIsWithdraw(false);
-                        if (result !== "OK") {
-                          setIsSuccess(2);
-                          setError(result);
-                          return;
-                        }
-                        setIsSuccess(1);
-                      }
-                }
-              >
-                {isWithdraw ? (
-                  <div className="w-10 h-10">
-                    <LoadingIcon />
-                  </div>
-                ) : isSuccess === 1 ? (
-                  <span className="text-2xl font-semibold">Success</span>
-                ) : isSuccess === 2 ? (
-                  <div className="w-full h-full">
-                    <div className="flex w-full h-full items-center justify-center">
-                      <span className="text-2xl font-semibold">Failed</span>
-                    </div>
-                    <span className="text-[10px] max-w-100 font-semibold">
-                      {error}
-                    </span>
-                  </div>
-                ) : (
-                  <span className="text-2xl font-semibold">Withdraw</span>
-                )}
-              </button>
+        WebApp.initDataUnsafe.user?.id &&
+        nftItem?.address ? (
+          <div className="flex flex-col items-start mb-2 w-full min-h-30 rounded-4xl bg-white/13">
+            <div className="flex flex-col ml-5 m-2 text-left text-white/30 font-mono text-[13px] ">
+              <span>Cost 0.05 TON</span>
+              <span>
+                Balance after process:{" "}
+                {userBalance ? fromNano(userBalance - 50000000) : "--"} TON
+              </span>
             </div>
-          )}
+            <button
+              className={`flex items-center transition-colors duration-200 justify-center w-full min-h-18 ${
+                isSuccess === 1
+                  ? "bg-green-600/90"
+                  : isSuccess === 2
+                  ? "bg-red-600/70"
+                  : "bg-sky-600"
+              } rounded-4xl`}
+              onClick={
+                isWithdraw
+                  ? () => {}
+                  : async () => {
+                      setIsWithdraw(true);
+                      const result = await withdrawNftItem(
+                        nftItem?.address,
+                        tonConnectUI.account?.address,
+                        WebApp.initDataUnsafe.user?.id,
+                        nftItem.is_testnet
+                      );
+                      setIsWithdraw(false);
+                      if (result !== "OK") {
+                        setIsSuccess(2);
+                        setError(result);
+                        return;
+                      }
+                      setIsSuccess(1);
+                    }
+              }
+            >
+              {isWithdraw ? (
+                <div className="w-10 h-10">
+                  <LoadingIcon />
+                </div>
+              ) : isSuccess === 1 ? (
+                <span className="text-2xl font-semibold">Success</span>
+              ) : isSuccess === 2 ? (
+                <div className="w-full h-full">
+                  <div className="flex w-full h-full items-center justify-center">
+                    <span className="text-2xl font-semibold">Failed</span>
+                  </div>
+                  <span className="text-[10px] max-w-100 font-semibold">
+                    {error}
+                  </span>
+                </div>
+              ) : (
+                <span className="text-2xl font-semibold">Withdraw</span>
+              )}
+            </button>
+          </div>
+        ) : (
+          <button
+            className={`flex items-center mb-2 transition-colors duration-200 justify-center w-full min-h-18 bg-sky-600 rounded-4xl`}
+            onClick={() => {
+              if (!connected) {
+                tonConnectUI.openModal();
+              }
+            }}
+          >
+            <span className="text-2xl font-semibold">Connect Wallet</span>
+          </button>
+        )}
       </div>
       <div
         className={`absolute left-0 top-0 bottom-0 right-0 w-full h-1000 overflow-y-hidden bg-black transition-opacity duration-400 ease-in-out z-[3000] 
