@@ -273,7 +273,7 @@ const CreateCollectionPage = ({
           %
         </span>
       </div>
-      <div className="w-full mt-10 pb-3">
+      <div className="w-full mt-5 pb-3">
         <button className="w-[93%] h-16 bg-sky-600 rounded-full text-2xl font-semibold">
           Create
         </button>
