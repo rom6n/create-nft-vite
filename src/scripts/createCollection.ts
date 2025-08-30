@@ -1,10 +1,9 @@
-export async function mintNft(
+export async function createCollection(
   image: File | undefined,
   coverImage: File | undefined,
   name: string,
   description: string,
   links: string[],
-  //fwdMsg: string,
   royaltyDividend: number,
   royaltyDivisor: number,
   userId: number | undefined
@@ -27,7 +26,7 @@ export async function mintNft(
     const image_txid = await res.text();
     if (res.status !== 200) {
       console.log(`image error: ${image_txid}`);
-      return "Error";
+      return image_txid;
     }
 
     uploadedImageURL = `https://gateway.irys.xyz/${image_txid}`;
@@ -48,7 +47,7 @@ export async function mintNft(
     const image_txid = await res.text();
     if (res.status !== 200) {
       console.log(`cover image error: ${image_txid}`);
-      return "Error";
+      return image_txid;
     }
 
     uploadedCoverImageURL = `https://gateway.irys.xyz/${image_txid}`;
@@ -78,7 +77,7 @@ export async function mintNft(
   const metadata_txid = await res.text();
   if (res.status !== 200) {
     console.log(`${metadata_txid}`);
-    return "Error";
+    return metadata_txid;
   }
   uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
 
@@ -93,10 +92,10 @@ export async function mintNft(
   const contentType = res2.headers.get("content-type");
 
   if (!contentType?.includes("application/json")) {
-    console.log(`error minting NFT: ${await res2.text()}`);
-    alert("error minting NFT");
-    return "Error";
+    const text = await res2.text();
+    console.log(`error creating collection: ${text}`);
+    return text;
   }
 
-  uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
+  return "OK";
 }

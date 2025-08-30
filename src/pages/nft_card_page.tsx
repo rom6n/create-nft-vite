@@ -5,6 +5,7 @@ import { withdrawNftItem } from "../scripts/withdrawNft";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import WebApp from "@twa-dev/sdk";
 import { fromNano } from "@ton/ton";
+import NoImage from "../component/noImage";
 
 type NftCardPageProps = {
   nftItem: NftItem | undefined;
@@ -75,10 +76,18 @@ const NftCardPage = ({
         </button>
       </div>
       <div className="flex w-full">
-        <img
-          src={nftItem?.metadata.image}
-          className="relative w-full rounded-4xl object-cover"
-        />
+        {nftItem?.metadata.image ? (
+          <img
+            src={nftItem?.metadata.image}
+            className="relative w-full rounded-4xl object-cover"
+          />
+        ) : (
+          <div className="flex items-center justify-center h-80 w-full bg-white/30 rounded-4xl">
+            <div className="w-35">
+              <NoImage />
+            </div>
+          </div>
+        )}
       </div>
       <div className="flex flex-col w-full justify-center">
         <div className="flex flex-col items-start w-full h-25 mt-3 rounded-4xl bg-white/13">
@@ -108,7 +117,7 @@ const NftCardPage = ({
             }`}
             rel="noopener noreferrer"
           >
-            <span className="relative text-md mt-0 ml-10 font-semibold text-white/80">
+            <span className="relative w-[60%] overflow-hidden text-md mt-0 ml-10 font-semibold text-white/80">
               {nftItem?.collection_name}
             </span>
             <span className="absolute text-2xl right-10 text-white/80">
@@ -131,27 +140,27 @@ const NftCardPage = ({
               </span>
             </div>
           </div>
-          <div className="flex flex-col ml-4 mt-4 p-2 pl-4 w-[50%] border rounded-3xl items-start ">
+          <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 max-w-[80%] border rounded-3xl items-start ">
             <span className="text-2xl font-semibold">Name</span>
-            <span className="text-xl text-start font-mono">
+            <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
               {nftItem?.metadata.name}
             </span>
           </div>
-          <div className="flex flex-col ml-4 mt-2.5 p-2 pl-4 min-w-[65%] max-w-[80%] border rounded-3xl items-start ">
+          <div className="flex flex-col ml-4 mt-2.5 p-2 pl-4 pr-4 min-w-[65%] max-w-[80%] border rounded-3xl items-start ">
             <span className="text-2xl font-semibold">Description</span>
-            <span className="text-xl text-start font-mono">
+            <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
               {nftItem?.metadata.description}
             </span>
           </div>
-          <div className="flex flex-col ml-4 mt-4 p-2 pl-4 min-w-[57%] max-w-[80%] border rounded-3xl items-start ">
+          <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[57%] max-w-[80%] border rounded-3xl items-start ">
             <span className="text-2xl font-semibold">Collection</span>
-            <span className="text-xl text-start font-mono">
+            <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
               {nftItem?.collection_name}
             </span>
           </div>
         </div>
         {hasAttributes && (
-          <div className="flex flex-col items-start w-full pb-4 mt-2 mb-2 rounded-4xl bg-white/13">
+          <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
             {nftItem?.metadata.attributes.map(
               (value) =>
                 value.trait_type && (
@@ -170,7 +179,7 @@ const NftCardPage = ({
         {tonConnectUI.account?.address &&
         WebApp.initDataUnsafe.user?.id &&
         nftItem?.address ? (
-          <div className="flex flex-col items-start mb-2 w-full min-h-30 rounded-4xl bg-white/13">
+          <div className="flex flex-col items-start mb-2 mt-2 w-full min-h-30 rounded-4xl bg-white/13">
             <div className="flex flex-col ml-5 m-2 text-left text-white/30 font-mono text-[13px] ">
               <span>Cost 0.05 TON</span>
               <span>
@@ -179,7 +188,7 @@ const NftCardPage = ({
               </span>
             </div>
             <button
-              className={`flex items-center transition-colors duration-200 justify-center w-full min-h-18 ${
+              className={`flex items-center transition-colors duration-200 justify-center w-full min-h-16 ${
                 isSuccess === 1
                   ? "bg-green-600/90"
                   : isSuccess === 2
@@ -229,7 +238,7 @@ const NftCardPage = ({
           </div>
         ) : (
           <button
-            className={`flex items-center mb-2 transition-colors duration-200 justify-center w-full min-h-18 bg-sky-600 rounded-4xl`}
+            className={`flex items-center mt-2 mb-2 transition-colors duration-200 justify-center w-full min-h-16 bg-sky-600 rounded-4xl`}
             onClick={() => {
               if (!connected) {
                 tonConnectUI.openModal();

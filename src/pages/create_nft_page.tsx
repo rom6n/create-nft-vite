@@ -140,7 +140,7 @@ const CreateNftPage = ({
             ) : (
               <div className="w-full h-full flex items-center justify-center rounded-xl border-2 border-dashed border-white/30 bg-white/15 hover:bg-white/20">
                 <span className="text-white/50 text-sm">
-                  Press to select a photo (optionally)
+                  Press to select a photo
                 </span>
               </div>
             )}
@@ -166,13 +166,14 @@ const CreateNftPage = ({
           >
             {"<"}
           </label>
-          <label className="absolute flex w-full h-full right-[50%] translate-x-[50%] items-center justify-center font-semibold cursor-pointer">
-            {selectedCollection}
-          </label>
+          <span className="absolute flex w-[80%] h-full pl-4 pr-4 truncate right-[50%] translate-x-[40%] items-center justify-center font-semibold cursor-pointer overflow-hidden">
+            {selectedCollection.slice(0, 15)}
+            {selectedCollection.length > 15 && "..."}
+          </span>
           {selectOpen && (
-            <div className="absolute top-10 w-full max-h-35 overflow-y-auto border border-white/40 bg-white/25 font-semibold rounded-xl">
+            <div className="absolute top-10 w-full max-h-35 overflow-y-auto border border-white/40 bg-white/25 font-semibold rounded-xl overflow-clip">
               <button
-                className={`w-full h-9 rounded-t-xl border-b ${
+                className={`w-full h-9 rounded-t-xl border-white/40 ${
                   userNftCollections
                     ? userNftCollections.length === 0
                       ? "border-none"
@@ -187,7 +188,7 @@ const CreateNftPage = ({
               </button>
               {userNftCollections?.map((value, idx) => (
                 <button
-                  className={`w-full h-9 border-white/40 ${
+                  className={`w-full h-9 truncate border-white/40 ${
                     idx === userNftCollections.length - 1
                       ? "border-none"
                       : "border-b"
@@ -199,7 +200,9 @@ const CreateNftPage = ({
                     setSelectedCollectionAddress(value.address);
                   }}
                 >
-                  {value.metadata.name ? value.metadata.name : "underfined"}
+                  <span className="pl-2 pr-2">
+                    {value.metadata.name ? value.metadata.name : "underfined"}
+                  </span>
                 </button>
               ))}
             </div>
@@ -208,7 +211,7 @@ const CreateNftPage = ({
         <div className="flex ml-4 mt-5 top-53">
           <textarea
             value={name}
-            placeholder="Name (optionally)"
+            placeholder="Name "
             maxLength={35}
             className="bg-transparent w-78 h-15.5 pl-2 pr-2 min-h-15.5 max-h-15.5 rounded-xl border border-white/60 focus:outline-none focus:border-white"
             onChange={setNameFunc}
@@ -218,7 +221,7 @@ const CreateNftPage = ({
         <div className="flex ml-4 mt-3">
           <textarea
             value={description}
-            placeholder="Description (optionally)"
+            placeholder="Description "
             maxLength={80}
             className="bg-transparent w-85 h-29 pl-2 pr-2 min-h-29 max-h-29 rounded-xl border border-white/60 focus:outline-none focus:border-white"
             onChange={setDescriptionFunc}
@@ -233,7 +236,7 @@ const CreateNftPage = ({
                 maxLength={25}
                 onChange={(e) => updateAttributeInput(idx, e.target.value)}
                 className="p-1.5 border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] focus:outline-none focus:border-white"
-                placeholder={`Attribute (option.)`}
+                placeholder={`Attribute `}
               />
               <textarea
                 key={idx}
@@ -241,7 +244,7 @@ const CreateNftPage = ({
                 maxLength={25}
                 onChange={(e) => updateValueInput(idx, e.target.value)}
                 className="p-1.5 border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] focus:outline-none focus:border-white"
-                placeholder={`Value (option.)`}
+                placeholder={`Value `}
               />
             </div>
           ))}
@@ -263,7 +266,7 @@ const CreateNftPage = ({
         <div className="relative flex ml-4 mt-15">
           <textarea
             maxLength={50}
-            placeholder="Mint message (optionally)"
+            placeholder="Mint message "
             onChange={handleFwdMsgChange}
             className="border p-1.5 w-85 border-white/60 rounded-xl max-h-17 min-h-17 focus:outline-none"
           ></textarea>
@@ -300,7 +303,7 @@ const CreateNftPage = ({
                 ? "bg-red-600/70"
                 : user?.nano_ton || user?.nano_ton === 0
                 ? user.nano_ton - mintCost < 0
-                  ? "bg-red-500/75"
+                  ? "bg-red-600/70"
                   : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
                 : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
             } rounded-2xl text-[20px] cursor-pointer`}

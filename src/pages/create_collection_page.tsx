@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { User } from "../scripts/fetchUserData";
 import UploadImageIcon from "../component/uploadImage";
+import { createCollection } from "../scripts/createCollection";
+import LoadingIcon from "../component/loadingIcon";
 
 type CreateCollectionPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -24,8 +26,12 @@ const CreateCollectionPage = ({
   const [links, setLinks] = useState<string[]>(["https://"]);
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
-  const [numerator, setNumerator] = useState(0);
-  const [denominator, setDenominator] = useState(0);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(0);
+  const [numerator, setNumerator] = useState(25);
+  const [denominator, setDenominator] = useState(1000);
+
+  const createCost = 100000000;
 
   // To delete errors
   console.log(isError, imageByte, coverImageByte, error, user);
@@ -268,14 +274,65 @@ const CreateCollectionPage = ({
         </div>
         <span className="ml-5 mt-2 font-semibold text-md text-white/40">
           {numerator / denominator
-            ? ((numerator / denominator) * 100).toFixed(3)
+            ? ((numerator / denominator) * 100).toFixed(2)
             : 0}
           %
         </span>
       </div>
-      <div className="w-full mt-5 pb-3">
-        <button className="w-[93%] h-16 bg-sky-600 rounded-full text-2xl font-semibold">
-          Create
+      <div className="flex w-full items-center justify-center mt-5 pb-3">
+        <button
+          className={`flex w-[93%] min-h-16 items-center justify-center transition-colors duration-200 ${
+            isError || isSuccess === 2
+              ? "bg-red-600/70"
+              : isSuccess === 1
+              ? "bg-green-600/90"
+              : "bg-sky-600"
+          } rounded-full text-2xl font-semibold`}
+          onClick={async () => {
+            if (
+              !isError && !isCreating && user?.nano_ton
+                ? user.nano_ton > createCost
+                : false
+            ) {
+              setIsCreating(true);
+              const res = await createCollection(
+                imageByte,
+                coverImageByte,
+                name,
+                description,
+                links,
+                numerator,
+                denominator,
+                user?.id
+              );
+              setIsCreating(false);
+              if (res !== "OK") {
+                setIsSuccess(2);
+                setError(res);
+                return;
+              }
+              setIsSuccess(1);
+            }
+          }}
+        >
+          {isError ? (
+            error
+          ) : isCreating ? (
+            <div className="w-10 h-10">
+              <LoadingIcon />
+            </div>
+          ) : isSuccess === 1 ? (
+            "Success"
+          ) : isSuccess === 2 ? (
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <div>
+                <span className="text-2xl font-semibold">Failed</span>
+              </div>
+              <span className="text-[10px] font-semibold">{error}</span>
+            </div>
+          ) : (
+            "Create"
+          )}
         </button>
       </div>
       <div

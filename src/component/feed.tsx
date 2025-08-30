@@ -50,21 +50,25 @@ const Feed = ({
                   setActivePage(2);
                 }}
               >
-                <img
-                  src={value.metadata.image}
-                  className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
-                />
+                {value.metadata.image ? (
+                  <img
+                    src={value.metadata.image}
+                    className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
+                  />
+                ) : (
+                  <div />
+                )}
                 <div className="absolute flex bg-[#343434] pl-2 pr-2 h-5 right-1 bottom-12.5 justify-center items-center rounded-full">
                   <span className="text-[15px] font-mono">
                     {"# " + value.index}
                   </span>
                 </div>
 
-                <div className="flex flex-col mb-2 items-start justify-end px-2">
-                  <span className="font-semibold text-sm truncate">
+                <div className="flex flex-col mb-2 text-start items-start justify-end px-2">
+                  <span className="font-semibold w-[70%] text-sm truncate">
                     {value.metadata.name}
                   </span>
-                  <span className="text-[10px] text-gray-400 truncate">
+                  <span className="text-[10px] w-[60%] text-gray-400 truncate">
                     {value.collection_name}
                   </span>
                 </div>
@@ -90,10 +94,14 @@ const Feed = ({
                   setActivePage(2);
                 }}
               >
-                <img
-                  src={value.metadata.image}
-                  className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
-                />
+                {value.metadata.image ? (
+                  <img
+                    src={value.metadata.image}
+                    className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
+                  />
+                ) : (
+                  <div className="w-full h-40 border-b border-white/40" />
+                )}
 
                 <div className="absolute flex bg-[#343434] pl-2 pr-2 h-5 right-1 bottom-12.5 justify-center items-center rounded-full">
                   <span className="text-[15px] font-mono">
@@ -101,11 +109,11 @@ const Feed = ({
                   </span>
                 </div>
 
-                <div className="flex flex-col mb-2 items-start justify-end px-2">
-                  <span className="font-semibold text-sm truncate">
+                <div className="flex flex-col mb-2 text-start items-start justify-end px-2">
+                  <span className="font-semibold w-[70%] text-sm truncate">
                     {value.metadata.name}
                   </span>
-                  <span className="text-[10px] text-gray-400 truncate">
+                  <span className="text-[10px] w-[60%] text-gray-400 truncate">
                     {value.collection_name}
                   </span>
                 </div>
@@ -167,30 +175,32 @@ const Feed = ({
           {userNftCollections?.map((value) => (
             <button className="flex items-center w-[94%] h-25 group cursor-pointer bg-white/13 rounded-xl border-[1px] border-white/50">
               <div className="flex w-[33%] h-full items-center justify-center rounded-l-xl border-r-[1px] border-white/50">
-                <img
-                  src={value.metadata.image}
-                  className="h-full w-full object-cover rounded-l-xl"
-                />
+                {value.metadata.image && (
+                  <img
+                    src={value.metadata.image}
+                    className="h-full w-full object-cover rounded-l-xl"
+                  />
+                )}
               </div>
-              <div className="flex pt-1.5 flex-col justify-around items-start w-[67%] h-full ">
-                <div className="flex flex-col min-h-[50%] max-h-[50%] items-start">
-                  <span className="ml-2 font-semibold text-lg">
+              <div className="flex pt-1.5 flex-col justify-around items-start w-[67%] h-full overflow-clip">
+                <div className="flex flex-col min-h-[50%] max-h-[60%] items-start">
+                  <span className="ml-2 font-semibold text-lg truncate">
                     {value.metadata.name}
                   </span>
                   <span className="ml-2 mr-2 text-left text-[9px] font-semibold text-white/30">
                     {value.metadata.description
-                      ? value.metadata.description.slice(0, 100)
+                      ? value.metadata.description.slice(0, 70)
                       : ""}
                   </span>
                 </div>
-                <div className="flex pb-1.5 items-end ml-2 w-full min-h-[50%] max-h-[50%] gap-1">
+                <div className="flex pb-1.5 items-end ml-2 w-full h-[40%] gap-1">
                   <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-black/60 rounded-full text-[10px] font-semibold">
                     {value.next_item_index ? value.next_item_index - 1 : "--"}{" "}
                     items
                   </div>
                   <div className="flex min-w-13 h-5 pl-1.5 pr-1.5 justify-center items-center bg-blue-500/60 rounded-full text-[10px] font-semibold">
                     {value.metadata.marketplace
-                      ? value.metadata.marketplace === "my-store.io"
+                      ? value.metadata.marketplace === "create-nft-tma"
                         ? "Decentralized"
                         : "Centralized"
                       : "Centralized"}
