@@ -14,6 +14,7 @@ import CreateNftPage from "./pages/create_nft_page";
 import NftCardPage from "./pages/nft_card_page";
 import { pingServers } from "./scripts/pingServers";
 import CreateCollectionPage from "./pages/create_collection_page";
+import CollectionCardPage from "./pages/collection_page";
 
 WebApp.ready();
 
@@ -23,6 +24,7 @@ function App() {
     NftCollection[] | undefined
   >();
   const [selectedNft, setSelectedNft] = useState<NftItem>();
+  const [selectedCollection, setSelectedCollection] = useState<NftCollection>();
   const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
 
@@ -70,6 +72,12 @@ function App() {
         />
       ) : activePage === 3 ? (
         <CreateCollectionPage setActivePage={setActivePage} user={user} />
+      ) : activePage === 4 ? (
+        <CollectionCardPage
+          NftCollection={selectedCollection}
+          userBalance={user?.nano_ton}
+          setActivePage={setActivePage}
+        />
       ) : (
         <MainPage
           setActivePage={setActivePage}
@@ -77,6 +85,7 @@ function App() {
           userCollections={userCollections}
           user={user}
           setSelectedNft={setSelectedNft}
+          setSelectedCollection={setSelectedCollection}
         />
       )}
     </>

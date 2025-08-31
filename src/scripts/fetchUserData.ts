@@ -21,7 +21,7 @@ export interface NftCollectionMetadata {
   image: string | undefined;
   cover_image: string | undefined;
   description: string | undefined;
-  externa_url: string | undefined;
+  external_url: string | undefined;
   external_link: string | undefined;
   social_links: string[] | undefined;
   marketplace: string | undefined;

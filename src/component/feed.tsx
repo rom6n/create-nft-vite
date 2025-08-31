@@ -6,6 +6,9 @@ type FeedProps = {
   userNftItems: NftItem[] | undefined;
   userNftCollections: NftCollection[] | undefined;
   setSelectedNft: React.Dispatch<React.SetStateAction<NftItem | undefined>>;
+  setSelectedCollection: React.Dispatch<
+    React.SetStateAction<NftCollection | undefined>
+  >;
 };
 
 const Feed = ({
@@ -13,6 +16,7 @@ const Feed = ({
   userNftItems,
   setSelectedNft,
   userNftCollections,
+  setSelectedCollection,
 }: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
 
@@ -173,7 +177,13 @@ const Feed = ({
             </div>
           </button>
           {userNftCollections?.map((value) => (
-            <button className="flex items-center w-[94%] h-25 group cursor-pointer bg-white/13 rounded-xl border-[1px] border-white/50">
+            <button
+              className="flex items-center w-[94%] h-25 group cursor-pointer bg-white/13 rounded-xl border-[1px] border-white/50"
+              onClick={() => {
+                setSelectedCollection(value);
+                setActivePage(4);
+              }}
+            >
               <div className="flex w-[33%] h-full items-center justify-center rounded-l-xl border-r-[1px] border-white/50">
                 {value.metadata.image && (
                   <img

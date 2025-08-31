@@ -17,6 +17,9 @@ type MainPageProps = {
   userNftItems: NftItem[] | undefined;
   userCollections: NftCollection[] | undefined;
   setSelectedNft: React.Dispatch<React.SetStateAction<NftItem | undefined>>;
+  setSelectedCollection: React.Dispatch<
+    React.SetStateAction<NftCollection | undefined>
+  >;
 };
 
 function MainPage({
@@ -25,6 +28,7 @@ function MainPage({
   userNftItems,
   setSelectedNft,
   userCollections,
+  setSelectedCollection,
 }: MainPageProps) {
   const [openDeposit, setOpenDeposit] = useState<boolean>(false);
   const [openWithdraw, setOpenWithdraw] = useState<boolean>(false);
@@ -61,6 +65,7 @@ function MainPage({
           userNftItems={userNftItems}
           userNftCollections={userCollections}
           setSelectedNft={setSelectedNft}
+          setSelectedCollection={setSelectedCollection}
         />
       </div>
       <div className="relative overflow-x-hidden space-x-2 mt-2 pb-0 right-[50%] translate-x-[50%]">
