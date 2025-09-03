@@ -29,11 +29,11 @@ const CollectionCardPage = ({
           {"< Back"}
         </button>
       </div>
-      <div className="flex items-center justify-center w-[95%] h-45 rounded-2xl bg-white/20">
+      <div className="flex items-center justify-center w-[95%] border border-white/40 h-27 rounded-2xl bg-white/20">
         {NftCollection?.metadata.cover_image ? (
           <img
             src={NftCollection?.metadata.cover_image}
-            className="w-full object-cover"
+            className="w-full h-full rounded-2xl object-cover"
           />
         ) : (
           <div className="w-20">
@@ -42,9 +42,12 @@ const CollectionCardPage = ({
         )}
       </div>
       <div className="flex items-center justify-start pl-4 mt-2 w-full h-20 bg-white/0">
-        <div className="flex items-center justify-center w-20 h-20 rounded-lg bg-white/20">
+        <div className="flex items-center justify-center w-20 h-20 rounded-lg border border-white/40 bg-white/20">
           {NftCollection?.metadata.image ? (
-            <img src={NftCollection?.metadata.image} />
+            <img
+              src={NftCollection?.metadata.image}
+              className="w-full h-full rounded-lg object-cover"
+            />
           ) : (
             <div className="w-10">
               <NoImage />
