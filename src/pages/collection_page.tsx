@@ -1,6 +1,11 @@
 import type { NftCollection } from "../scripts/fetchUserData";
 
 import NoImage from "../component/noImage";
+import { useEffect, useState } from "react";
+import { withdrawCollection } from "../scripts/withdrawCollection";
+import WebApp from "@twa-dev/sdk";
+import { useTonConnectUI } from "@tonconnect/ui-react";
+import LoadingIcon from "../component/loadingIcon";
 
 type CollectionCardPageProps = {
   NftCollection: NftCollection | undefined;
@@ -13,7 +18,22 @@ const CollectionCardPage = ({
   setActivePage,
   userBalance,
 }: CollectionCardPageProps) => {
-  console.log(userBalance); //  to delete warnings
+  const [isWithdraw, setIsWithdraw] = useState(false);
+  const [tonConnectUI] = useTonConnectUI();
+  const [error, setError] = useState("");
+  const [isSuccess, setIsSuccess] = useState(0);
+  const [connected, setConnected] = useState(tonConnectUI.connected);
+
+  useEffect(() => {
+    const unsubscribe = tonConnectUI.onStatusChange((status) => {
+      setConnected(
+        status?.account.address !== undefined &&
+          status?.account.address !== null
+      );
+    });
+    return () => unsubscribe();
+  }, [tonConnectUI]);
+
   return (
     <div className="absolute flex flex-col items-center w-full h-full min-w-80 max-w-150 top-0 left-0 bg-[#101010]">
       <div className="flex w-full p-4">
@@ -78,13 +98,78 @@ const CollectionCardPage = ({
           );
         })}
       </div>
-      {NftCollection?.metadata.description && (
-        <div className="w-full pl-4 pr-4 mt-7 break-words line-clamp-4 text-balance">
+      <div className="w-full h-25 pl-4 pr-4 mt-7 break-words line-clamp-4 text-balance">
+        {NftCollection?.metadata.description && (
           <span className="text-3xl font-serif">
             "{NftCollection?.metadata.description}"
           </span>
-        </div>
-      )}
+        )}
+      </div>
+      <div className="w-full flex items-center justify-center mt-55 pb-3">
+        {NftCollection &&
+        NftCollection.is_testnet &&
+        NftCollection.address &&
+        tonConnectUI.account?.address ? (
+          <button
+            className={`flex w-[93%] min-h-16 text-2xl font-semibold items-center justify-center transition-colors rounded-full duration-200 ${
+              isSuccess === 1
+                ? "bg-green-600/90"
+                : isSuccess === 2 || (userBalance && userBalance < 10000000)
+                ? "bg-red-600/70"
+                : "bg-sky-600"
+            }`}
+            onClick={async () => {
+              if (userBalance && userBalance >= 10000000 && !isWithdraw) {
+                setIsWithdraw(true);
+                setIsSuccess(0);
+                const result = await withdrawCollection(
+                  NftCollection.address,
+                  tonConnectUI.account?.address,
+                  WebApp.initDataUnsafe.user?.id,
+                  NftCollection?.is_testnet
+                );
+                setIsWithdraw(false);
+                if (result !== "OK") {
+                  setIsSuccess(2);
+                  setError(result);
+                  return;
+                }
+                setIsSuccess(1);
+              }
+            }}
+          >
+            {isWithdraw ? (
+              <div className="w-10 h-10">
+                <LoadingIcon />
+              </div>
+            ) : isSuccess === 1 ? (
+              <span>Success</span>
+            ) : isSuccess === 2 ? (
+              <div className="flex flex-col items-center justify-center w-full h-full">
+                <div>
+                  <span className="text-2xl font-semibold">Failed</span>
+                </div>
+                <span className="text-[10px] font-semibold">{error}</span>
+              </div>
+            ) : userBalance && userBalance < 10000000 ? (
+              <span>Not enough TON</span>
+            ) : (
+              <span>Withdraw</span>
+            )}
+          </button>
+        ) : (
+          <button
+            className={`flex items-center mt-2 mb-2 transition-colors duration-200 justify-center w-[93%] min-h-16 bg-sky-600 rounded-4xl`}
+            onClick={() => {
+              if (!connected) {
+                tonConnectUI.openModal();
+              }
+            }}
+          >
+            <span className="text-2xl font-semibold">Connect Wallet</span>
+          </button>
+        )}
+      </div>
     </div>
   );
 };

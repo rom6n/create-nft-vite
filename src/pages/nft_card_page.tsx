@@ -117,7 +117,7 @@ const NftCardPage = ({
             }`}
             rel="noopener noreferrer"
           >
-            <span className="relative w-[60%] overflow-hidden text-md mt-0 ml-10 font-semibold text-white/80">
+            <span className="relative text-start w-[60%] truncate overflow-hidden text-md mt-0 ml-10 font-semibold text-white/80">
               {nftItem?.collection_name}
             </span>
             <span className="absolute text-2xl right-10 text-white/80">

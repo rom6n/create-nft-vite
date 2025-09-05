@@ -142,7 +142,7 @@ const CreateCollectionPage = ({
           setActivePage(0);
         }}
       >{`< Back`}</button>
-      <div className="flex w-[93%] h-45 mt-17 items-center justify-center rounded-2xl border-2 border-[#636363]">
+      <div className="flex w-[93%] h-27 mt-17 items-center justify-center rounded-2xl border-2 border-[#636363]">
         <label className="flex w-full h-full items-center justify-center rounded-2xl bg-[#3c3c3c] cursor-pointer">
           {coverImage ? (
             <img
@@ -163,7 +163,7 @@ const CreateCollectionPage = ({
           />
         </label>
       </div>
-      <div className="absolute flex w-35 h-35 top-43 left-10 items-center justify-center rounded-2xl border-2 border-[#636363]">
+      <div className="absolute flex w-25 h-25 top-37 left-10 items-center justify-center rounded-2xl border-2 border-[#636363]">
         <label className="flex w-full h-full items-center justify-center rounded-2xl bg-[#4b4b4b] cursor-pointer">
           {image ? (
             <img
@@ -290,9 +290,10 @@ const CreateCollectionPage = ({
           } rounded-full text-2xl font-semibold`}
           onClick={async () => {
             if (
-              !isError && !isCreating && user?.nano_ton
-                ? user.nano_ton > createCost
-                : false
+              !isError &&
+              !isCreating &&
+              user?.nano_ton &&
+              user.nano_ton >= createCost
             ) {
               setIsCreating(true);
               const res = await createCollection(
@@ -330,6 +331,8 @@ const CreateCollectionPage = ({
               </div>
               <span className="text-[10px] font-semibold">{error}</span>
             </div>
+          ) : user?.nano_ton && user.nano_ton < createCost ? (
+            "Not enough TON"
           ) : (
             "Create"
           )}

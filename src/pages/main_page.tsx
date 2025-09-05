@@ -48,8 +48,7 @@ function MainPage({
     // запускаем анимацию сразу после монтирования
   }, []);
 
-  const tonAmount =
-    user?.nano_ton !== undefined ? fromNano(user.nano_ton) : "--";
+  const tonAmount = user?.nano_ton && fromNano(user.nano_ton);
   return (
     <div className="absolute top-0 left-0 w-full h-full">
       <div className="relative flex overflow-x-hidden right-[50%] translate-x-[57.5%] mt-3 w-[93%] justify-center">
