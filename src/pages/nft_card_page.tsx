@@ -77,10 +77,16 @@ const NftCardPage = ({
       </div>
       <div className="flex w-full">
         {nftItem?.metadata.image ? (
-          <img
-            src={nftItem?.metadata.image}
-            className="relative w-full rounded-4xl object-cover"
-          />
+          <div className="w-full">
+            <img
+              src={nftItem?.metadata.image}
+              className="absolute w-full rounded-4xl object-cover blur-3xl"
+            />
+            <img
+              src={nftItem?.metadata.image}
+              className="relative w-full rounded-4xl object-cover"
+            />
+          </div>
         ) : (
           <div className="flex items-center justify-center h-80 w-full bg-white/30 rounded-4xl">
             <div className="w-35">
@@ -99,6 +105,7 @@ const NftCardPage = ({
                 : "https://tonviewer.com/" + nftItem?.address
             }`}
             rel="noopener noreferrer"
+            target="_blank"
           >
             <span className="relative text-md mt-0 ml-10 font-semibold text-white/80">
               Tonviewer
@@ -116,6 +123,7 @@ const NftCardPage = ({
                 : "https://tonviewer.com/" + nftItem?.collection_address
             }`}
             rel="noopener noreferrer"
+            target="_blank"
           >
             <span className="relative text-start w-[60%] truncate overflow-hidden text-md mt-0 ml-10 font-semibold text-white/80">
               {nftItem?.collection_name}

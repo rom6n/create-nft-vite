@@ -42,6 +42,9 @@ const CreateNftPage = ({
   ]);
 
   const addAttributeInput = () => {
+    if (attributeInputs.length >= 20) {
+      return;
+    }
     setAttributeInputs([...attributeInputs, { trait_type: "", value: "" }]);
   };
   const removeAttributeInput = () => {

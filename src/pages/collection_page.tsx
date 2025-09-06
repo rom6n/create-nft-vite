@@ -23,6 +23,20 @@ const CollectionCardPage = ({
   const [error, setError] = useState("");
   const [isSuccess, setIsSuccess] = useState(0);
   const [connected, setConnected] = useState(tonConnectUI.connected);
+  const [isTransition, setIsTransition] = useState(false);
+  const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+
+  function wait(millisecond: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, millisecond));
+  }
+
+  useEffect(() => {
+    (async () => {
+      await wait(50);
+      setIsTransition(true);
+      return;
+    })();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = tonConnectUI.onStatusChange((status) => {
@@ -51,10 +65,16 @@ const CollectionCardPage = ({
       </div>
       <div className="flex items-center justify-center w-[95%] border border-white/40 h-27 rounded-2xl bg-white/20">
         {NftCollection?.metadata.cover_image ? (
-          <img
-            src={NftCollection?.metadata.cover_image}
-            className="w-full h-full rounded-2xl object-cover"
-          />
+          <div className="w-full h-full">
+            <img
+              src={NftCollection?.metadata.cover_image}
+              className="absolute w-[95%] h-27 rounded-2xl object-cover blur-3xl"
+            />
+            <img
+              src={NftCollection?.metadata.cover_image}
+              className="relative w-full h-full rounded-2xl object-cover"
+            />
+          </div>
         ) : (
           <div className="w-20">
             <NoImage />
@@ -91,6 +111,8 @@ const CollectionCardPage = ({
           return (
             <a
               href={value}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center justify-center pl-2.5 pr-2.5 h-7 rounded-full cursor-pointer bg-amber-800"
             >
               <span className="text-[12px]">{value.split("/")[2]}</span>
@@ -105,7 +127,7 @@ const CollectionCardPage = ({
           </span>
         )}
       </div>
-      <div className="w-full flex items-center justify-center mt-55 pb-3">
+      <div className="w-full flex items-center justify-center mt-70">
         {NftCollection &&
         NftCollection.is_testnet &&
         NftCollection.address &&
@@ -170,6 +192,12 @@ const CollectionCardPage = ({
           </button>
         )}
       </div>
+      <div
+        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-1000 overflow-y-hidden bg-black transition-opacity duration-400 ease-in-out z-[3000] 
+          ${isTransition ? "opacity-0" : "opacity-100"} 
+          ${isTransitionEnded ? "hidden" : ""}`}
+        onTransitionEnd={() => setIsTransitionEnded(true)}
+      />
     </div>
   );
 };

@@ -72,7 +72,7 @@ const CreateCollectionPage = ({
   };
 
   const addLinks = () => {
-    if (links.length >= 30) {
+    if (links.length >= 20) {
       return;
     }
     setLinks([...links, ""]);
@@ -151,7 +151,7 @@ const CreateCollectionPage = ({
               className="w-full h-full object-cover rounded-2xl"
             />
           ) : (
-            <div className="w-20 h-20">
+            <div className="w-15 h-15">
               <UploadImageIcon />
             </div>
           )}
@@ -279,7 +279,7 @@ const CreateCollectionPage = ({
           %
         </span>
       </div>
-      <div className="flex w-full items-center justify-center mt-5 pb-3">
+      <div className="flex w-full items-center justify-center mt-13 pb-3">
         <button
           className={`flex w-[93%] min-h-16 items-center justify-center transition-colors duration-200 ${
             isError || isSuccess === 2

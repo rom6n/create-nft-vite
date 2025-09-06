@@ -67,13 +67,14 @@ function MainPage({
           setSelectedCollection={setSelectedCollection}
         />
       </div>
-      <div className="relative overflow-x-hidden space-x-2 mt-2 pb-0 right-[50%] translate-x-[50%]">
+      <div className="relative overflow-x-hidden space-x-2 mt-2 pb-2 right-[50%] translate-x-[50%]">
         <p>
           See on{" "}
           <a
             href="https://github.com/rom6n/create-nft-vite"
             className="cursor-pointer text-sky-500 font-semibold hover:w-15 hover:h-3 hover:bg-sky-600 hover:rounded-xs hover:text-white active:border-none"
             rel="noopener noreferrer"
+            target="_blank"
           >
             GitHub
           </a>

@@ -22,7 +22,7 @@ const BalanceCard = ({
         <CustomTonconnectButton />
       </div>
       <div className="absolute top-0.5 w-40 h-5 -left-8 hover:text-sky-900 cursor-default z-1002">
-        alpha v1.08
+        alpha v1.1
       </div>
       <div className="absolute left-2 top-8 flex items-center space-x-2">
         <Switch
