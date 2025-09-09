@@ -1,6 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PinPad from "./pinPad";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
+import LoadingIcon from "./loadingIcon";
+import { toNano } from "@ton/ton";
+import TonkeeperLogo from "./tonkeeperLogo";
 
 type DepositCardProps = {
   openDeposit: boolean;
@@ -9,6 +13,7 @@ type DepositCardProps = {
 
 const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
   const [amount, setAmount] = useState<string>("0");
+  const lp = useLaunchParams();
   return (
     <AnimatePresence>
       {openDeposit && (
@@ -49,9 +54,31 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
               </div>
-              <button className="mt-4 rounded-2xl w-[34%] h-15 border-3 border-white/50 font-semibold text-xl bg-sky-500/70 cursor-pointer hover:bg-sky-500/80">
-                Tonkeeper
-              </button>
+              <a
+                className="flex items-center justify-center mt-4 rounded-2xl h-15 border-1 border-white/20 bg-sky-900/50 cursor-pointer"
+                href={
+                  lp.tgWebAppData?.user?.id && amount !== "0" && amount !== "0."
+                    ? `https://app.tonkeeper.com/transfer/0QDU46qYz4rHAJhszrW9w6imF8p4Cw5dS1GpPTcJ9vqNSmnf?amount=${toNano(
+                        amount
+                      )}&text=${lp.tgWebAppData.user.id}`
+                    : ""
+                }
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {lp.tgWebAppData?.user?.id ? (
+                  <div className="flex gap-1 items-center justify-center">
+                    <div className="w-7 h-7">
+                      <TonkeeperLogo />
+                    </div>
+                    <span className="font-semibold text-md">Tonkeeper</span>
+                  </div>
+                ) : (
+                  <div className="w-10 h-10">
+                    <LoadingIcon />
+                  </div>
+                )}
+              </a>
             </div>
           </motion.div>
         </>

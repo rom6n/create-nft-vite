@@ -127,7 +127,7 @@ const CollectionCardPage = ({
           </span>
         )}
       </div>
-      <div className="w-full flex items-center justify-center mt-70">
+      <div className="absolute w-full flex items-center justify-center bottom-3.5">
         {NftCollection &&
         NftCollection.is_testnet &&
         NftCollection.address &&

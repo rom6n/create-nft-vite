@@ -5,23 +5,23 @@ type PinPadProps = {
 
 const PinPad = ({ numbers, setNumber }: PinPadProps) => {
   const setNumberFunc = (newNumber: string) => {
-    const haveDot = numbers.includes(",");
+    const haveDot = numbers.includes(".");
     const numberNumeric = Number(numbers + newNumber);
     if (numberNumeric > 9999999) {
       setNumber("9999999");
       return;
     } else if (
       (numbers + newNumber).length > 7 ||
-      (numbers.length > 5 && newNumber === ",")
+      (numbers.length > 5 && newNumber === ".")
     ) {
       return;
-    } else if (numbers === "0" && newNumber !== ",") {
+    } else if (numbers === "0" && newNumber !== ".") {
       setNumber(newNumber);
       return;
     } else if (
       (numbers === "0" && newNumber === "0") ||
-      (newNumber === "," && haveDot) ||
-      (numbers === "0" && newNumber !== ",")
+      (newNumber === "." && haveDot) ||
+      (numbers === "0" && newNumber !== ".")
     ) {
       return;
     }
@@ -126,7 +126,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
         <button
           className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20"
           onClick={() => {
-            setNumberFunc(",");
+            setNumberFunc(".");
           }}
         >
           ,

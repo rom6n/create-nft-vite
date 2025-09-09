@@ -9,14 +9,15 @@ import {
   type NftItem,
   type User,
 } from "./scripts/fetchUserData";
-import WebApp from "@twa-dev/sdk";
 import CreateNftPage from "./pages/create_nft_page";
 import NftCardPage from "./pages/nft_card_page";
 import { pingServers } from "./scripts/pingServers";
 import CreateCollectionPage from "./pages/create_collection_page";
 import CollectionCardPage from "./pages/collection_page";
+import { init, backButton, useLaunchParams } from "@telegram-apps/sdk-react";
 
-WebApp.ready();
+init();
+backButton.mount();
 
 function App() {
   const [user, setUser] = useState<User | undefined>();
@@ -27,13 +28,13 @@ function App() {
   const [selectedCollection, setSelectedCollection] = useState<NftCollection>();
   const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
+  const lp = useLaunchParams();
 
   useEffect(() => {
     const fetchUser = async () => {
       pingServers();
-      // Если WebApp.initDataUnsafe.user уже есть, используем его
-      if (WebApp.initDataUnsafe.user?.id) {
-        const userID = WebApp.initDataUnsafe.user.id;
+      if (lp.tgWebAppData?.user?.id) {
+        const userID = lp.tgWebAppData?.user?.id;
         const fetchedUser = await fetchUserInfo(userID);
         const fetchedUserCollections = await fetchUserCollections(userID);
         const fetchedUserNftItems = await fetchUserNftItems(userID);
@@ -54,7 +55,7 @@ function App() {
     };
 
     fetchUser();
-  }, [WebApp.initDataUnsafe.user]);
+  }, [lp.tgWebAppData?.user]);
 
   return (
     <>
