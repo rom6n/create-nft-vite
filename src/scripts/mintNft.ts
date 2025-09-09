@@ -74,7 +74,7 @@ export async function mintNft(
         : "kQB253d_QpJsEgBszsjTZlhh8mZi9XX4nKq1H9I5iVWDzz6j"
     }&is-testnet=true`,
     {
-      method: "GET",
+      method: "POST",
     }
   );
   const contentType = res3.headers.get("content-type");

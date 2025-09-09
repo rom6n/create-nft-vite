@@ -86,7 +86,7 @@ export async function createCollection(
       userId ? userId : "5003727541"
     }&common-content=&collection-content=${uploadedMetadataURL}&royalty-dividend=${royaltyDividend}&royalty-divisor=${royaltyDivisor}&is-testnet=true`,
     {
-      method: "GET",
+      method: "POST",
     }
   );
   const contentType = res2.headers.get("content-type");

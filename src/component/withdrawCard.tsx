@@ -1,14 +1,30 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PinPad from "./pinPad";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { toNano } from "@ton/ton";
+import { useTonConnectUI } from "@tonconnect/ui-react";
+import { withdrawUserTon } from "../scripts/withdrawUserTon";
+import LoadingIcon from "../assets/loadingIcon";
 
 type WithdrawCardProps = {
   openWithdraw: boolean;
   setOpenWithdraw: React.Dispatch<React.SetStateAction<boolean>>;
+  userBalance: number | undefined;
 };
 
-const WithdrawCard = ({ openWithdraw, setOpenWithdraw }: WithdrawCardProps) => {
+const WithdrawCard = ({
+  openWithdraw,
+  setOpenWithdraw,
+  userBalance,
+}: WithdrawCardProps) => {
   const [amount, setAmount] = useState<string>("0");
+  const [isWithdraw, setIsWithdraw] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(0);
+  const [error, setError] = useState("");
+  const lp = useLaunchParams();
+  const [tonConnectUI] = useTonConnectUI();
+
   return (
     <AnimatePresence>
       {openWithdraw && (
@@ -49,8 +65,65 @@ const WithdrawCard = ({ openWithdraw, setOpenWithdraw }: WithdrawCardProps) => {
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
               </div>
-              <button className="mt-4 rounded-2xl w-[100%] h-15 border-3 border-white/50 font-semibold text-2xl bg-gradient-to-r from-sky-400/80 to-sky-700/80 cursor-pointer hover:to-sky-500/80">
-                Withdraw
+              <button
+                className={`flex mt-4 rounded-2xl items-center justify-center w-[100%] h-15 border-1 transition-colors duration-200 border-white/50 font-semibold text-2xl ${
+                  isSuccess === 1
+                    ? "bg-green-600/90"
+                    : userBalance &&
+                      userBalance >= toNano(Number(amount)) &&
+                      tonConnectUI.account?.address &&
+                      lp.tgWebAppData?.user?.id &&
+                      isSuccess == 0
+                    ? "bg-sky-600/90"
+                    : "bg-red-600/70"
+                } cursor-pointer hover:to-sky-500/80`}
+                onClick={async () => {
+                  if (
+                    Number(amount) > 0 &&
+                    tonConnectUI.account?.address &&
+                    lp.tgWebAppData?.user?.id &&
+                    userBalance &&
+                    userBalance > toNano(Number(amount))
+                  ) {
+                    setIsWithdraw(true);
+                    const result = await withdrawUserTon(
+                      tonConnectUI.account.address,
+                      true,
+                      toNano(Number(amount)),
+                      lp.tgWebAppData.user.id
+                    );
+                    setIsWithdraw(false);
+                    if (result !== "OK") {
+                      setIsSuccess(2);
+                      setError(result);
+                      return;
+                    }
+                    setIsSuccess(1);
+                  }
+                }}
+              >
+                {isWithdraw ? (
+                  <div className="w-9 h-9">
+                    <LoadingIcon />
+                  </div>
+                ) : isSuccess === 1 ? (
+                  <span>Success</span>
+                ) : isSuccess === 2 ? (
+                  <div className="flex flex-col items-center justify-center w-full h-full">
+                    <div>
+                      <span className="text-2xl font-semibold">Failed</span>
+                    </div>
+                    <span className="text-[10px] font-semibold">{error}</span>
+                  </div>
+                ) : tonConnectUI.account?.address === undefined ? (
+                  <span>Wallet is not connected</span>
+                ) : lp.tgWebAppData?.user?.id &&
+                  userBalance &&
+                  userBalance >= toNano(Number(amount)) ? (
+                  <span>Withdraw</span>
+                ) : (
+                  <span>Not enough TON</span>
+                )}
               </button>
             </div>
           </motion.div>

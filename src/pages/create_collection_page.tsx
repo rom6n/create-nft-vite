@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { User } from "../scripts/fetchUserData";
 import UploadImageIcon from "../component/uploadImage";
 import { createCollection } from "../scripts/createCollection";
-import LoadingIcon from "../component/loadingIcon";
+import LoadingIcon from "../assets/loadingIcon";
 
 type CreateCollectionPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;

@@ -1,6 +1,6 @@
 import CustomTonconnectButton from "./customTonConnectButton";
-import LoadingIcon from "./loadingIcon";
-import WDIcon from "./WDIcon";
+import LoadingIcon from "../assets/loadingIcon";
+import WDIcon from "../assets/WDIcon";
 import { Switch } from "@radix-ui/react-switch";
 
 type balanceCardProps = {

@@ -84,6 +84,7 @@ function MainPage({
       <WithdrawCard
         openWithdraw={openWithdraw}
         setOpenWithdraw={setOpenWithdraw}
+        userBalance={user?.nano_ton}
       />
       <div
         className={`absolute left-0 top-0 bottom-0 right-0 w-full h-full bg-black transition-opacity duration-400 ease-in-out z-[3000] 

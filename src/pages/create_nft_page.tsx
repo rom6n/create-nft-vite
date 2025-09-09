@@ -3,7 +3,7 @@ import type { NftCollection, User } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import { mintNft } from "../scripts/mintNft";
 import { type Attribute } from "../scripts/mintNft";
-import LoadingIcon from "../component/loadingIcon";
+import LoadingIcon from "../assets/loadingIcon";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;

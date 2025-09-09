@@ -20,7 +20,7 @@ export async function withdrawCollection(
   const res = await fetch(
     `https://create-nft-go.onrender.com/api/nft-collection/withdraw/${collectionAddress}?withdraw-to=${withdrawTo}&owner-id=${userID}&is-testnet=${isTestnet}`,
     {
-      method: "GET",
+      method: "POST",
     }
   );
   if (res.status !== 200) {

@@ -2,9 +2,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PinPad from "./pinPad";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
-import LoadingIcon from "./loadingIcon";
+import LoadingIcon from "../assets/loadingIcon";
 import { toNano } from "@ton/ton";
-import TonkeeperLogo from "./tonkeeperLogo";
+import TonkeeperLogo from "../assets/tonkeeperLogo";
 
 type DepositCardProps = {
   openDeposit: boolean;
