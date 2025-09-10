@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/src/index.css" rel="stylesheet" />
     <title>Create NFT</title>
+    <script
+      async
+      src="https://tganalytics.xyz/index.js"
+      onload="initAnalytics()"
+      type="text/javascript"
+    ></script>
+    <script>
+      function initAnalytics() {
+        window.telegramAnalytics.init({
+          token:
+            "eyJhcHBfbmFtZSI6ImJ1aWxkX25mdCIsImFwcF91cmwiOiJodHRwczovL3QubWUvbmZ0X2J1aWxkX2JvdCIsImFwcF9kb21haW4iOiJodHRwczovL3JvbTZuLmdpdGh1Yi5pbyJ9!BP4caA3ou/p4v0QphXuTakgxLzKXO3cqDQRJXUWVtw0=",
+          appName: "build_nft",
+        });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
