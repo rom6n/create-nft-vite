@@ -4,6 +4,12 @@ import "./index.css";
 import App from "./App.tsx";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { BrowserRouter } from "react-router-dom";
+import TelegramAnalytics from "@telegram-apps/analytics";
+
+TelegramAnalytics.init({
+  token: import.meta.env.VITE_TG_ANALYTICS_KEY,
+  appName: import.meta.env.VITE_TMA_IDENTIFIER,
+});
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
