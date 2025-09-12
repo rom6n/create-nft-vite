@@ -59,7 +59,7 @@ const WithdrawCard = ({
                   Withdraw
                 </span>
               </div>
-              <div className="flex w-full mt-14 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
+              <div className="flex w-full mt-14 pr-10 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
                 <div className="w-16 h-16">
                   <TonLogo />
                 </div>

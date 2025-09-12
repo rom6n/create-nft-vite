@@ -62,7 +62,3 @@ a,
   -webkit-tap-highlight-color: transparent; /* убирает синий фон */
   -webkit-touch-callout: none; /* отключает меню при долгом тапе */
 }
-
-button {
-  cursor: pointer;
-}

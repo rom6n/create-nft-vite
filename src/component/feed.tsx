@@ -33,7 +33,7 @@ const Feed = ({
       </button>
       {activeNav === 1 && (
         <div className="min-h-120">
-          <div className="flex justify-around mt-17 w-full h-full gap-2 px-2">
+          <div className="flex mt-17 w-full h-full gap-2 px-2">
             <button
               className="relative flex group cursor-pointer bg-white/25 w-full max-w-[50%] h-52 rounded-2xl border border-white/40"
               onClick={() => {

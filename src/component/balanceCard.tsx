@@ -18,7 +18,7 @@ const BalanceCard = ({
   const checked = true;
 
   return (
-    <div className="relative w-[100%] h-55 lg:w-112.5 lg:h-62 bg-gradient-to-bl from-sky-500 to-sky-700 rounded-[15px]">
+    <div className="relative w-[100%] h-55 lg:w-112.5 lg:h-62 bg-gradient-to-bl from-sky-500 to-sky-700 rounded-[15px] overflow-hidden">
       <div className="absolute w-60 right-[-75px] top-[8px]">
         <CustomTonconnectButton />
       </div>
@@ -40,7 +40,7 @@ const BalanceCard = ({
           />
         </Switch>
       </div>
-      <div className="absolute flex items-center font-mono left-2 bottom-16 text-4xl cursor-default">
+      <div className="absolute flex items-center left-2 bottom-16 text-[33px] cursor-default">
         <div className="w-12 h-12 mb-1">
           <TonLogo />
         </div>

@@ -44,7 +44,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
     <div>
       <div className="grid grid-cols-3 w-70 h-85 gap-2">
         <button
-          className="bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className="bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("1");
           }}
@@ -52,7 +52,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           1
         </button>
         <button
-          className="  bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className="  bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("2");
           }}
@@ -60,7 +60,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           2
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("3");
           }}
@@ -68,7 +68,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           3
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("4");
           }}
@@ -76,7 +76,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           4
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("5");
           }}
@@ -84,7 +84,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           5
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("6");
           }}
@@ -92,7 +92,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           6
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("7");
           }}
@@ -100,7 +100,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           7
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("8");
           }}
@@ -108,7 +108,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           8
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("9");
           }}
@@ -116,7 +116,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           9
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 transition-colors duration-75"
           onClick={() => {
             setNumberFunc("0");
           }}
@@ -124,7 +124,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           0
         </button>
         <button
-          className=" bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className=" bg-gradient-to-bl from-black/20 to-white/3 border-4 border-black/40 rounded-xl text-4xl font-bold hover:bg-black/10 transition-colors duration-75"
           onClick={() => {
             setNumberFunc(".");
           }}
@@ -132,7 +132,7 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
           ,
         </button>
         <button
-          className="bg-white/10 border-4 border-white/40 rounded-xl text-4xl font-bold hover:bg-white/20 active:bg-white/6 transition-colors duration-75"
+          className="bg-gradient-to-bl from-black/20 to-white/3 border-4 border-black/40 rounded-xl text-4xl font-bold hover:bg-black/10 transition-colors duration-75"
           onClick={() => {
             delLastNumber();
           }}

@@ -4,6 +4,7 @@ import { fromNano } from "@ton/ton";
 import { mintNft } from "../scripts/mintNft";
 import { type Attribute } from "../scripts/mintNft";
 import LoadingIcon from "../assets/icons/loadingIcon";
+import { postEvent } from "@telegram-apps/sdk-react";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -40,6 +41,8 @@ const CreateNftPage = ({
       value: "",
     },
   ]);
+
+    postEvent("web_app_set_header_color", { color: "#2c2c2c" });
 
   const addAttributeInput = () => {
     if (attributeInputs.length >= 20) {

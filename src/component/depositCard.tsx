@@ -35,7 +35,7 @@ const DepositCard = ({
 
           {/* само окно */}
           <motion.div
-            className="fixed bottom-0 scroll- left-0 right-0 min-h-7/9 max-h-9/9 bg-[#353535] rounded-t-2xl shadow-lg p-4"
+            className="fixed bottom-0 scroll- left-0 right-0 min-h-5/9 max-h-9/9 bg-[#353535] rounded-t-2xl shadow-lg p-4"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -53,7 +53,7 @@ const DepositCard = ({
                   DEPOSIT
                 </span>
               </div>
-              <div className="flex w-full mt-14 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
+              <div className="flex w-full mt-14 pr-10 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
                 <div className="w-16 h-16">
                   <TonLogo />
                 </div>

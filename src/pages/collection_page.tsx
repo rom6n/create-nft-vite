@@ -6,6 +6,7 @@ import { withdrawCollection } from "../scripts/withdrawCollection";
 import WebApp from "@twa-dev/sdk";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import LoadingIcon from "../assets/icons/loadingIcon";
+import { postEvent } from "@telegram-apps/sdk-react";
 
 type CollectionCardPageProps = {
   NftCollection: NftCollection | undefined;
@@ -29,6 +30,8 @@ const CollectionCardPage = ({
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
   }
+
+    postEvent("web_app_set_header_color", { color: "#101010" });
 
   useEffect(() => {
     (async () => {

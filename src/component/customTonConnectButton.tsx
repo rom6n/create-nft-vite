@@ -91,17 +91,25 @@ const CustomTonconnectButton = () => {
 
       {/* Выпадающее меню */}
       {menuOpen && (
-        <div className="absolute top-11 w-full h-10 z-1000">
+        <div className="absolute top-11 w-full h-10">
+          <button
+            className="absolute bg-transparent w-90 h-57 -top-14 right-[50%] translate-x-[13%] overflow-y-hidden cursor-default "
+            onClick={async () => {
+              await handleMenuOpened(!menuOpened);
+              await wait(200);
+              setMenuOpen(false);
+            }}
+          />
           <button
             onClick={async () => {
               tonConnectUI.disconnect();
               await handleMenuOpened(!menuOpened);
-              wait(200);
+              await wait(200);
               setMenuOpen(false);
             }}
-            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-white/20 rounded-xl shadow-2xl cursor-pointer font-semibold text-white/80 transition-all duration-200 ${
+            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-sky-400/20 rounded-xl shadow-2xl cursor-pointer font-semibold text-white/85 transition-all duration-200 ${
               menuOpened ? "opacity-100" : "opacity-0"
-            } hover:bg-white/25`}
+            } hover:bg-white/15`}
           >
             Disconnect
           </button>
