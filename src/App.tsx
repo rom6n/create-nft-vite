@@ -14,11 +14,7 @@ import NftCardPage from "./pages/nft_card_page";
 import { pingServers } from "./scripts/pingServers";
 import CreateCollectionPage from "./pages/create_collection_page";
 import CollectionCardPage from "./pages/collection_page";
-import {
-  init,
-  backButton,
-  useLaunchParams,
-} from "@telegram-apps/sdk-react";
+import { init, backButton, useLaunchParams } from "@telegram-apps/sdk-react";
 
 init();
 backButton.mount();
@@ -33,7 +29,6 @@ function App() {
   const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
   const lp = useLaunchParams();
-
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,36 +59,38 @@ function App() {
 
   return (
     <>
-      {activePage === 1 ? (
-        <CreateNftPage
-          setActivePage={setActivePage}
-          userNftCollections={userCollections}
-          user={user}
-        />
-      ) : activePage === 2 ? (
-        <NftCardPage
-          setActivePage={setActivePage}
-          nftItem={selectedNft}
-          userBalance={user?.nano_ton}
-        />
-      ) : activePage === 3 ? (
-        <CreateCollectionPage setActivePage={setActivePage} user={user} />
-      ) : activePage === 4 ? (
-        <CollectionCardPage
-          NftCollection={selectedCollection}
-          userBalance={user?.nano_ton}
-          setActivePage={setActivePage}
-        />
-      ) : (
-        <MainPage
-          setActivePage={setActivePage}
-          userNftItems={userNftItems}
-          userCollections={userCollections}
-          user={user}
-          setSelectedNft={setSelectedNft}
-          setSelectedCollection={setSelectedCollection}
-        />
-      )}
+      <div className="absolute w-full h-full top-0 left-0 right-0 max-w-160">
+        {activePage === 1 ? (
+          <CreateNftPage
+            setActivePage={setActivePage}
+            userNftCollections={userCollections}
+            user={user}
+          />
+        ) : activePage === 2 ? (
+          <NftCardPage
+            setActivePage={setActivePage}
+            nftItem={selectedNft}
+            userBalance={user?.nano_ton}
+          />
+        ) : activePage === 3 ? (
+          <CreateCollectionPage setActivePage={setActivePage} user={user} />
+        ) : activePage === 4 ? (
+          <CollectionCardPage
+            NftCollection={selectedCollection}
+            userBalance={user?.nano_ton}
+            setActivePage={setActivePage}
+          />
+        ) : (
+          <MainPage
+            setActivePage={setActivePage}
+            userNftItems={userNftItems}
+            userCollections={userCollections}
+            user={user}
+            setSelectedNft={setSelectedNft}
+            setSelectedCollection={setSelectedCollection}
+          />
+        )}
+      </div>
     </>
   );
 }

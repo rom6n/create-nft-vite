@@ -53,7 +53,11 @@ function MainPage({
 
   const tonAmount = user?.nano_ton && fromNano(user.nano_ton);
   return (
-    <div className="absolute top-0 left-0 w-full h-full max-w-150 min-h-100">
+    <div
+      className={`absolute top-0 right-[50%] translate-x-[50%] w-full h-full min-h-95 ${
+        openDeposit || openWithdraw ? "overflow-y-hidden" : ""
+      }`}
+    >
       <div className="relative flex overflow-x-hidden right-[50%] translate-x-[57.5%] mt-3 w-[93%] justify-center">
         <BalanceCard
           tonAmount={tonAmount}

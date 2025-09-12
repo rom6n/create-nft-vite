@@ -40,8 +40,10 @@ const BalanceCard = ({
           />
         </Switch>
       </div>
-      <div className="absolute flex items-center left-2 bottom-18 text-3xl cursor-default">
-        <div className="w-9 h-9"><TonLogo /></div>
+      <div className="absolute flex items-center font-mono left-2 bottom-16 text-4xl cursor-default">
+        <div className="w-12 h-12 mb-1">
+          <TonLogo />
+        </div>
         {tonAmount || tonAmount === 0 ? (
           <b>{tonAmount}</b>
         ) : (

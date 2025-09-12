@@ -1,73 +1,13 @@
-.deposit-button {
-  position: absolute;
-  width: 140px;
-  height: 44px;
-  background: #5ebef3ff;
-  border-radius: 12px;
-  right: 165px;
-  bottom: 13px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 600;
-  border: none;
-  box-shadow: 0 0 5px rgba(50, 50, 50, 0.1);
-}
-
-.withdraw-button {
-  position: absolute;
-  width: 140px;
-  height: 44px;
-  background: #5ebef3ff;
-  border-radius: 12px;
-  right: 15px;
-  bottom: 13px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 600;
-  border: none;
-  box-shadow: 0 0 5px rgba(50, 50, 50, 0.1);
-}
-
-.ton-balance {
-  position: absolute;
-  left: 20px;
-  bottom: 65px;
-  font-size: 30px;
-  cursor: default;
-}
-
-.balance-card {
-  position: absolute;
-  display: flex;
-  width: 500px;
-  height: 250px;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgb(55, 168, 229);
-  border-radius: 15px;
-  box-shadow: 0 0 10px #000000ff;
-  align-items: flex-start;
-  justify-content: flex-end;
-  z-index: 100;
-}
-
-.version {
-  position: absolute;
-  left: 10px;
-  cursor: default;
-}
-
 .select-nfts {
   position: absolute;
   background: transparent;
-  width: 385px;
-  height: 50px;
-  left: 10px;
-  top: 10px;
-  border: none;
+  width: 46%;
+  height: 60px;
+  left: 0%;
+  top: 6px;
   border-radius: 15px;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  border: none;
   font-weight: 600;
   opacity: 0.4;
   transition: transform 0.06s, background-color 0.02s;
@@ -79,13 +19,13 @@
 .select-nft-collections {
   position: absolute;
   background: transparent;
-  width: 385px;
-  height: 50px;
-  top: 10px;
-  right: 10px;
+  width: 46%;
+  height: 60px;
+  top: 6px;
+  right: 7%;
+  font-size: 1.5rem;
   border: none;
   border-radius: 15px;
-  font-size: 1.6rem;
   font-weight: 600;
   opacity: 0.4;
   transition: transform 0.06s, background-color 0.02s;
@@ -106,37 +46,7 @@
   left: 14%;
 }
 
-.nt {
-  position: absolute;
-  width: 800px;
-  background-color: #2d2c2c;
-  height: 2px;
-  top: 70px;
-}
-
 @media (max-width: 768px) {
-  .balance-card {
-    position: absolute;
-    display: flex;
-    width: 93%;
-    height: 200px;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgb(55, 168, 229);
-    border-radius: 15px;
-    box-shadow: 0 0 10px #000000ff;
-    align-items: flex-start;
-    justify-content: flex-end;
-    z-index: 100;
-  }
-  .nt {
-    position: absolute;
-    width: 100%;
-    background-color: #2d2c2c;
-    height: 2px;
-    top: 60px;
-  }
   .select-nfts {
     width: 46%;
     height: 60px;
@@ -151,48 +61,5 @@
     top: 6px;
     right: 7%;
     font-size: 1.5rem;
-  }
-  .deposit-button {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    width: 75px;
-    height: 50px;
-    background: rgba(94, 191, 243, 0.4);
-    border-radius: 12px;
-    left: 10px;
-    bottom: 10px;
-    cursor: pointer;
-    font-size: 0.6rem;
-    font-weight: 600;
-    border: none;
-    box-shadow: 0 2px 5px rgba(50, 50, 50, 0.15);
-  }
-
-  .withdraw-button {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    width: 75px;
-    height: 50px;
-    background: rgba(94, 191, 243, 0.4);
-    border-radius: 12px;
-    left: 95px;
-    bottom: 10px;
-    cursor: pointer;
-    font-size: 0.6rem;
-    font-weight: 600;
-    border: none;
-    box-shadow: 0 2px 5px rgba(50, 50, 50, 0.15);
-  }
-
-  .ton-balance {
-    position: absolute;
-    left: 20px;
-    bottom: 65px;
-    font-size: 1.7rem;
-    cursor: default;
   }
 }

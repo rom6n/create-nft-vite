@@ -110,7 +110,7 @@ const CreateNftPage = ({
   };
 
   return (
-    <div className="absolute right-[50%] translate-x-[50%] min-w-94 top-0 w-full h-full text-[17px] bg-black">
+    <div className="absolute top-0 right-[50%] translate-x-[50%] w-full h-full text-[17px] bg-black">
       <button
         className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{
@@ -297,7 +297,7 @@ const CreateNftPage = ({
         </div>
         <div className="w-full flex items-center justify-center">
           <button
-            className={`relative flex items-center transition-colors duration-200 justify-center mt-11 mb-1 w-[90%] min-h-15 ${
+            className={`relative flex items-center transition-colors duration-200 justify-center mt-11 mb-1 w-[90%] min-h-16 ${
               isError
                 ? "bg-red-600/70"
                 : isSuccess === 1

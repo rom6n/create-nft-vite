@@ -135,7 +135,7 @@ const CreateCollectionPage = ({
   }, []);
 
   return (
-    <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] min-w-94 top-0 w-full text-[17px] bg-[#101010]">
+    <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] top-0 w-full text-[17px] bg-[#101010]">
       <button
         className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{

@@ -49,7 +49,7 @@ const CollectionCardPage = ({
   }, [tonConnectUI]);
 
   return (
-    <div className="absolute flex flex-col items-center w-full h-full min-w-80 max-w-150 top-0 left-0 bg-[#101010]">
+    <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] w-full h-full top-0  bg-[#101010]">
       <div className="flex w-full p-4">
         <button
           className="bg-[#282828] w-22 h-8 font-semibold rounded-full z-1"
