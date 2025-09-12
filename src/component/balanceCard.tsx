@@ -1,7 +1,8 @@
 import CustomTonconnectButton from "./customTonConnectButton";
-import LoadingIcon from "../assets/loadingIcon";
-import WDIcon from "../assets/WDIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
+import WDIcon from "../assets/icons/WDIcon";
 import { Switch } from "@radix-ui/react-switch";
+import TonLogo from "../assets/icons/tonLogoIcon";
 
 type balanceCardProps = {
   tonAmount: string | 0 | undefined;
@@ -39,7 +40,8 @@ const BalanceCard = ({
           />
         </Switch>
       </div>
-      <div className="absolute flex gap-2 items-center left-5 bottom-18 text-3xl cursor-default">
+      <div className="absolute flex items-center left-2 bottom-18 text-3xl cursor-default">
+        <div className="w-9 h-9"><TonLogo /></div>
         {tonAmount || tonAmount === 0 ? (
           <b>{tonAmount}</b>
         ) : (
@@ -47,7 +49,6 @@ const BalanceCard = ({
             <LoadingIcon />
           </div>
         )}
-        <b>TON</b>
       </div>
       <button
         className="absolute flex w-20 h-13 bg-black/35 hover:bg-black/40 rounded-[10px] bottom-2 left-2 justify-center items-end text-[12px] font-semibold cursor-pointer"

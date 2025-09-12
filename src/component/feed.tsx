@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { NftCollection, NftItem } from "../scripts/fetchUserData";
+import CreateNewIcon from "../assets/icons/createNew";
 
 type FeedProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -34,17 +35,19 @@ const Feed = ({
         <div className="min-h-120">
           <div className="flex ml-2 w-full h-full gap-2">
             <button
-              className="relative group cursor-pointer mt-17 bg-white/25 w-[47%] h-52 rounded-2xl border border-white/40 hover:bg-white/35 hover:border-white"
+              className="relative flex group cursor-pointer mt-17 bg-white/25 w-[47%] h-52 rounded-2xl border border-white/40"
               onClick={() => {
                 setActivePage(1);
               }}
             >
-              <p className="absolute top-6 right-[50%] translate-x-[50%] text-white text-[90px] font-semibold">
-                +
-                <span className="absolute text-[10px] text-white/25 top-27 right-[50%] translate-x-[50%] w-20 font-semibold group-hover:text-white">
+              <div className="absolute flex flex-col items-center justify-center w-full h-full text-white text-[90px]">
+                <div className="w-18 h-18">
+                  <CreateNewIcon />
+                </div>
+                <span className="text-[10px] text-white/25 w-20 font-medium">
                   Create your own unique NFT
                 </span>
-              </p>
+              </div>
             </button>
             {userNftItems?.slice(0, 1).map((value) => (
               <button

@@ -3,7 +3,7 @@ import type { NftCollection, User } from "../scripts/fetchUserData";
 import { fromNano } from "@ton/ton";
 import { mintNft } from "../scripts/mintNft";
 import { type Attribute } from "../scripts/mintNft";
-import LoadingIcon from "../assets/loadingIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -163,7 +163,7 @@ const CreateNftPage = ({
           }}
         >
           <label
-            className={`absolute top-[1px] h-full right-3 ${
+            className={`absolute top-[1px] h-full transition-all duration-200 right-3 ${
               selectOpen ? "rotate-90" : "rotate-270"
             } text-white text-xl cursor-pointer`}
           >
@@ -216,7 +216,7 @@ const CreateNftPage = ({
             value={name}
             placeholder="Name "
             maxLength={35}
-            className="bg-transparent w-78 h-15.5 pl-2 pr-2 min-h-15.5 max-h-15.5 rounded-xl border border-white/60 focus:outline-none focus:border-white"
+            className="bg-transparent resize-none w-78 h-15.5 pl-2 pr-2 pt-1 pb-1 min-h-15.5 max-h-15.5 rounded-xl transition-colors duration-150 border border-white/60 focus:outline-none focus:border-white"
             onChange={setNameFunc}
           />
         </div>
@@ -226,11 +226,11 @@ const CreateNftPage = ({
             value={description}
             placeholder="Description "
             maxLength={80}
-            className="bg-transparent w-85 h-29 pl-2 pr-2 min-h-29 max-h-29 rounded-xl border border-white/60 focus:outline-none focus:border-white"
+            className="bg-transparent resize-none w-85 h-29 pl-2 pr-2 pt-1 pb-1 min-h-29 max-h-29 transition-colors duration-150 rounded-xl border border-white/60 focus:outline-none focus:border-white"
             onChange={setDescriptionFunc}
           />
         </div>
-        <div className="relative flex flex-col space-y-2 ml-4 mt-7 rounded-xl w-85">
+        <div className="relative flex flex-col space-y-2 ml-4 mt-7 h-27 overflow-y-auto w-85">
           {attributeInputs.map((attribute, idx) => (
             <div className="flex gap-2 focus:outline-none">
               <textarea
@@ -238,7 +238,7 @@ const CreateNftPage = ({
                 value={attribute.trait_type}
                 maxLength={25}
                 onChange={(e) => updateAttributeInput(idx, e.target.value)}
-                className="p-1.5 border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] focus:outline-none focus:border-white"
+                className="p-1.5 resize-none border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] transition-colors duration-150 focus:outline-none focus:border-white"
                 placeholder={`Attribute `}
               />
               <textarea
@@ -246,7 +246,7 @@ const CreateNftPage = ({
                 value={attribute.value}
                 maxLength={25}
                 onChange={(e) => updateValueInput(idx, e.target.value)}
-                className="p-1.5 border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] focus:outline-none focus:border-white"
+                className="p-1.5 resize-none border border-white/60 rounded-lg max-h-10 min-h-10 w-[51%] transition-colors duration-150 focus:outline-none focus:border-white"
                 placeholder={`Value `}
               />
             </div>
@@ -266,12 +266,12 @@ const CreateNftPage = ({
             </button>
           </div>
         </div>
-        <div className="relative flex ml-4 mt-15">
+        <div className="relative flex ml-4 mt-5">
           <textarea
             maxLength={50}
             placeholder="Mint message "
             onChange={handleFwdMsgChange}
-            className="border p-1.5 w-85 border-white/60 rounded-xl max-h-17 min-h-17 focus:outline-none"
+            className="border resize-none p-2 pt-1 pb-1 w-85 border-white/60 rounded-xl max-h-17 min-h-17 transition-colors duration-150 focus:outline-none focus:border-white"
           ></textarea>
         </div>
         <div className="relative mt-15 w-full">
@@ -309,7 +309,7 @@ const CreateNftPage = ({
                   ? "bg-red-600/70"
                   : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
                 : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
-            } rounded-2xl text-[20px] cursor-pointer`}
+            } rounded-full text-[20px] cursor-pointer`}
             onClick={async () => {
               console.log("selected collection: ", selectedCollectionAddress);
               if (!isMinting) {

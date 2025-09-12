@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import type { User } from "../scripts/fetchUserData";
 import UploadImageIcon from "../component/uploadImage";
 import { createCollection } from "../scripts/createCollection";
-import LoadingIcon from "../assets/loadingIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
+import { postEvent } from "@telegram-apps/sdk-react";
 
 type CreateCollectionPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -30,6 +31,8 @@ const CreateCollectionPage = ({
   const [isSuccess, setIsSuccess] = useState(0);
   const [numerator, setNumerator] = useState(25);
   const [denominator, setDenominator] = useState(1000);
+
+  postEvent("web_app_set_header_color", { color: "#101010" });
 
   const createCost = 100000000;
 

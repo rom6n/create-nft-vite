@@ -1,11 +1,11 @@
 import type { NftCollection } from "../scripts/fetchUserData";
 
-import NoImage from "../assets/noImage";
+import NoImage from "../assets/icons/noImage";
 import { useEffect, useState } from "react";
 import { withdrawCollection } from "../scripts/withdrawCollection";
 import WebApp from "@twa-dev/sdk";
 import { useTonConnectUI } from "@tonconnect/ui-react";
-import LoadingIcon from "../assets/loadingIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
 
 type CollectionCardPageProps = {
   NftCollection: NftCollection | undefined;

@@ -5,7 +5,8 @@ import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { toNano } from "@ton/ton";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import { withdrawUserTon } from "../scripts/withdrawUserTon";
-import LoadingIcon from "../assets/loadingIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
+import TonLogo from "../assets/icons/tonLogoIcon";
 
 type WithdrawCardProps = {
   openWithdraw: boolean;
@@ -58,9 +59,11 @@ const WithdrawCard = ({
                   Withdraw
                 </span>
               </div>
-              <div className="flex w-full mt-14 items-center justify-center content-between gap-3 text-5xl font-bold bg-transparent h-11">
+              <div className="flex w-full mt-14 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
+                <div className="w-15 h-15">
+                  <TonLogo />
+                </div>
                 <b>{amount}</b>
-                <b>TON</b>
               </div>
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
@@ -69,11 +72,10 @@ const WithdrawCard = ({
                 className={`flex mt-4 rounded-2xl items-center justify-center w-[100%] h-15 border-1 transition-colors duration-200 border-white/50 font-semibold text-2xl ${
                   isSuccess === 1
                     ? "bg-green-600/90"
-                    : userBalance &&
-                      userBalance >= toNano(Number(amount)) &&
-                      tonConnectUI.account?.address &&
-                      lp.tgWebAppData?.user?.id &&
-                      isSuccess == 0
+                    : !tonConnectUI.account?.address ||
+                      !(userBalance && userBalance >= toNano(Number(amount)))
+                    ? "bg-sky-500/40"
+                    : lp.tgWebAppData?.user?.id && isSuccess == 0
                     ? "bg-sky-600/90"
                     : "bg-red-600/70"
                 } cursor-pointer hover:to-sky-500/80`}
@@ -116,7 +118,7 @@ const WithdrawCard = ({
                     <span className="text-[10px] font-semibold">{error}</span>
                   </div>
                 ) : tonConnectUI.account?.address === undefined ? (
-                  <span>Wallet is not connected</span>
+                  <span className="text-xl">Wallet is not connected</span>
                 ) : lp.tgWebAppData?.user?.id &&
                   userBalance &&
                   userBalance >= toNano(Number(amount)) ? (

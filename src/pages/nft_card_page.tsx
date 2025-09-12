@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import type { NftItem } from "../scripts/fetchUserData";
-import LoadingIcon from "../assets/loadingIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
 import { withdrawNftItem } from "../scripts/withdrawNft";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import WebApp from "@twa-dev/sdk";
 import { fromNano } from "@ton/ton";
-import NoImage from "../assets/noImage";
+import NoImage from "../assets/icons/noImage";
 
 type NftCardPageProps = {
   nftItem: NftItem | undefined;

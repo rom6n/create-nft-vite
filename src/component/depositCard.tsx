@@ -2,16 +2,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PinPad from "./pinPad";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
-import LoadingIcon from "../assets/loadingIcon";
+import LoadingIcon from "../assets/icons/loadingIcon";
 import { toNano } from "@ton/ton";
-import TonkeeperLogo from "../assets/tonkeeperLogo";
+import TonkeeperLogo from "../assets/icons/tonkeeperLogo";
+import TonLogo from "../assets/icons/tonLogoIcon";
 
 type DepositCardProps = {
   openDeposit: boolean;
   setOpenDeposit: React.Dispatch<React.SetStateAction<boolean>>;
+  isReady: boolean;
 };
 
-const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
+const DepositCard = ({
+  openDeposit,
+  setOpenDeposit,
+  isReady,
+}: DepositCardProps) => {
   const [amount, setAmount] = useState<string>("0");
   const lp = useLaunchParams();
   return (
@@ -47,38 +53,44 @@ const DepositCard = ({ openDeposit, setOpenDeposit }: DepositCardProps) => {
                   DEPOSIT
                 </span>
               </div>
-              <div className="flex w-full mt-14 items-center justify-center content-between gap-3 text-5xl font-bold bg-transparent h-11">
+              <div className="flex w-full mt-14 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
+                <div className="w-15 h-15">
+                  <TonLogo />
+                </div>
                 <b>{amount}</b>
-                <b>TON</b>
               </div>
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
               </div>
-              <a
-                className="flex items-center justify-center mt-4 rounded-2xl h-15 border-1 border-white/20 bg-sky-900/50 cursor-pointer"
-                href={
-                  lp.tgWebAppData?.user?.id && amount !== "0" && amount !== "0."
-                    ? `https://app.tonkeeper.com/transfer/0QDU46qYz4rHAJhszrW9w6imF8p4Cw5dS1GpPTcJ9vqNSmnf?amount=${toNano(
-                        amount
-                      )}&text=${lp.tgWebAppData.user.id}`
-                    : ""
-                }
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {lp.tgWebAppData?.user?.id ? (
-                  <div className="flex gap-1 items-center justify-center">
-                    <div className="w-7 h-7">
-                      <TonkeeperLogo />
+              {lp.tgWebAppData?.user?.id && isReady ? (
+                <a
+                  className="flex items-center justify-center mt-4 rounded-2xl h-15 border-1 border-white/20 bg-sky-900/50 cursor-pointer"
+                  href={`https://app.tonkeeper.com/transfer/0QDU46qYz4rHAJhszrW9w6imF8p4Cw5dS1GpPTcJ9vqNSmnf?amount=${toNano(
+                    amount
+                  )}&text=${lp.tgWebAppData.user.id}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {lp.tgWebAppData?.user?.id && isReady ? (
+                    <div className="flex gap-1.5 items-center justify-center">
+                      <div className="w-6 h-6">
+                        <TonkeeperLogo />
+                      </div>
+                      <span className="font-semibold text-xl">Tonkeeper</span>
                     </div>
-                    <span className="font-semibold text-md">Tonkeeper</span>
-                  </div>
-                ) : (
-                  <div className="w-10 h-10">
+                  ) : (
+                    <div className="w-10 h-10">
+                      <LoadingIcon />
+                    </div>
+                  )}
+                </a>
+              ) : (
+                <div className="flex items-center justify-center mt-4 rounded-2xl h-15 border-1 border-white/20 bg-sky-900/50 cursor-pointer">
+                  <div className="w-9 h-9">
                     <LoadingIcon />
                   </div>
-                )}
-              </a>
+                </div>
+              )}
             </div>
           </motion.div>
         </>

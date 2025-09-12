@@ -14,7 +14,11 @@ import NftCardPage from "./pages/nft_card_page";
 import { pingServers } from "./scripts/pingServers";
 import CreateCollectionPage from "./pages/create_collection_page";
 import CollectionCardPage from "./pages/collection_page";
-import { init, backButton, useLaunchParams } from "@telegram-apps/sdk-react";
+import {
+  init,
+  backButton,
+  useLaunchParams,
+} from "@telegram-apps/sdk-react";
 
 init();
 backButton.mount();
@@ -29,6 +33,7 @@ function App() {
   const [userNftItems, setUserNftItems] = useState<NftItem[] | undefined>();
   const [activePage, setActivePage] = useState(0);
   const lp = useLaunchParams();
+
 
   useEffect(() => {
     const fetchUser = async () => {

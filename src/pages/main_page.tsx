@@ -10,6 +10,7 @@ import { fromNano } from "@ton/ton";
 import "../styles/main_page.style.css";
 import DepositCard from "../component/depositCard";
 import WithdrawCard from "../component/withdrawCard";
+import { postEvent } from "@telegram-apps/sdk-react";
 
 type MainPageProps = {
   user: User | undefined;
@@ -35,6 +36,8 @@ function MainPage({
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
 
+  postEvent("web_app_set_header_color", { color: "#000000" });
+
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
   }
@@ -50,7 +53,7 @@ function MainPage({
 
   const tonAmount = user?.nano_ton && fromNano(user.nano_ton);
   return (
-    <div className="absolute top-0 left-0 w-full h-full">
+    <div className="absolute top-0 left-0 w-full h-full max-w-150 min-h-100">
       <div className="relative flex overflow-x-hidden right-[50%] translate-x-[57.5%] mt-3 w-[93%] justify-center">
         <BalanceCard
           tonAmount={tonAmount}
@@ -80,7 +83,11 @@ function MainPage({
           </a>
         </p>
       </div>
-      <DepositCard openDeposit={openDeposit} setOpenDeposit={setOpenDeposit} />
+      <DepositCard
+        openDeposit={openDeposit}
+        setOpenDeposit={setOpenDeposit}
+        isReady={user ? true : false}
+      />
       <WithdrawCard
         openWithdraw={openWithdraw}
         setOpenWithdraw={setOpenWithdraw}
