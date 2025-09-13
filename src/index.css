@@ -1,6 +1,6 @@
 @font-face {
   font-family: Geist;
-  src: url("fonts/geist-v3-latin-500.woff2");
+  src: url("fonts/geist-v3-latin-500.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
 }
