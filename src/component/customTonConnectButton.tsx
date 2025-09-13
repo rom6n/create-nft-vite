@@ -93,7 +93,7 @@ const CustomTonconnectButton = () => {
       {menuOpen && (
         <div className="absolute top-11 w-full h-10">
           <button
-            className="absolute bg-transparent w-90 h-57 -top-14 right-[50%] translate-x-[13%] overflow-y-hidden cursor-default "
+            className="absolute bg-transparent w-90 h-52 -top-14 right-[50%] translate-x-[13%] overflow-y-hidden cursor-default "
             onClick={async () => {
               await handleMenuOpened(!menuOpened);
               await wait(200);

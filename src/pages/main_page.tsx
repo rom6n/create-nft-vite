@@ -11,6 +11,8 @@ import "../styles/main_page.style.css";
 import DepositCard from "../component/depositCard";
 import WithdrawCard from "../component/withdrawCard";
 import { postEvent } from "@telegram-apps/sdk-react";
+import PersonIcon from "../assets/icons/personIcon";
+import CodeIcon from "../assets/icons/codeIcon";
 
 type MainPageProps = {
   user: User | undefined;
@@ -65,6 +67,28 @@ function MainPage({
           setOpenWithdraw={setOpenWithdraw}
         />
       </div>
+      <div className="flex gap-[2.5px] mt-0.5 w-[93%] items-center right-[50%] translate-x-[4%]">
+        <a
+          className="flex gap-0.5 items-center justify-center w-[25%] h-8.5 ml-1 bg-sky-900 rounded-xl cursor-pointer transition-all duration-200 active:scale-95 hover:bg-sky-800"
+          target="_blank"
+          href="https://t.me/MrRoman"
+        >
+          <div className="w-5 h-5">
+            <PersonIcon />
+          </div>
+          <span className="font-medium text-[12px]">Support</span>
+        </a>
+        <a
+          className="flex gap-1 items-center justify-center w-[25%] h-8.5 bg-sky-900 rounded-xl cursor-pointer transition-all duration-200 active:scale-95 hover:bg-sky-800"
+          target="_blank"
+          href="https://github.com/rom6n/create-nft-vite"
+        >
+          <div className="w-5 h-5">
+            <CodeIcon />
+          </div>
+          <span className="font-medium text-[12px]">GitHub</span>
+        </a>
+      </div>
       <div className="relative flex w-[93%] mt-4 right-[50%] translate-x-[57.5%]">
         <Feed
           setActivePage={setActivePage}
@@ -74,19 +98,7 @@ function MainPage({
           setSelectedCollection={setSelectedCollection}
         />
       </div>
-      <div className="relative overflow-x-hidden space-x-2 mt-2 pb-2 right-[50%] translate-x-[50%]">
-        <p>
-          See on{" "}
-          <a
-            href="https://github.com/rom6n/create-nft-vite"
-            className="cursor-pointer text-sky-500 font-semibold hover:w-15 hover:h-3 hover:bg-sky-600 hover:rounded-xs hover:text-white active:border-none"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            GitHub
-          </a>
-        </p>
-      </div>
+      <div className="relative pb-3 right-[50%] translate-x-[50%]" />
       <DepositCard
         openDeposit={openDeposit}
         setOpenDeposit={setOpenDeposit}
