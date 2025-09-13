@@ -47,7 +47,7 @@ const BalanceCard = ({
             <TonLogo />
           </div>
           {tonAmount || tonAmount === 0 ? (
-            <span className="font-geist font-meduim mt-0.5 text-[30px]">
+            <span className="font-geist font-medium mt-0.5 text-[30px]">
               {tonAmount}
             </span>
           ) : (
