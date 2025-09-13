@@ -30,10 +30,10 @@ const BalanceCard = ({
       <div
         className={`relative w-[98.5%] h-52 lg:w-111 lg:h-61 transition-colors duration-5000 bg-gradient-to-bl ${
           gradientPos === 1
-            ? "from-sky-600 via-sky-500 to-indigo-400"
+            ? "from-sky-600 via-sky-400 to-blue-500"
             : gradientPos === 2
-            ? "from-indigo-400 via-sky-600 to-sky-500"
-            : "from-sky-500 via-indigo-400 to-sky-600"
+            ? "from-blue-500 via-sky-600 to-sky-400"
+            : "from-sky-400 via-blue-500 to-sky-600"
         } rounded-[15px]`}
       >
         <div className="absolute w-60 right-[-75px] top-[8px]">
@@ -47,7 +47,9 @@ const BalanceCard = ({
             <TonLogo />
           </div>
           {tonAmount || tonAmount === 0 ? (
-            <span className="font-medium mt-0.5 text-[30px]">{tonAmount}</span>
+            <span className="font-geist font-meduim mt-0.5 text-[30px]">
+              {tonAmount}
+            </span>
           ) : (
             <div className="mt-0.5 w-5.5 h-5.5">
               <LoadingIcon />

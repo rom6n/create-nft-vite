@@ -1,6 +1,8 @@
 @font-face {
   font-family: Geist;
-  src: url(../src/assets/fonts/Geist-Regular.ttf);
+  src: url("fonts/Geist-VariableFont_wght.ttf");
+  font-weight: 100 900;
+  font-style: normal;
 }
 
 @import "tailwindcss";

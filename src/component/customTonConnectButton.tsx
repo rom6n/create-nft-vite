@@ -71,7 +71,7 @@ const CustomTonconnectButton = () => {
                 await handleMenuOpened(!menuOpened);
               }
             }}
-            className="absolute left-42 bg-white/10 border border-white/15 hover:border-white/50 transition-all duration-200 active:scale-95 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[6px] pb-[5px] pr-[6px] pt-[5px] z-999"
+            className="absolute left-42 bg-white/10 border border-white/15 hover:border-white/50 transition-all duration-200 active:scale-95 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[6px] pb-[4px] pr-[6px] pt-[5px] z-999"
           >
             <b>⋮</b>
           </button>

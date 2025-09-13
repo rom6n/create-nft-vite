@@ -61,10 +61,12 @@ const WithdrawCard = ({
                 </span>
               </div>
               <div className="flex w-full mt-14 pr-10 items-center justify-center content-between bg-transparent h-11">
-                <div className="w-16 h-16">
+                <div className="w-15 h-15">
                   <TonLogo />
                 </div>
-                <span className="font-medium mt-1 text-[42px]">{amount}</span>
+                <span className="font-geist font-medium mt-2 text-[42px]">
+                  {amount}
+                </span>
               </div>
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
