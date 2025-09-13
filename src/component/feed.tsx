@@ -22,7 +22,7 @@ const Feed = ({
   const [activeNav, setActiveNav] = useState(1);
 
   return (
-    <div className="w-[100%] min-w-80 min-h-125 bg-white/8 pb-3 rounded-2xl">
+    <div className="w-[100%] min-w-80 min-h-80 bg-white/8 pb-3 rounded-2xl">
       <button
         className={`select-nfts ${activeNav === 1 ? "active" : ""}`}
         onClick={() => {
@@ -51,7 +51,7 @@ const Feed = ({
             </button>
             {userNftItems?.slice(0, 1).map((value) => (
               <button
-                className="relative flex flex-col justify-between bg-white/10 h-52 w-full rounded-2xl border border-white/40 overflow-hidden"
+                className="relative flex flex-col justify-between bg-white/10 h-52 w-full rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
                 onClick={() => {
                   setSelectedNft(value);
                   setActivePage(2);
@@ -95,7 +95,7 @@ const Feed = ({
           <div className="grid grid-cols-2 w-full px-2 mt-2 gap-2">
             {userNftItems?.slice(1).map((value) => (
               <button
-                className="relative flex flex-col justify-between bg-white/10 h-52 rounded-2xl border border-white/40 overflow-hidden"
+                className="relative flex flex-col justify-between bg-white/10 h-52 rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
                 onClick={() => {
                   setSelectedNft(value);
                   setActivePage(2);

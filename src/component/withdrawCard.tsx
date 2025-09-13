@@ -7,6 +7,7 @@ import { useTonConnectUI } from "@tonconnect/ui-react";
 import { withdrawUserTon } from "../scripts/withdrawUserTon";
 import LoadingIcon from "../assets/icons/loadingIcon";
 import TonLogo from "../assets/icons/tonLogoIcon";
+import ErrorIcon from "../assets/icons/errorIcon";
 
 type WithdrawCardProps = {
   openWithdraw: boolean;
@@ -59,11 +60,11 @@ const WithdrawCard = ({
                   Withdraw
                 </span>
               </div>
-              <div className="flex w-full mt-14 pr-10 items-center justify-center content-between gap-0 text-5xl font-bold bg-transparent h-11">
+              <div className="flex w-full mt-14 pr-10 items-center justify-center content-between bg-transparent h-11">
                 <div className="w-16 h-16">
                   <TonLogo />
                 </div>
-                <b>{amount}</b>
+                <span className="font-medium mt-1 text-[42px]">{amount}</span>
               </div>
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
@@ -118,13 +119,23 @@ const WithdrawCard = ({
                     <span className="text-[10px] font-semibold">{error}</span>
                   </div>
                 ) : tonConnectUI.account?.address === undefined ? (
-                  <span className="text-xl">Wallet is not connected</span>
+                  <div className="flex flex-col items-center gap-0.5">
+                    <div className="w-9 h-9">
+                      <ErrorIcon />
+                    </div>
+                    <span className="text-[10px]">Wallet is not connected</span>
+                  </div>
                 ) : lp.tgWebAppData?.user?.id &&
                   userBalance &&
                   userBalance >= toNano(Number(amount)) ? (
                   <span>Withdraw</span>
                 ) : (
-                  <span>Not enough TON</span>
+                  <div className="flex flex-col items-center gap-0.5">
+                    <div className="w-9 h-9">
+                      <ErrorIcon />
+                    </div>
+                    <span className="text-[10px]">Not enough TON</span>
+                  </div>
                 )}
               </button>
             </div>

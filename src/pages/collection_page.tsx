@@ -31,7 +31,7 @@ const CollectionCardPage = ({
     return new Promise((resolve) => setTimeout(resolve, millisecond));
   }
 
-    postEvent("web_app_set_header_color", { color: "#101010" });
+  postEvent("web_app_set_header_color", { color: "#101010" });
 
   useEffect(() => {
     (async () => {
@@ -184,7 +184,7 @@ const CollectionCardPage = ({
           </button>
         ) : (
           <button
-            className={`flex items-center mt-2 mb-2 transition-colors duration-200 justify-center w-[93%] min-h-16 bg-sky-600 rounded-4xl`}
+            className={`flex items-center mt-2 transition-colors duration-200 justify-center w-[93%] min-h-16 bg-sky-600 rounded-4xl`}
             onClick={() => {
               if (!connected) {
                 tonConnectUI.openModal();

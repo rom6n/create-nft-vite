@@ -51,7 +51,7 @@ const CustomTonconnectButton = () => {
       {connected ? (
         <div>
           <button
-            className="absolute bg-sky-500 left-3 text-white w-31 h-9 rounded-xl cursor-pointer font-semibold z-1000 border duration-300 border-white/15 hover:border-white/50"
+            className="absolute bg-white/10 left-3 text-white w-31 h-9 rounded-xl cursor-pointer font-semibold z-1000 border duration-300 border-white/15 hover:border-white/50"
             onClick={() => {
               if (!connected) {
                 tonConnectUI.openModal();
@@ -71,14 +71,14 @@ const CustomTonconnectButton = () => {
                 await handleMenuOpened(!menuOpened);
               }
             }}
-            className="absolute left-33 bg-black/45 hover:bg-black/50 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[40px] pb-[5px] pr-[10px] pt-[5px] z-999"
+            className="absolute left-42 bg-white/10 border border-white/15 hover:border-white/50 transition-all duration-200 active:scale-95 ml-[-30px] text-[17px] text-white rounded-xl cursor-pointer pl-[6px] pb-[5px] pr-[6px] pt-[5px] z-999"
           >
             <b>⋮</b>
           </button>
         </div>
       ) : (
         <button
-          className="absolute bg-sky-500 left-8 text-white w-31 h-9 rounded-xl cursor-pointer font-semibold z-1000 border transition-colors duration-300 border-white/15 hover:border-white/50"
+          className="absolute bg-white/10 left-8 text-white w-31 h-9 active:scale-95 rounded-xl cursor-pointer font-semibold z-1000 border transition-all duration-200 border-white/15 hover:border-white/50"
           onClick={() => {
             if (!connected) {
               tonConnectUI.openModal();
@@ -107,7 +107,7 @@ const CustomTonconnectButton = () => {
               await wait(200);
               setMenuOpen(false);
             }}
-            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-sky-400/20 rounded-xl shadow-2xl cursor-pointer font-semibold text-white/85 transition-all duration-200 ${
+            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-white/10 rounded-xl shadow-2xl cursor-pointer font-semibold text-white/85 transition-all duration-200 ${
               menuOpened ? "opacity-100" : "opacity-0"
             } hover:bg-white/15`}
           >
