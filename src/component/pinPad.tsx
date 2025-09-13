@@ -9,8 +9,8 @@ type PinPadProps = {
 const PinPad = ({ numbers, setNumber }: PinPadProps) => {
   const setNumberFunc = (newNumber: string) => {
     postEvent("web_app_trigger_haptic_feedback", {
-      type: "notification",
-      notification_type: "success",
+      type: "impact",
+      impact_style: "soft",
     });
 
     const haveDot = numbers.includes(".");
@@ -38,8 +38,8 @@ const PinPad = ({ numbers, setNumber }: PinPadProps) => {
   };
   const delLastNumber = () => {
     postEvent("web_app_trigger_haptic_feedback", {
-      type: "notification",
-      notification_type: "success",
+      type: "impact",
+      impact_style: "soft",
     });
 
     if (numbers === "0") {
