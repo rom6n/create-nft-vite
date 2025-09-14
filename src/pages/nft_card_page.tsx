@@ -64,7 +64,7 @@ const NftCardPage = ({
     <div className="absolute w-full h-full min-w-80 max-w-150 top-0 left-0 bg-black">
       <div className="flex w-full p-4">
         <button
-          className="bg-[#282828] w-22 h-8 font-semibold rounded-full z-1"
+          className="bg-[#282828] w-22 h-8 font-geist rounded-full z-1"
           style={{
             boxShadow: "0 2px 5px #000000D1",
           }}
@@ -107,10 +107,10 @@ const NftCardPage = ({
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span className="relative text-md mt-0 ml-10 font-semibold text-white/80">
+            <span className="relative text-md mt-0 ml-10 font-geist text-white/80">
               Tonviewer
             </span>
-            <span className="absolute right-10 text-2xl text-white/80">
+            <span className="absolute right-10 text-2xl text-white/80 font-geist">
               {">"}
             </span>
           </a>
@@ -125,10 +125,10 @@ const NftCardPage = ({
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span className="relative text-start w-[60%] truncate overflow-hidden text-md mt-0 ml-10 font-semibold text-white/80">
+            <span className="relative text-start w-[60%] truncate overflow-hidden text-md mt-0 ml-10 font-geist text-white/80">
               {nftItem?.collection_name}
             </span>
-            <span className="absolute text-2xl right-10 text-white/80">
+            <span className="absolute text-2xl right-10 text-white/80 font-geist">
               {">"}
             </span>
           </a>
@@ -136,32 +136,32 @@ const NftCardPage = ({
         <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
           <div className="flex gap-4 w-full">
             <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[44.5%] border rounded-3xl items-start ">
-              <span className="text-2xl font-semibold">Index</span>
+              <span className="text-2xl font-geist">Index</span>
               <span className="text-xl text-start font-mono">
                 {nftItem?.index}
               </span>
             </div>
             <div className="flex flex-col mr-4 mt-4 p-2 pl-4 pr-4 w-full min-w-[20%] border rounded-3xl items-start ">
-              <span className="text-2xl font-semibold">Network</span>
+              <span className="text-2xl font-geist">Network</span>
               <span className="text-xl text-start font-mono">
                 {nftItem?.is_testnet ? "Testnet" : "Mainnet"}
               </span>
             </div>
           </div>
           <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 max-w-[80%] border rounded-3xl items-start ">
-            <span className="text-2xl font-semibold">Name</span>
+            <span className="text-2xl font-geist">Name</span>
             <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
               {nftItem?.metadata.name}
             </span>
           </div>
           <div className="flex flex-col ml-4 mt-2.5 p-2 pl-4 pr-4 min-w-[65%] max-w-[80%] border rounded-3xl items-start ">
-            <span className="text-2xl font-semibold">Description</span>
+            <span className="text-2xl font-geist">Description</span>
             <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
               {nftItem?.metadata.description}
             </span>
           </div>
           <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[57%] max-w-[80%] border rounded-3xl items-start ">
-            <span className="text-2xl font-semibold">Collection</span>
+            <span className="text-2xl font-geist">Collection</span>
             <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
               {nftItem?.collection_name}
             </span>
@@ -173,7 +173,7 @@ const NftCardPage = ({
               (value) =>
                 value.trait_type && (
                   <div className="flex flex-col ml-4 mt-4 p-2 pl-4 min-w-[92%] max-w-[92%] border rounded-3xl items-start ">
-                    <span className="text-2xl font-semibold">
+                    <span className="text-2xl font-geist">
                       {value.trait_type}
                     </span>
                     <span className="text-xl text-start font-mono">
@@ -229,18 +229,18 @@ const NftCardPage = ({
                   <LoadingIcon />
                 </div>
               ) : isSuccess === 1 ? (
-                <span className="text-2xl font-semibold">Success</span>
+                <span className="text-2xl font-geist">Success</span>
               ) : isSuccess === 2 ? (
                 <div className="w-full h-full">
                   <div className="flex w-full h-full items-center justify-center">
-                    <span className="text-2xl font-semibold">Failed</span>
+                    <span className="text-2xl font-geist">Failed</span>
                   </div>
-                  <span className="text-[10px] max-w-100 font-semibold">
+                  <span className="text-[10px] max-w-100 font-geist">
                     {error}
                   </span>
                 </div>
               ) : (
-                <span className="text-2xl font-semibold">Withdraw</span>
+                <span className="text-2xl font-clash font-semibold">Withdraw</span>
               )}
             </button>
           </div>
@@ -253,7 +253,7 @@ const NftCardPage = ({
               }
             }}
           >
-            <span className="text-2xl font-semibold">Connect Wallet</span>
+            <span className="text-2xl font-geist">Connect Wallet</span>
           </button>
         )}
       </div>

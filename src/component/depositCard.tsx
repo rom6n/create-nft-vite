@@ -76,7 +76,7 @@ const DepositCard = ({
                       <div className="w-6 h-6">
                         <TonkeeperLogo />
                       </div>
-                      <span className="font-semibold text-xl">Tonkeeper</span>
+                      <span className="font-geist text-xl">Tonkeeper</span>
                     </div>
                   ) : (
                     <div className="w-10 h-10">

@@ -42,7 +42,7 @@ const CreateNftPage = ({
     },
   ]);
 
-    postEvent("web_app_set_header_color", { color: "#2c2c2c" });
+  postEvent("web_app_set_header_color", { color: "#2c2c2c" });
 
   const addAttributeInput = () => {
     if (attributeInputs.length >= 20) {
@@ -115,7 +115,7 @@ const CreateNftPage = ({
   return (
     <div className="absolute top-0 right-[50%] translate-x-[50%] w-full h-full text-[17px] bg-black">
       <button
-        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
+        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-geist rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{
           boxShadow: "0 2px 8px #FFFFFF42",
         }}
@@ -125,7 +125,7 @@ const CreateNftPage = ({
       >{`< Back`}</button>
       <div className="absolute top-18 text-5xl font-bold w-full right-[50%] translate-x-[50%] z-1">
         <b
-          className="cursor-default"
+          className="cursor-default font-clash"
           style={{
             filter:
               "drop-shadow(0 10px 50px white) drop-shadow(0 10px 80px white)",
@@ -145,7 +145,7 @@ const CreateNftPage = ({
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center rounded-xl border-2 border-dashed border-white/30 bg-white/15 hover:bg-white/20">
-                <span className="text-white/50 text-sm">
+                <span className="text-white/50 text-sm font-geist">
                   Press to select a photo
                 </span>
               </div>
@@ -172,12 +172,12 @@ const CreateNftPage = ({
           >
             {"<"}
           </label>
-          <span className="absolute flex w-[80%] h-full pl-4 pr-4 truncate right-[50%] translate-x-[40%] items-center justify-center font-semibold cursor-pointer overflow-hidden">
+          <span className="absolute flex w-[80%] h-full pl-4 pr-4 truncate right-[50%] translate-x-[40%] items-center justify-center font-geist cursor-pointer overflow-hidden">
             {selectedCollection.slice(0, 15)}
             {selectedCollection.length > 15 && "..."}
           </span>
           {selectOpen && (
-            <div className="absolute top-10 w-full max-h-35 overflow-y-auto border border-white/40 bg-white/25 font-semibold rounded-xl overflow-clip">
+            <div className="absolute top-10 w-full max-h-35 overflow-y-auto border border-white/40 bg-white/25 font-geist rounded-xl overflow-clip">
               <button
                 className={`w-full h-9 rounded-t-xl border-white/40 ${
                   userNftCollections
@@ -206,7 +206,7 @@ const CreateNftPage = ({
                     setSelectedCollectionAddress(value.address);
                   }}
                 >
-                  <span className="pl-2 pr-2">
+                  <span className="pl-2 pr-2 font-geist">
                     {value.metadata.name ? value.metadata.name : "underfined"}
                   </span>
                 </button>
@@ -257,13 +257,13 @@ const CreateNftPage = ({
           <div className="left-55 bg-white/9 top-12">
             <button
               onClick={removeAttributeInput}
-              className="absolute p-2 left-10 h-8 w-8 bg-red-400/30 font-semibold text-white rounded-lg hover:bg-white/20 transition"
+              className="absolute p-2 left-10 h-8 w-8 bg-white/15 font-semibold text-white rounded-lg transition font-geist cursor-pointer"
             >
               <span className="absolute -top-0.5 left-2.5 text-2xl">-</span>
             </button>
             <button
               onClick={addAttributeInput}
-              className="absolute p-2 left-0 h-8 w-8 bg-green-400/30 text-white rounded-lg hover:bg-white/20 transition"
+              className="absolute p-2 left-0 h-8 w-8 bg-white/15 text-white rounded-lg transition font-geist cursor-pointer"
             >
               <span className="absolute top-0 left-2 text-2xl">+</span>
             </button>
@@ -300,7 +300,7 @@ const CreateNftPage = ({
         </div>
         <div className="w-full flex items-center justify-center">
           <button
-            className={`relative flex items-center transition-colors duration-200 justify-center mt-11 mb-1 w-[90%] min-h-16 ${
+            className={`relative font-clash flex items-center transition-colors duration-200 justify-center mt-11 mb-1 w-[90%] min-h-16 ${
               isError
                 ? "bg-red-600/70"
                 : isSuccess === 1
@@ -310,8 +310,8 @@ const CreateNftPage = ({
                 : user?.nano_ton || user?.nano_ton === 0
                 ? user.nano_ton - mintCost < 0
                   ? "bg-red-600/70"
-                  : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
-                : "bg-gradient-to-r from-sky-400 to-sky-700 hover:from-sky-400 hover:to-sky-600"
+                  : "bg-sky-600"
+                : "bg-sky-600"
             } rounded-full text-[20px] cursor-pointer`}
             onClick={async () => {
               console.log("selected collection: ", selectedCollectionAddress);

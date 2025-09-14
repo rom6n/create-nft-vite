@@ -137,7 +137,7 @@ const CreateCollectionPage = ({
   return (
     <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] top-0 w-full text-[17px] bg-[#101010]">
       <button
-        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
+        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-geist rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{
           boxShadow: "0 2px 8px #FFFFFF42",
         }}
@@ -188,7 +188,7 @@ const CreateCollectionPage = ({
         </label>
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-21 font-semibold text-sm text-white/40">
+        <span className="ml-5 mt-21 font-geist text-sm text-white/40">
           Name
         </span>
         <input
@@ -200,7 +200,7 @@ const CreateCollectionPage = ({
         />
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-5 font-semibold text-sm text-white/40">
+        <span className="ml-5 mt-5 font-geist text-sm text-white/40">
           Description
         </span>
         <textarea
@@ -212,7 +212,7 @@ const CreateCollectionPage = ({
         />
       </div>
       <div className="flex flex-col w-full mt-5">
-        <span className="ml-5 font-semibold text-sm text-start text-white/40">
+        <span className="ml-5 font-geist text-sm text-start text-white/40">
           Links
         </span>
         <div className="flex flex-col w-full max-h-30 overflow-y-auto mt-1 gap-2.5">
@@ -230,7 +230,7 @@ const CreateCollectionPage = ({
               />
               {links.length - 1 === idx && (
                 <button
-                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-semibold"
+                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-geist"
                   onClick={() => {
                     addLinks();
                   }}
@@ -240,7 +240,7 @@ const CreateCollectionPage = ({
               )}
               {links.length - 1 === idx && links.length > 1 && (
                 <button
-                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-semibold"
+                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-geist"
                   onClick={() => {
                     removeLinks();
                   }}
@@ -253,7 +253,7 @@ const CreateCollectionPage = ({
         </div>
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-5 font-semibold text-sm text-white/40">
+        <span className="ml-5 mt-5 font-geist text-sm text-white/40">
           Royalty params
         </span>
         <div className="flex ml-3 w-[40%] gap-5">
@@ -284,7 +284,7 @@ const CreateCollectionPage = ({
       </div>
       <div className="flex w-full items-center justify-center mt-13 pb-3">
         <button
-          className={`flex w-[93%] min-h-16 items-center justify-center transition-colors duration-200 ${
+          className={`flex w-[93%] font-clash min-h-16 items-center justify-center transition-colors duration-200 ${
             isError || isSuccess === 2
               ? "bg-red-600/70"
               : isSuccess === 1

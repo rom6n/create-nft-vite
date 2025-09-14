@@ -31,13 +31,17 @@ const CustomTonconnectButton = () => {
 
   const shortAddress =
     connected && tonConnectUI.account ? (
-      `${address(tonConnectUI.account.address)
-        .toString({ testOnly: false })
-        .slice(0, 4)}...${address(tonConnectUI.account.address)
-        .toString({ testOnly: false })
-        .slice(43)}`
+      <span className="font-semibold font-geist">
+        {address(tonConnectUI.account.address)
+          .toString({ testOnly: false })
+          .slice(0, 4)}
+        ...
+        {address(tonConnectUI.account.address)
+          .toString({ testOnly: false })
+          .slice(43)}
+      </span>
     ) : (
-      <div className="flex gap-1 items-center w-full h-full">
+      <div className="flex font-medium font-geist gap-1 items-center w-full h-full">
         <div className="ml-3 w-6 h-6">
           <WalletIcon />
         </div>
@@ -107,7 +111,7 @@ const CustomTonconnectButton = () => {
               await wait(200);
               setMenuOpen(false);
             }}
-            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-white/10 rounded-xl shadow-2xl cursor-pointer font-semibold text-white/85 transition-all duration-200 ${
+            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-white/10 rounded-xl shadow-2xl cursor-pointer text-[15px] font-semibold font-geist text-white/85 transition-all duration-200 ${
               menuOpened ? "opacity-100" : "opacity-0"
             } hover:bg-white/15`}
           >

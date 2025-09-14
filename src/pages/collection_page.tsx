@@ -55,7 +55,7 @@ const CollectionCardPage = ({
     <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] w-full h-full top-0  bg-[#101010]">
       <div className="flex w-full p-4">
         <button
-          className="bg-[#282828] w-22 h-8 font-semibold rounded-full z-1"
+          className="bg-[#282828] w-22 h-8 font-geist rounded-full z-1"
           style={{
             boxShadow: "0 2px 5px #000000D1",
           }}
@@ -98,10 +98,10 @@ const CollectionCardPage = ({
           )}
         </div>
         <div className="flex flex-col items-start  text-start w-[55%] h-full">
-          <span className="w-[100%] truncate ml-3 mt-1 text-lg font-semibold">
+          <span className="w-[100%] truncate ml-3 mt-1 text-lg font-geist">
             {NftCollection?.metadata.name}
           </span>
-          <span className="w-full truncate ml-3 mt text-sm font text-white/30">
+          <span className="w-full truncate ml-3 mt text-sm font-geist text-white/30">
             by: {NftCollection?.metadata.marketplace}
           </span>
         </div>
@@ -136,7 +136,7 @@ const CollectionCardPage = ({
         NftCollection.address &&
         tonConnectUI.account?.address ? (
           <button
-            className={`flex w-[93%] min-h-16 text-2xl font-semibold items-center justify-center transition-colors rounded-full duration-200 ${
+            className={`flex w-[93%] font-clash font-semibold min-h-16 text-2xl items-center justify-center transition-colors rounded-full duration-200 ${
               isSuccess === 1
                 ? "bg-green-600/90"
                 : isSuccess === 2 || (userBalance && userBalance < 10000000)

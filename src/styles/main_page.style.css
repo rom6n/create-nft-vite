@@ -6,9 +6,9 @@
   left: 0%;
   top: 6px;
   border-radius: 15px;
-  font-size: 1.5rem;
   border: none;
   font-weight: 600;
+  font-family: Clash;
   opacity: 0.4;
   transition: transform 0.06s, background-color 0.02s;
 }
@@ -23,10 +23,10 @@
   height: 60px;
   top: 6px;
   right: 7%;
-  font-size: 1.5rem;
   border: none;
   border-radius: 15px;
   font-weight: 600;
+  font-family: Clash;
   opacity: 0.4;
   transition: transform 0.06s, background-color 0.02s;
 }

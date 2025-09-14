@@ -77,11 +77,11 @@ const WithdrawCard = ({
                     ? "bg-green-600/90"
                     : !tonConnectUI.account?.address ||
                       !(userBalance && userBalance >= toNano(Number(amount)))
-                    ? "bg-sky-500/40"
+                    ? "bg-sky-600"
                     : lp.tgWebAppData?.user?.id && isSuccess == 0
-                    ? "bg-sky-600/90"
+                    ? "bg-sky-600"
                     : "bg-red-600/70"
-                } cursor-pointer hover:to-sky-500/80`}
+                } cursor-pointer hover:to-sky-500`}
                 onClick={async () => {
                   if (
                     Number(amount) > 0 &&
@@ -130,7 +130,7 @@ const WithdrawCard = ({
                 ) : lp.tgWebAppData?.user?.id &&
                   userBalance &&
                   userBalance >= toNano(Number(amount)) ? (
-                  <span>Withdraw</span>
+                  <span className="font-clash font-semibold">Withdraw</span>
                 ) : (
                   <div className="flex flex-col items-center gap-0.5">
                     <div className="w-9 h-9">

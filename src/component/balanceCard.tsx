@@ -39,8 +39,8 @@ const BalanceCard = ({
         <div className="absolute w-60 right-[-75px] top-[8px]">
           <CustomTonconnectButton />
         </div>
-        <div className="absolute flex top-0.5 w-full h-5 left-2 text-[10px] hover:text-sky-900 cursor-default z-1">
-          beta v1.0 testnet
+        <div className="absolute flex top-0.5 w-full h-5 left-2 font-satoshi text-[10px] hover:text-sky-900 cursor-default z-1">
+          beta v1.01 testnet
         </div>
         <div className="absolute flex items-center left-2 bottom-16 cursor-default">
           <div className="w-12 h-12 mb-1">
@@ -57,7 +57,7 @@ const BalanceCard = ({
           )}
         </div>
         <button
-          className="absolute flex w-20 h-13 transition-all duration-200 active:scale-95 bg-black/35 hover:bg-black/38 rounded-[10px] bottom-2 left-2 justify-center items-end text-[12px] font-semibold cursor-pointer"
+          className="absolute flex w-20 h-13 transition-all duration-200 active:scale-95 bg-black/35 hover:bg-black/38 rounded-[10px] bottom-2 left-2 justify-center items-end text-[12px] font-semibold font-geist cursor-pointer"
           onClick={() => {
             setOpenDeposit(true);
           }}
@@ -68,12 +68,12 @@ const BalanceCard = ({
           Deposit
         </button>
         <button
-          className="absolute flex w-20 h-13 transition-all duration-200 active:scale-95 bg-black/35 hover:bg-black/38 rounded-[10px] bottom-2 left-24 justify-center items-end text-[12px] font-semibold cursor-pointer "
+          className="absolute flex w-20 h-13 transition-all duration-200 active:scale-95 bg-black/35 hover:bg-black/38 rounded-[10px] bottom-2 left-24 justify-center font-medium font-geist items-end text-[12px] cursor-pointer "
           onClick={() => {
             setOpenWithdraw(true);
           }}
         >
-          <div className="absolute flex bottom-5 left-7 fill-white z-1002">
+          <div className="absolute font-medium font-geist flex bottom-5 left-7 fill-white z-1002">
             <WDIcon />
           </div>
           Withdraw
