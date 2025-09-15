@@ -29,10 +29,16 @@ const Feed = ({
           setActiveNav(1);
         }}
       >
-        <span className="text-2xl">NFTs</span>
+        <span
+          className={`transition-all duration-200 ${
+            activeNav === 1 ? "text-[26px]" : "text-2xl"
+          }`}
+        >
+          NFTs
+        </span>
       </button>
       {activeNav === 1 && (
-        <div className="min-h-120">
+        <div>
           <div className="flex mt-17 w-full h-full gap-2 px-2">
             <button
               className="relative flex group cursor-pointer bg-white/25 w-full max-w-[50%] h-52 rounded-2xl border border-white/40"
@@ -44,14 +50,14 @@ const Feed = ({
                 <div className="w-18 h-18">
                   <CreateNewIcon />
                 </div>
-                <span className="text-[10px] text-white/25 w-20 font-geist">
+                <span className="text-[10px] text-white/25 w-20 font-geist font-semibold">
                   Create your own unique NFT
                 </span>
               </div>
             </button>
             {userNftItems?.slice(0, 1).map((value) => (
               <button
-                className="relative flex flex-col font-geist justify-between bg-white/10 h-52 w-full rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
+                className="relative flex flex-col font-geist font-semibold justify-between bg-white/10 h-52 w-full rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
                 onClick={() => {
                   setSelectedNft(value);
                   setActivePage(2);
@@ -92,7 +98,7 @@ const Feed = ({
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-2 w-full px-2 mt-2 gap-2 font-geist">
+          <div className="grid grid-cols-2 w-full px-2 mt-2 gap-2 font-geist font-semibold">
             {userNftItems?.slice(1).map((value) => (
               <button
                 className="relative flex flex-col justify-between bg-white/10 h-52 rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
@@ -145,10 +151,16 @@ const Feed = ({
           setActiveNav(2);
         }}
       >
-        <span className="text-2xl">Collections</span>
+        <span
+          className={`transition-all duration-200 ${
+            activeNav === 2 ? "text-[26px]" : "text-2xl"
+          }`}
+        >
+          Collections
+        </span>
       </button>
       {activeNav === 2 && (
-        <div className="flex flex-col gap-2 w-full items-center font-geist">
+        <div className="flex flex-col gap-2 w-full items-center font-geist font-semibold">
           <button
             className="flex items-center w-[94%] h-25 mt-17 group cursor-pointer bg-white/25 rounded-xl border-[1px] border-white/50"
             onClick={() => {
@@ -156,13 +168,13 @@ const Feed = ({
             }}
           >
             <div className="flex w-[33%] h-full items-center justify-center rounded-l-xl border-r-[1px] border-white/50">
-              <span className="text-6xl mb-2 font-geist">+</span>
+              <span className="text-6xl mb-2 font-geist font-semibold">+</span>
             </div>
             <div className="flex flex-col items-start w-[67%] h-full ">
-              <span className="mt-1.5 ml-2 font-geist text-lg">
+              <span className="mt-1.5 ml-2 font-geist font-semibold text-lg">
                 Create new Collection
               </span>
-              <span className="ml-2 mr-2 text-left text-[9px] font-geist text-white/30">
+              <span className="ml-2 mr-2 text-left text-[9px] font-geist font-semibold text-white/30">
                 You can create your own fully decentralized NFT Collection with
                 no commission
               </span>

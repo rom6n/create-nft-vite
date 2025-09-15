@@ -49,7 +49,7 @@ const DepositCard = ({
                 ✕
               </button>
               <div className="absolute top-3 left-4">
-                <span className="absolute flex content-between gap-1 font-mono top-0 left-1 text-xl cursor-default">
+                <span className="absolute flex content-between gap-1 font-clash font-semibold top-0 left-1 text-xl cursor-default">
                   DEPOSIT
                 </span>
               </div>
@@ -57,7 +57,7 @@ const DepositCard = ({
                 <div className="w-15 h-15">
                   <TonLogo />
                 </div>
-                <span className="font-medium font-geist mt-2 text-[42px]">{amount}</span>
+                <span className="font-semibold font-geist mt-2 text-[42px]">{amount}</span>
               </div>
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
@@ -76,7 +76,7 @@ const DepositCard = ({
                       <div className="w-6 h-6">
                         <TonkeeperLogo />
                       </div>
-                      <span className="font-geist text-xl">Tonkeeper</span>
+                      <span className="font-geist font-semibold text-xl">Tonkeeper</span>
                     </div>
                   ) : (
                     <div className="w-10 h-10">

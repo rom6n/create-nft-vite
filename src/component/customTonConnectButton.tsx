@@ -41,7 +41,7 @@ const CustomTonconnectButton = () => {
           .slice(43)}
       </span>
     ) : (
-      <div className="flex font-medium font-geist gap-1 items-center w-full h-full">
+      <div className="flex font-semibold font-geist gap-1 items-center w-full h-full">
         <div className="ml-3 w-6 h-6">
           <WalletIcon />
         </div>
@@ -111,11 +111,16 @@ const CustomTonconnectButton = () => {
               await wait(200);
               setMenuOpen(false);
             }}
-            className={`absolute bg-none w-25 h-9 right-21 items-center border border-white/50 justify-center bg-white/10 rounded-xl shadow-2xl cursor-pointer text-[15px] font-semibold font-geist text-white/85 transition-all duration-200 ${
+            className={`absolute bg-none w-27 h-9 right-21 items-center border border-white/50 justify-center bg-white/10 rounded-xl shadow-2xl cursor-pointer text-[13px] font-semibold font-geist text-white/85 transition-all duration-200 ${
               menuOpened ? "opacity-100" : "opacity-0"
             } hover:bg-white/15`}
           >
-            Disconnect
+            <div className="flex items-center justify-center gap-0.5">
+              <div className="w-5 h-5">
+                <WalletIcon />
+              </div>
+              <span className="mt-0.5">Disconnect</span>
+            </div>
           </button>
         </div>
       )}

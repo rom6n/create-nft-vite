@@ -40,14 +40,14 @@ const BalanceCard = ({
           <CustomTonconnectButton />
         </div>
         <div className="absolute flex top-0.5 w-full h-5 left-2 font-satoshi text-[10px] hover:text-sky-900 cursor-default z-1">
-          beta v1.01 testnet
+          beta v1.02 testnet
         </div>
         <div className="absolute flex items-center left-2 bottom-16 cursor-default">
           <div className="w-12 h-12 mb-1">
             <TonLogo />
           </div>
           {tonAmount || tonAmount === 0 ? (
-            <span className="font-geist font-medium mt-0.5 text-[30px]">
+            <span className="font-geist font-semibold mt-0.5 text-[30px]">
               {tonAmount}
             </span>
           ) : (
@@ -57,23 +57,23 @@ const BalanceCard = ({
           )}
         </div>
         <button
-          className="absolute flex w-20 h-13 transition-all duration-200 active:scale-95 bg-black/35 hover:bg-black/38 rounded-[10px] bottom-2 left-2 justify-center items-end text-[12px] font-semibold font-geist cursor-pointer"
+          className="absolute flex w-24 h-13 transition-all duration-200 active:scale-95 bg-white/10 border border-white/15 hover:border-white/50 rounded-[10px] bottom-2 left-2 justify-center items-end text-[12px] font-semibold font-geist cursor-pointer"
           onClick={() => {
             setOpenDeposit(true);
           }}
         >
-          <div className="absolute flex bottom-5 left-7 fill-white rotate-180 z-1002">
+          <div className="absolute flex bottom-5 left-9 fill-white rotate-180 z-1002">
             <WDIcon />
           </div>
           Deposit
         </button>
         <button
-          className="absolute flex w-20 h-13 transition-all duration-200 active:scale-95 bg-black/35 hover:bg-black/38 rounded-[10px] bottom-2 left-24 justify-center font-medium font-geist items-end text-[12px] cursor-pointer "
+          className="absolute flex w-24 h-13 transition-all duration-200 active:scale-95 bg-white/10 border border-white/15 hover:border-white/50 rounded-[10px] bottom-2 left-27.5 justify-center font-geist font-semibold items-end text-[12px] cursor-pointer "
           onClick={() => {
             setOpenWithdraw(true);
           }}
         >
-          <div className="absolute font-medium font-geist flex bottom-5 left-7 fill-white z-1002">
+          <div className="absolute font-semibold font-geist flex bottom-5 left-9 fill-white z-1002">
             <WDIcon />
           </div>
           Withdraw

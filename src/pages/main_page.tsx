@@ -76,7 +76,7 @@ function MainPage({
           <div className="w-5 h-5">
             <PersonIcon />
           </div>
-          <span className="font-medium font-geist text-[12px]">Support</span>
+          <span className="font-geist font-semibold text-[12px]">Support</span>
         </a>
         <a
           className="flex gap-1 items-center justify-center w-[25%] h-8.5 bg-sky-900 rounded-xl cursor-pointer transition-all duration-200 active:scale-95 hover:bg-sky-800"
@@ -86,7 +86,7 @@ function MainPage({
           <div className="w-5 h-5">
             <CodeIcon />
           </div>
-          <span className="font-medium font-geist text-[12px]">GitHub</span>
+          <span className="font-geist font-semibold text-[12px]">GitHub</span>
         </a>
       </div>
       <div className="relative flex w-[93%] mt-4 right-[50%] translate-x-[57.5%]">

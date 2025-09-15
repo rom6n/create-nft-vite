@@ -56,15 +56,15 @@ const WithdrawCard = ({
                 ✕
               </button>
               <div className="absolute top-3 left-4">
-                <span className="absolute flex content-between gap-1 font-mono top-0 left-1 text-xl cursor-default">
-                  Withdraw
+                <span className="absolute flex content-between gap-1 font-semibold font-clash top-0 left-1 text-xl cursor-default">
+                  WITHDRAW
                 </span>
               </div>
               <div className="flex w-full mt-14 pr-10 items-center justify-center content-between bg-transparent h-11">
                 <div className="w-15 h-15">
                   <TonLogo />
                 </div>
-                <span className="font-geist font-medium mt-2 text-[42px]">
+                <span className="font-geist font-semibold mt-2 text-[42px]">
                   {amount}
                 </span>
               </div>
@@ -77,7 +77,7 @@ const WithdrawCard = ({
                     ? "bg-green-600/90"
                     : !tonConnectUI.account?.address ||
                       !(userBalance && userBalance >= toNano(Number(amount)))
-                    ? "bg-sky-600"
+                    ? "bg-sky-600/60"
                     : lp.tgWebAppData?.user?.id && isSuccess == 0
                     ? "bg-sky-600"
                     : "bg-red-600/70"
@@ -130,7 +130,13 @@ const WithdrawCard = ({
                 ) : lp.tgWebAppData?.user?.id &&
                   userBalance &&
                   userBalance >= toNano(Number(amount)) ? (
-                  <span className="font-clash font-semibold">Withdraw</span>
+                  <div className="flex items-center justify-center">
+                    <span className="font-clash font-semibold">Withdraw</span>
+                    <div className="w-7 h-7 mb-0.5 ml-2">
+                      <TonLogo />
+                    </div>
+                    <span className="font-geist mt-0.5 text-lg">{amount}</span>
+                  </div>
                 ) : (
                   <div className="flex flex-col items-center gap-0.5">
                     <div className="w-9 h-9">

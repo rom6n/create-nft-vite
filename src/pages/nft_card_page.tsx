@@ -6,6 +6,7 @@ import { useTonConnectUI } from "@tonconnect/ui-react";
 import WebApp from "@twa-dev/sdk";
 import { fromNano } from "@ton/ton";
 import NoImage from "../assets/icons/noImage";
+import TonLogo from "../assets/icons/tonLogoIcon";
 
 type NftCardPageProps = {
   nftItem: NftItem | undefined;
@@ -64,7 +65,7 @@ const NftCardPage = ({
     <div className="absolute w-full h-full min-w-80 max-w-150 top-0 left-0 bg-black">
       <div className="flex w-full p-4">
         <button
-          className="bg-[#282828] w-22 h-8 font-geist rounded-full z-1"
+          className="bg-[#282828] w-22 h-8 font-geist font-semibold rounded-full z-1"
           style={{
             boxShadow: "0 2px 5px #000000D1",
           }}
@@ -107,10 +108,10 @@ const NftCardPage = ({
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span className="relative text-md mt-0 ml-10 font-geist text-white/80">
+            <span className="relative text-md mt-0 ml-10 font-geist font-semibold text-white/80">
               Tonviewer
             </span>
-            <span className="absolute right-10 text-2xl text-white/80 font-geist">
+            <span className="absolute right-10 text-2xl text-white/80 font-geist font-semibold">
               {">"}
             </span>
           </a>
@@ -125,10 +126,10 @@ const NftCardPage = ({
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span className="relative text-start w-[60%] truncate overflow-hidden text-md mt-0 ml-10 font-geist text-white/80">
+            <span className="relative text-start w-[60%] truncate overflow-hidden text-md mt-0 ml-10 font-semibold font-geist text-white/80">
               {nftItem?.collection_name}
             </span>
-            <span className="absolute text-2xl right-10 text-white/80 font-geist">
+            <span className="absolute text-2xl right-10 text-white/80 font-geist font-semibold">
               {">"}
             </span>
           </a>
@@ -136,33 +137,37 @@ const NftCardPage = ({
         <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
           <div className="flex gap-4 w-full">
             <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[44.5%] border rounded-3xl items-start ">
-              <span className="text-2xl font-geist">Index</span>
-              <span className="text-xl text-start font-mono">
+              <span className="text-2xl font-clash font-semibold">Index</span>
+              <span className="text-lg text-start font-geist">
                 {nftItem?.index}
               </span>
             </div>
             <div className="flex flex-col mr-4 mt-4 p-2 pl-4 pr-4 w-full min-w-[20%] border rounded-3xl items-start ">
-              <span className="text-2xl font-geist">Network</span>
-              <span className="text-xl text-start font-mono">
+              <span className="text-2xl font-clash font-semibold">Network</span>
+              <span className="text-lg text-start font-geist">
                 {nftItem?.is_testnet ? "Testnet" : "Mainnet"}
               </span>
             </div>
           </div>
           <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 max-w-[80%] border rounded-3xl items-start ">
-            <span className="text-2xl font-geist">Name</span>
-            <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
+            <span className="text-2xl font-clash font-semibold">Name</span>
+            <span className="text-lg text-start font-geist max-w-full overflow-x-auto">
               {nftItem?.metadata.name}
             </span>
           </div>
           <div className="flex flex-col ml-4 mt-2.5 p-2 pl-4 pr-4 min-w-[65%] max-w-[80%] border rounded-3xl items-start ">
-            <span className="text-2xl font-geist">Description</span>
-            <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
+            <span className="text-2xl font-clash font-semibold">
+              Description
+            </span>
+            <span className="text-lg text-start font-geist max-w-full overflow-x-auto">
               {nftItem?.metadata.description}
             </span>
           </div>
           <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[57%] max-w-[80%] border rounded-3xl items-start ">
-            <span className="text-2xl font-geist">Collection</span>
-            <span className="text-xl text-start font-mono max-w-full overflow-x-auto">
+            <span className="text-2xl font-clash font-semibold">
+              Collection
+            </span>
+            <span className="text-lg text-start font-geist max-w-full overflow-x-auto">
               {nftItem?.collection_name}
             </span>
           </div>
@@ -173,10 +178,10 @@ const NftCardPage = ({
               (value) =>
                 value.trait_type && (
                   <div className="flex flex-col ml-4 mt-4 p-2 pl-4 min-w-[92%] max-w-[92%] border rounded-3xl items-start ">
-                    <span className="text-2xl font-geist">
+                    <span className="text-2xl font-clash font-semibold">
                       {value.trait_type}
                     </span>
-                    <span className="text-xl text-start font-mono">
+                    <span className="text-lg text-start font-geist">
                       {value.value}
                     </span>
                   </div>
@@ -187,13 +192,24 @@ const NftCardPage = ({
         {tonConnectUI.account?.address &&
         WebApp.initDataUnsafe.user?.id &&
         nftItem?.address ? (
-          <div className="flex flex-col items-start mb-2 mt-2 w-full min-h-30 rounded-4xl bg-white/13">
-            <div className="flex flex-col ml-5 m-2 text-left text-white/30 font-mono text-[13px] ">
-              <span>Cost 0.05 TON</span>
-              <span>
-                Balance after process:{" "}
-                {userBalance ? fromNano(userBalance - 50000000) : "--"} TON
-              </span>
+          <div className="flex flex-col items-start mb-2 mt-2 w-full min-h-28 rounded-4xl bg-white/13">
+            <div className="flex flex-col ml-5 m-2 text-left text-white/20 font-geist text-[11px] ">
+              <div className="flex">
+                <span className="pr-1">Cost:</span>
+                <div className="w-4 h-4">
+                  <TonLogo />
+                </div>
+                <span>0.05</span>
+              </div>
+              <div className="flex">
+                <span className="pr-1">Balance after process: </span>
+                <div className="w-4 h-4">
+                  <TonLogo />
+                </div>
+                <span>
+                  {userBalance ? fromNano(userBalance - 50000000) : "--"}
+                </span>
+              </div>
             </div>
             <button
               className={`flex items-center transition-colors duration-200 justify-center w-full min-h-16 ${
@@ -229,18 +245,24 @@ const NftCardPage = ({
                   <LoadingIcon />
                 </div>
               ) : isSuccess === 1 ? (
-                <span className="text-2xl font-geist">Success</span>
+                <span className="text-2xl font-geist font-semibold">
+                  Success
+                </span>
               ) : isSuccess === 2 ? (
                 <div className="w-full h-full">
                   <div className="flex w-full h-full items-center justify-center">
-                    <span className="text-2xl font-geist">Failed</span>
+                    <span className="text-2xl font-geist font-semibold">
+                      Failed
+                    </span>
                   </div>
-                  <span className="text-[10px] max-w-100 font-geist">
+                  <span className="text-[10px] max-w-100 font-geist font-semibold">
                     {error}
                   </span>
                 </div>
               ) : (
-                <span className="text-2xl font-clash font-semibold">Withdraw</span>
+                <span className="text-2xl font-clash font-semibold">
+                  Withdraw
+                </span>
               )}
             </button>
           </div>
@@ -253,7 +275,9 @@ const NftCardPage = ({
               }
             }}
           >
-            <span className="text-2xl font-geist">Connect Wallet</span>
+            <span className="text-2xl font-geist font-semibold">
+              Connect Wallet
+            </span>
           </button>
         )}
       </div>

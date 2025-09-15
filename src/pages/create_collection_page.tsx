@@ -4,6 +4,8 @@ import UploadImageIcon from "../component/uploadImage";
 import { createCollection } from "../scripts/createCollection";
 import LoadingIcon from "../assets/icons/loadingIcon";
 import { postEvent } from "@telegram-apps/sdk-react";
+import TonLogo from "../assets/icons/tonLogoIcon";
+import { fromNano } from "@ton/ton";
 
 type CreateCollectionPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -135,9 +137,9 @@ const CreateCollectionPage = ({
   }, []);
 
   return (
-    <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] top-0 w-full text-[17px] bg-[#101010]">
+    <div className="absolute flex flex-col items-start right-[50%] translate-x-[50%] top-0 w-full text-[17px] bg-[#101010]">
       <button
-        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-geist rounded-full cursor-pointer hover:bg-white/25 z-2000"
+        className="absolute left-4 top-4 w-22 h-8 bg-[#414141] font-geist font-semibold rounded-full cursor-pointer hover:bg-white/25 z-2000"
         style={{
           boxShadow: "0 2px 8px #FFFFFF42",
         }}
@@ -145,7 +147,7 @@ const CreateCollectionPage = ({
           setActivePage(0);
         }}
       >{`< Back`}</button>
-      <div className="flex w-[93%] h-27 mt-17 items-center justify-center rounded-2xl border-2 border-[#636363]">
+      <div className="flex w-[93%] h-31 mt-17 right-[50%] translate-x-[2.5%] items-center justify-center rounded-2xl border-2 border-[#636363]">
         <label className="flex w-full h-full items-center justify-center rounded-2xl bg-[#3c3c3c] cursor-pointer">
           {coverImage ? (
             <img
@@ -188,7 +190,7 @@ const CreateCollectionPage = ({
         </label>
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-21 font-geist text-sm text-white/40">
+        <span className="ml-5 mt-21 font-geist font-semibold text-sm text-white/40">
           Name
         </span>
         <input
@@ -200,7 +202,7 @@ const CreateCollectionPage = ({
         />
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-5 font-geist text-sm text-white/40">
+        <span className="ml-5 mt-5 font-geist font-semibold text-sm text-white/40">
           Description
         </span>
         <textarea
@@ -212,7 +214,7 @@ const CreateCollectionPage = ({
         />
       </div>
       <div className="flex flex-col w-full mt-5">
-        <span className="ml-5 font-geist text-sm text-start text-white/40">
+        <span className="ml-5 font-geist font-semibold text-sm text-start text-white/40">
           Links
         </span>
         <div className="flex flex-col w-full max-h-30 overflow-y-auto mt-1 gap-2.5">
@@ -230,7 +232,7 @@ const CreateCollectionPage = ({
               />
               {links.length - 1 === idx && (
                 <button
-                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-geist"
+                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-geist font-semibold"
                   onClick={() => {
                     addLinks();
                   }}
@@ -240,7 +242,7 @@ const CreateCollectionPage = ({
               )}
               {links.length - 1 === idx && links.length > 1 && (
                 <button
-                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-geist"
+                  className="w-10 h-10 bg-white/20 rounded-xl text-2xl font-geist font-semibold"
                   onClick={() => {
                     removeLinks();
                   }}
@@ -253,7 +255,7 @@ const CreateCollectionPage = ({
         </div>
       </div>
       <div className="flex flex-col w-full text-start">
-        <span className="ml-5 mt-5 font-geist text-sm text-white/40">
+        <span className="ml-5 mt-5 font-geist font-semibold text-sm text-white/40">
           Royalty params
         </span>
         <div className="flex ml-3 w-[40%] gap-5">
@@ -282,7 +284,25 @@ const CreateCollectionPage = ({
           %
         </span>
       </div>
-      <div className="flex w-full items-center justify-center mt-13 pb-3">
+      <div className="relative mt-11 flex flex-col ml-5 m-2 text-left text-white/20 font-geist text-[11px] ">
+        <div className="flex">
+          <span className="pr-1">Cost:</span>
+          <div className="w-4 h-4">
+            <TonLogo />
+          </div>
+          <span>0.065</span>
+        </div>
+        <div className="flex">
+          <span className="pr-1">Balance after process: </span>
+          <div className="w-4 h-4">
+            <TonLogo />
+          </div>
+          <span>
+            {user?.nano_ton ? fromNano(user.nano_ton - 65000000) : "--"}
+          </span>
+        </div>
+      </div>
+      <div className="flex w-full items-center justify-center pb-3">
         <button
           className={`flex w-[93%] font-clash min-h-16 items-center justify-center transition-colors duration-200 ${
             isError || isSuccess === 2

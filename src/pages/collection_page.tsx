@@ -7,6 +7,8 @@ import WebApp from "@twa-dev/sdk";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import LoadingIcon from "../assets/icons/loadingIcon";
 import { postEvent } from "@telegram-apps/sdk-react";
+import TonLogo from "../assets/icons/tonLogoIcon";
+import { fromNano } from "@ton/ton";
 
 type CollectionCardPageProps = {
   NftCollection: NftCollection | undefined;
@@ -26,6 +28,7 @@ const CollectionCardPage = ({
   const [connected, setConnected] = useState(tonConnectUI.connected);
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
+  const [isAppeared, setIsAppeared] = useState(false);
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -37,6 +40,8 @@ const CollectionCardPage = ({
     (async () => {
       await wait(50);
       setIsTransition(true);
+      await wait(400);
+      setIsAppeared(true);
       return;
     })();
   }, []);
@@ -52,10 +57,10 @@ const CollectionCardPage = ({
   }, [tonConnectUI]);
 
   return (
-    <div className="absolute flex flex-col items-center right-[50%] translate-x-[50%] w-full h-full top-0  bg-[#101010]">
+    <div className="absolute flex flex-col items-start right-[50%] translate-x-[50%] w-full h-full top-0  bg-[#101010]">
       <div className="flex w-full p-4">
         <button
-          className="bg-[#282828] w-22 h-8 font-geist rounded-full z-1"
+          className="bg-[#282828] w-22 h-8 font-geist font-semibold rounded-full z-1"
           style={{
             boxShadow: "0 2px 5px #000000D1",
           }}
@@ -66,12 +71,12 @@ const CollectionCardPage = ({
           {"< Back"}
         </button>
       </div>
-      <div className="flex items-center justify-center w-[95%] border border-white/40 h-27 rounded-2xl bg-white/20">
+      <div className="flex items-center justify-center right-[50%] translate-x-[2.5%] w-[95%] border border-white/40 h-31 rounded-2xl bg-white/20">
         {NftCollection?.metadata.cover_image ? (
           <div className="w-full h-full">
             <img
               src={NftCollection?.metadata.cover_image}
-              className="absolute w-[95%] h-27 rounded-2xl object-cover blur-3xl"
+              className="absolute w-[95%] h-31 rounded-2xl object-cover blur-3xl"
             />
             <img
               src={NftCollection?.metadata.cover_image}
@@ -98,10 +103,10 @@ const CollectionCardPage = ({
           )}
         </div>
         <div className="flex flex-col items-start  text-start w-[55%] h-full">
-          <span className="w-[100%] truncate ml-3 mt-1 text-lg font-geist">
+          <span className="w-[100%] truncate ml-3 mt-1 text-lg font-geist font-semibold">
             {NftCollection?.metadata.name}
           </span>
-          <span className="w-full truncate ml-3 mt text-sm font-geist text-white/30">
+          <span className="w-full truncate ml-3 mt text-sm font-geist font-semibold text-white/30">
             by: {NftCollection?.metadata.marketplace}
           </span>
         </div>
@@ -123,12 +128,35 @@ const CollectionCardPage = ({
           );
         })}
       </div>
-      <div className="w-full h-25 pl-4 pr-4 mt-7 break-words line-clamp-4 text-balance">
+      {NftCollection?.metadata.description && (
+        <div
+          className={`absolute w-30 h-20 right-[50%] transition-opacity duration-3000 translate-x-[50%] bg-white/80 top-77 blur-2xl ${
+            isAppeared ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      )}
+      <div className="w-full h-25 pl-4 pr-4 mt-15 break-words line-clamp-4 text-balance">
         {NftCollection?.metadata.description && (
-          <span className="text-3xl font-serif">
-            "{NftCollection?.metadata.description}"
+          <span className="text-3xl font-geist">
+            {NftCollection?.metadata.description}
           </span>
         )}
+      </div>
+      <div className="absolute bottom-19.5 flex flex-col ml-5 m-2 text-left text-white/20 font-geist text-[11px] ">
+        <div className="flex">
+          <span className="pr-1">Cost:</span>
+          <div className="w-4 h-4">
+            <TonLogo />
+          </div>
+          <span>0.065</span>
+        </div>
+        <div className="flex">
+          <span className="pr-1">Balance after process: </span>
+          <div className="w-4 h-4">
+            <TonLogo />
+          </div>
+          <span>{userBalance ? fromNano(userBalance - 65000000) : "--"}</span>
+        </div>
       </div>
       <div className="absolute w-full flex items-center justify-center bottom-3.5">
         {NftCollection &&
