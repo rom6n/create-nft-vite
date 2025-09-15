@@ -10,6 +10,14 @@ export async function withdrawUserTon(
     return "";
   }
 
+  const ping = await fetch(`https://create-nft-go.onrender.com/ping`, {
+    method: "GET",
+  });
+
+  if (ping.status !== 200) {
+    return "Failed server pinging";
+  }
+
   const withdrawTo = address(withdrawToAddress);
   const res = await fetch(
     `https://create-nft-go.onrender.com/api/user/withdraw/${userId}?withdraw-to=${withdrawTo}&amount=${amount}&is-testnet=${isTestnet}`,

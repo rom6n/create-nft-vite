@@ -57,7 +57,9 @@ const DepositCard = ({
                 <div className="w-15 h-15">
                   <TonLogo />
                 </div>
-                <span className="font-semibold font-geist mt-2 text-[42px]">{amount}</span>
+                <span className="font-semibold font-geist mt-2 text-[42px]">
+                  {amount}
+                </span>
               </div>
               <div className="flex items-center justify-center w-full h-full mt-4">
                 <PinPad numbers={amount} setNumber={setAmount} />
@@ -70,13 +72,27 @@ const DepositCard = ({
                   )}&text=${lp.tgWebAppData.user.id}`}
                   rel="noopener noreferrer"
                   target="_blank"
+                  onClick={async () => {
+                    const ping = await fetch(
+                      `https://create-nft-go.onrender.com/ping`,
+                      {
+                        method: "GET",
+                      }
+                    );
+
+                    if (ping.status !== 200) {
+                      return "Failed server pinging";
+                    }
+                  }}
                 >
                   {lp.tgWebAppData?.user?.id && isReady ? (
                     <div className="flex gap-1.5 items-center justify-center">
                       <div className="w-6 h-6">
                         <TonkeeperLogo />
                       </div>
-                      <span className="font-geist font-semibold text-xl">Tonkeeper</span>
+                      <span className="font-geist font-semibold text-xl">
+                        Tonkeeper
+                      </span>
                     </div>
                   ) : (
                     <div className="w-10 h-10">
