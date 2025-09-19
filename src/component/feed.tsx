@@ -22,7 +22,7 @@ const Feed = ({
   const [activeNav, setActiveNav] = useState(1);
 
   return (
-    <div className="w-[100%] min-w-80 min-h-80 bg-white/8 pb-3 rounded-2xl">
+    <div className="w-[100%] min-w-80 min-h-70 bg-white/5 pb-3 rounded-2xl border border-white/10 backdrop-blur-[5px]">
       <button
         className={`select-nfts ${activeNav === 1 ? "active" : ""}`}
         onClick={() => {

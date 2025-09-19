@@ -64,7 +64,7 @@ const NftCardPage = ({
   }, []);
 
   return (
-    <div className="absolute w-full h-full min-w-80 max-w-150 top-0 left-0 bg-black">
+    <div className="absolute w-full min-w-80 max-w-150 top-0 left-0">
       <div className="flex w-full p-4">
         <button
           className="bg-[#282828] w-22 h-8 font-geist font-semibold rounded-full z-1"
@@ -99,7 +99,7 @@ const NftCardPage = ({
         )}
       </div>
       <div className="flex flex-col w-full justify-center">
-        <div className="flex flex-col items-start w-full h-25 mt-3 rounded-4xl bg-white/13">
+        <div className="flex flex-col items-start w-full h-25 mt-3 rounded-4xl bg-white/5 backdrop-blur-[5px]">
           <a
             className="flex h-[50%] w-full items-center"
             href={`${
@@ -136,7 +136,7 @@ const NftCardPage = ({
             </span>
           </a>
         </div>
-        <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
+        <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/5 backdrop-blur-[5px]">
           <div className="flex gap-4 w-full">
             <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[44.5%] border rounded-3xl items-start ">
               <span className="text-2xl font-clash font-semibold">Index</span>
@@ -175,7 +175,7 @@ const NftCardPage = ({
           </div>
         </div>
         {hasAttributes && (
-          <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/13">
+          <div className="flex flex-col items-start w-full pb-4 mt-2 rounded-4xl bg-white/5 backdrop-blur-[5px]">
             {nftItem?.metadata.attributes.map(
               (value) =>
                 value.trait_type && (
@@ -194,7 +194,7 @@ const NftCardPage = ({
         {tonConnectUI.account?.address &&
         WebApp.initDataUnsafe.user?.id &&
         nftItem?.address ? (
-          <div className="flex flex-col items-start mb-2 mt-2 w-full min-h-28 rounded-4xl bg-white/13">
+          <div className="flex flex-col items-start mb-2 mt-2 w-full min-h-28 rounded-4xl bg-white/5 backdrop-blur-[5px]">
             <div className="flex flex-col ml-5 m-2 text-left text-white/20 font-geist text-[11px] ">
               <div className="flex">
                 <span className="pr-1">Cost:</span>
@@ -285,8 +285,12 @@ const NftCardPage = ({
         )}
       </div>
       <div
-        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-1000 overflow-y-hidden bg-black transition-opacity duration-400 ease-in-out z-[3000] 
-          ${isTransition ? "opacity-0" : "opacity-100"} 
+        className={`absolute left-0 top-0 w-full h-full bg-transparent transition-all duration-400 ease-in-out z-[3000] 
+          ${
+            isTransition
+              ? "backdrop-blur-none opacity-0"
+              : "backdrop-blur-sm opacity-100"
+          } 
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}
       />

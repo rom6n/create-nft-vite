@@ -16,6 +16,7 @@ import CreateCollectionPage from "./pages/create_collection_page";
 import CollectionCardPage from "./pages/collection_page";
 import { init, backButton, useLaunchParams } from "@telegram-apps/sdk-react";
 
+
 init();
 backButton.mount();
 

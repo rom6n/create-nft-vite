@@ -58,7 +58,7 @@ const CollectionCardPage = ({
   }, [tonConnectUI]);
 
   return (
-    <div className="absolute flex flex-col items-start right-[50%] translate-x-[50%] w-full h-full top-0  bg-[#101010]">
+    <div className="absolute flex flex-col items-start right-[50%] translate-x-[50%] w-full h-full top-0">
       <div className="flex w-full p-4">
         <button
           className="bg-[#282828] w-22 h-8 font-geist font-semibold rounded-full z-1"
@@ -72,7 +72,7 @@ const CollectionCardPage = ({
           {"< Back"}
         </button>
       </div>
-      <div className="flex items-center justify-center right-[50%] translate-x-[2.5%] w-[95%] border border-white/40 h-31 rounded-2xl bg-white/20">
+      <div className="flex items-center justify-center right-[50%] translate-x-[2.5%] w-[95%] border border-white/40 h-31 rounded-2xl bg-white/20 backdrop-blur-[5px]">
         {NftCollection?.metadata.cover_image ? (
           <div className="w-full h-full">
             <img
@@ -90,8 +90,8 @@ const CollectionCardPage = ({
           </div>
         )}
       </div>
-      <div className="flex items-center justify-start pl-4 mt-2 w-full h-20 bg-white/0">
-        <div className="flex items-center justify-center w-20 h-20 rounded-lg border border-white/40 bg-white/20">
+      <div className="flex items-center justify-start pl-4 mt-2 w-full h-20">
+        <div className="flex items-center justify-center w-20 h-20 rounded-lg border border-white/40 bg-white/20 backdrop-blur-[5px]">
           {NftCollection?.metadata.image ? (
             <img
               src={NftCollection?.metadata.image}
@@ -131,8 +131,8 @@ const CollectionCardPage = ({
       </div>
       {NftCollection?.metadata.description && (
         <div
-          className={`absolute w-30 h-20 right-[50%] transition-opacity duration-3000 translate-x-[50%] bg-white/80 top-77 blur-2xl ${
-            isAppeared ? "opacity-100" : "opacity-0"
+          className={`absolute w-35 h-20 right-[50%] transition-opacity duration-3000 translate-x-[50%] bg-white/80 top-83 blur-2xl ${
+            isAppeared ? "opacity-60" : "opacity-0"
           }`}
         />
       )}
@@ -143,7 +143,7 @@ const CollectionCardPage = ({
           </span>
         )}
       </div>
-      <div className="absolute bottom-19.5 flex flex-col ml-5 m-2 text-left text-white/20 font-geist text-[11px] ">
+      <div className="absolute bottom-19.5 flex flex-col ml-5 m-2 text-left text-white/20 font-geist text-[11px] backdrop-blur-[5px] ">
         <div className="flex">
           <span className="pr-1">Cost:</span>
           <div className="w-4 h-4">
@@ -231,8 +231,12 @@ const CollectionCardPage = ({
         )}
       </div>
       <div
-        className={`absolute left-0 top-0 bottom-0 right-0 w-full h-1000 overflow-y-hidden bg-black transition-opacity duration-400 ease-in-out z-[3000] 
-          ${isTransition ? "opacity-0" : "opacity-100"} 
+        className={`absolute left-0 top-0 w-full h-full bg-transparent transition-all duration-400 ease-in-out z-[3000] 
+          ${
+            isTransition
+              ? "backdrop-blur-none opacity-0"
+              : "backdrop-blur-sm opacity-100"
+          } 
           ${isTransitionEnded ? "hidden" : ""}`}
         onTransitionEnd={() => setIsTransitionEnded(true)}
       />
