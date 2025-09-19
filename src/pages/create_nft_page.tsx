@@ -6,6 +6,7 @@ import { type Attribute } from "../scripts/mintNft";
 import LoadingIcon from "../assets/icons/loadingIcon";
 import { postEvent } from "@telegram-apps/sdk-react";
 import TonLogo from "../assets/icons/tonLogoIcon";
+import { useRawInitData } from "@telegram-apps/sdk-react";
 
 type CreateNftPageProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -42,6 +43,7 @@ const CreateNftPage = ({
       value: "",
     },
   ]);
+  const initData = useRawInitData();
 
   postEvent("web_app_set_header_color", { color: "#2c2c2c" });
 
@@ -317,6 +319,8 @@ const CreateNftPage = ({
                 if (
                   user?.nano_ton || user?.nano_ton === 0
                     ? user.nano_ton > mintCost
+                    : initData
+                    ? initData
                     : false
                 ) {
                   if (!isError) {
@@ -328,7 +332,8 @@ const CreateNftPage = ({
                       attributeInputs,
                       fwdMsg,
                       selectedCollectionAddress,
-                      user?.id
+                      user?.id,
+                      initData ? initData : ""
                     );
                     setIsMinting(false);
                     if (res !== "OK") {

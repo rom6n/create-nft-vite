@@ -40,7 +40,7 @@ const BalanceCard = ({
           <CustomTonconnectButton />
         </div>
         <div className="absolute flex top-0.5 w-full h-5 left-2 font-satoshi text-[10px] hover:text-sky-900 cursor-default z-1">
-          beta v1.02 testnet
+          beta v1.03 testnet
         </div>
         <div className="absolute flex items-center left-2 bottom-16 cursor-default">
           <div className="w-12 h-12 mb-1">

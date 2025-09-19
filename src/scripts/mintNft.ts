@@ -1,5 +1,3 @@
-import { useRawInitData } from "@telegram-apps/sdk-react";
-
 export interface NftItemMetadata {
   name: string;
   image: string;
@@ -20,11 +18,11 @@ export async function mintNft(
   attributes: Attribute[],
   fwdMsg: string,
   collectionAddress: string | undefined,
-  userId: number | undefined
+  userId: number | undefined,
+  initData: string
 ) {
   let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
-  const initData = useRawInitData();
 
   if (image) {
     const res1 = await fetch(
@@ -40,7 +38,7 @@ export async function mintNft(
     const image_txid = await res1.text();
     if (res1.status === 400) {
       console.log(`${image_txid}`);
-      return "Error";
+      return `Error ${image_txid}`;
     }
 
     uploadedImageURL = `https://gateway.irys.xyz/${image_txid}`;
@@ -65,7 +63,7 @@ export async function mintNft(
   const metadata_txid = await res2.text();
   if (res2.status === 400) {
     console.log(`${metadata_txid}`);
-    return "Error";
+    return `Error ${metadata_txid}`;
   }
   uploadedMetadataURL = `https://gateway.irys.xyz/${metadata_txid}`;
 
@@ -88,9 +86,9 @@ export async function mintNft(
   const contentType = res3.headers.get("content-type");
 
   if (!contentType?.includes("application/json")) {
-    console.log(`error minting NFT: ${await res3.text()}`);
-    alert("error minting NFT");
-    return "Error";
+    const text = await res3.text();
+    console.log(`error minting NFT: ${text}`);
+    return `Error ${text}`;
   }
 
   return "OK";

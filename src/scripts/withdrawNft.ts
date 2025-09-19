@@ -1,14 +1,12 @@
-import { useRawInitData } from "@telegram-apps/sdk-react";
 import { address } from "@ton/ton";
 
 export async function withdrawNftItem(
   nftItemAddress: string,
   withdrawToAddress: string | undefined,
   userID: number | undefined,
-  isTestnet: boolean
+  isTestnet: boolean,
+  initData: string
 ) {
-  const initData = useRawInitData();
-
   if (!withdrawToAddress || !userID) {
     return "";
   }

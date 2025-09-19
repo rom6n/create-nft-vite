@@ -3,7 +3,7 @@ import type { User } from "../scripts/fetchUserData";
 import UploadImageIcon from "../component/uploadImage";
 import { createCollection } from "../scripts/createCollection";
 import LoadingIcon from "../assets/icons/loadingIcon";
-import { postEvent } from "@telegram-apps/sdk-react";
+import { postEvent, useRawInitData } from "@telegram-apps/sdk-react";
 import TonLogo from "../assets/icons/tonLogoIcon";
 import { fromNano } from "@ton/ton";
 
@@ -33,6 +33,7 @@ const CreateCollectionPage = ({
   const [isSuccess, setIsSuccess] = useState(0);
   const [numerator, setNumerator] = useState(25);
   const [denominator, setDenominator] = useState(1000);
+  const initData = useRawInitData();
 
   postEvent("web_app_set_header_color", { color: "#101010" });
 
@@ -316,7 +317,8 @@ const CreateCollectionPage = ({
               !isError &&
               !isCreating &&
               user?.nano_ton &&
-              user.nano_ton >= createCost
+              user.nano_ton >= createCost &&
+              initData
             ) {
               setIsCreating(true);
               const res = await createCollection(
@@ -327,7 +329,8 @@ const CreateCollectionPage = ({
                 links,
                 numerator,
                 denominator,
-                user?.id
+                user?.id,
+                initData
               );
               setIsCreating(false);
               if (res !== "OK") {

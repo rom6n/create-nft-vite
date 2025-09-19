@@ -7,6 +7,7 @@ import WebApp from "@twa-dev/sdk";
 import { fromNano } from "@ton/ton";
 import NoImage from "../assets/icons/noImage";
 import TonLogo from "../assets/icons/tonLogoIcon";
+import { useRawInitData } from "@telegram-apps/sdk-react";
 
 type NftCardPageProps = {
   nftItem: NftItem | undefined;
@@ -27,6 +28,7 @@ const NftCardPage = ({
   const [error, setError] = useState("");
   const [tonConnectUI] = useTonConnectUI();
   const [connected, setConnected] = useState(tonConnectUI.connected);
+  const initData = useRawInitData();
 
   // Подписываемся на изменения статуса
   useEffect(() => {
@@ -220,7 +222,7 @@ const NftCardPage = ({
                   : "bg-sky-600"
               } rounded-4xl`}
               onClick={
-                isWithdraw
+                isWithdraw || !initData
                   ? () => {}
                   : async () => {
                       setIsWithdraw(true);
@@ -228,7 +230,8 @@ const NftCardPage = ({
                         nftItem?.address,
                         tonConnectUI.account?.address,
                         WebApp.initDataUnsafe.user?.id,
-                        nftItem.is_testnet
+                        nftItem.is_testnet,
+                        initData
                       );
                       setIsWithdraw(false);
                       if (result !== "OK") {

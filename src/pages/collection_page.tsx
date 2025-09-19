@@ -6,7 +6,7 @@ import { withdrawCollection } from "../scripts/withdrawCollection";
 import WebApp from "@twa-dev/sdk";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import LoadingIcon from "../assets/icons/loadingIcon";
-import { postEvent } from "@telegram-apps/sdk-react";
+import { postEvent, useRawInitData } from "@telegram-apps/sdk-react";
 import TonLogo from "../assets/icons/tonLogoIcon";
 import { fromNano } from "@ton/ton";
 
@@ -29,6 +29,7 @@ const CollectionCardPage = ({
   const [isTransition, setIsTransition] = useState(false);
   const [isTransitionEnded, setIsTransitionEnded] = useState(false);
   const [isAppeared, setIsAppeared] = useState(false);
+  const initData = useRawInitData();
 
   function wait(millisecond: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millisecond));
@@ -172,14 +173,20 @@ const CollectionCardPage = ({
                 : "bg-sky-600"
             }`}
             onClick={async () => {
-              if (userBalance && userBalance >= 10000000 && !isWithdraw) {
+              if (
+                userBalance &&
+                userBalance >= 10000000 &&
+                !isWithdraw &&
+                initData
+              ) {
                 setIsWithdraw(true);
                 setIsSuccess(0);
                 const result = await withdrawCollection(
                   NftCollection.address,
                   tonConnectUI.account?.address,
                   WebApp.initDataUnsafe.user?.id,
-                  NftCollection?.is_testnet
+                  NftCollection?.is_testnet,
+                  initData
                 );
                 setIsWithdraw(false);
                 if (result !== "OK") {

@@ -1,5 +1,3 @@
-import { useRawInitData } from "@telegram-apps/sdk-react";
-
 export async function createCollection(
   image: File | undefined,
   coverImage: File | undefined,
@@ -8,12 +6,12 @@ export async function createCollection(
   links: string[],
   royaltyDividend: number,
   royaltyDivisor: number,
-  userId: number | undefined
+  userId: number | undefined,
+  initData: string
 ) {
   let uploadedImageURL: string = "";
   let uploadedCoverImageURL: string = "";
   let uploadedMetadataURL: string;
-  const initData = useRawInitData();
 
   if (image) {
     const res = await fetch(

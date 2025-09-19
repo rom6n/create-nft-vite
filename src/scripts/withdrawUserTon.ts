@@ -1,14 +1,12 @@
-import { useRawInitData } from "@telegram-apps/sdk-react";
 import { address } from "@ton/ton";
 
 export async function withdrawUserTon(
   withdrawToAddress: string | undefined,
   isTestnet: boolean,
   amount: bigint,
-  userId: number | undefined
+  userId: number | undefined,
+  initData: string
 ) {
-  const initData = useRawInitData();
-
   if (!withdrawToAddress || !userId) {
     return "";
   }

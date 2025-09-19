@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PinPad from "./pinPad";
-import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { useLaunchParams, useRawInitData } from "@telegram-apps/sdk-react";
 import { toNano } from "@ton/ton";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import { withdrawUserTon } from "../scripts/withdrawUserTon";
@@ -26,6 +26,7 @@ const WithdrawCard = ({
   const [error, setError] = useState("");
   const lp = useLaunchParams();
   const [tonConnectUI] = useTonConnectUI();
+  const initData = useRawInitData();
 
   return (
     <AnimatePresence>
@@ -88,14 +89,16 @@ const WithdrawCard = ({
                     tonConnectUI.account?.address &&
                     lp.tgWebAppData?.user?.id &&
                     userBalance &&
-                    userBalance > toNano(Number(amount))
+                    userBalance > toNano(Number(amount)) &&
+                    initData
                   ) {
                     setIsWithdraw(true);
                     const result = await withdrawUserTon(
                       tonConnectUI.account.address,
                       true,
                       toNano(Number(amount)),
-                      lp.tgWebAppData.user.id
+                      lp.tgWebAppData.user.id,
+                      initData
                     );
                     setIsWithdraw(false);
                     if (result !== "OK") {
