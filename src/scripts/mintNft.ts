@@ -1,3 +1,5 @@
+import { useRawInitData } from "@telegram-apps/sdk-react";
+
 export interface NftItemMetadata {
   name: string;
   image: string;
@@ -22,6 +24,8 @@ export async function mintNft(
 ) {
   let uploadedImageURL: string = "";
   let uploadedMetadataURL: string;
+  const initData = useRawInitData();
+
   if (image) {
     const res1 = await fetch(
       `https://create-nft-node.onrender.com/api/upload-image`,
@@ -75,6 +79,10 @@ export async function mintNft(
     }&is-testnet=true`,
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Init-Data": initData ? initData : "no init data",
+      },
     }
   );
   const contentType = res3.headers.get("content-type");

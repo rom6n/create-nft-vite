@@ -1,3 +1,5 @@
+import { useRawInitData } from "@telegram-apps/sdk-react";
+
 export async function createCollection(
   image: File | undefined,
   coverImage: File | undefined,
@@ -11,6 +13,8 @@ export async function createCollection(
   let uploadedImageURL: string = "";
   let uploadedCoverImageURL: string = "";
   let uploadedMetadataURL: string;
+  const initData = useRawInitData();
+
   if (image) {
     const res = await fetch(
       `https://create-nft-node.onrender.com/api/upload-image`,
@@ -87,6 +91,10 @@ export async function createCollection(
     }&common-content=&collection-content=${uploadedMetadataURL}&royalty-dividend=${royaltyDividend}&royalty-divisor=${royaltyDivisor}&is-testnet=true`,
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Init-Data": initData ? initData : "no init data",
+      },
     }
   );
   const contentType = res2.headers.get("content-type");

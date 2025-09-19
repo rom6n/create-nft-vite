@@ -1,3 +1,4 @@
+import { useRawInitData } from "@telegram-apps/sdk-react";
 import { address } from "@ton/ton";
 
 export async function withdrawUserTon(
@@ -6,6 +7,8 @@ export async function withdrawUserTon(
   amount: bigint,
   userId: number | undefined
 ) {
+  const initData = useRawInitData();
+
   if (!withdrawToAddress || !userId) {
     return "";
   }
@@ -23,6 +26,10 @@ export async function withdrawUserTon(
     `https://create-nft-go.onrender.com/api/user/withdraw/${userId}?withdraw-to=${withdrawTo}&amount=${amount}&is-testnet=${isTestnet}`,
     {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Init-Data": initData ? initData : "no init data",
+      },
     }
   );
   if (res.status !== 200) {
