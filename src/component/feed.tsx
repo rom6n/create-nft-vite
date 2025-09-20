@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { NftCollection, NftItem } from "../scripts/fetchUserData";
 import CreateNewIcon from "../assets/icons/createNew";
+import type { NftItemMetadata } from "../scripts/mintNft";
 
 type FeedProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
@@ -20,6 +21,34 @@ const Feed = ({
   setSelectedCollection,
 }: FeedProps) => {
   const [activeNav, setActiveNav] = useState(1);
+
+  const previewNftMetadata: NftItemMetadata = {
+    name: "Preview NFT",
+    image: "https://rom6n.github.io/create-nft-vite/images/logo.png",
+    attributes: [
+      {
+        trait_type: "You can put anything to attributes",
+        value: "!@#$%^&*()AaBb🖼️⚠️123",
+      },
+      { trait_type: "✨ RARITY", value: "😢 Common" },
+      { trait_type: "💲Value", value: "Priceless" },
+      { trait_type: "Only for preview?", value: "Yes 👍" },
+      { trait_type: "Can be withdrawed?", value: "No 🔴" },
+    ],
+    description:
+      "This NFT is only for preview. Its cannot be withdrawed or changed",
+    external_url: "",
+  };
+
+  const previewNft: NftItem = {
+    address: "EQA12t7sIsanM9AEh1EFiR99LKMG8VU1zlmWAN3VNX6hW0m2",
+    index: 624,
+    collection_address: "EQA12t7sIsanM9AEh1EFiR99LKMG8VU1zlmWAN3VNX6hW0m4",
+    collection_name: "Preview Collection",
+    owner: "Roman",
+    metadata: previewNftMetadata,
+    is_testnet: false,
+  };
 
   return (
     <div className="w-[100%] min-w-80 min-h-70 bg-white/5 pb-3 rounded-2xl border border-white/10 backdrop-blur-[5px]">
@@ -55,51 +84,49 @@ const Feed = ({
                 </span>
               </div>
             </button>
-            {userNftItems?.slice(0, 1).map((value) => (
-              <button
-                className="relative flex flex-col font-geist font-semibold justify-between bg-white/10 h-52 w-full rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
-                onClick={() => {
-                  setSelectedNft(value);
-                  setActivePage(2);
-                }}
+            <button
+              className="relative flex flex-col font-geist font-semibold justify-between bg-white/10 h-52 w-full rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
+              onClick={() => {
+                setSelectedNft(previewNft);
+                setActivePage(2);
+              }}
+            >
+              {previewNft.metadata.image ? (
+                <img
+                  src={previewNft.metadata.image}
+                  className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
+                />
+              ) : (
+                <div />
+              )}
+              <div className="absolute flex bg-[#343434] pl-2 pr-2 h-5 right-1 bottom-12.5 justify-center items-center rounded-full">
+                <span className="text-[13px] font-geist">
+                  {"#" + previewNft.index}
+                </span>
+              </div>
+
+              <div className="flex flex-col mb-2 text-start items-start justify-end px-2">
+                <span className="font-semibold w-[70%] text-sm truncate">
+                  {previewNft.metadata.name}
+                </span>
+                <span className="text-[10px] w-[60%] text-gray-400 truncate">
+                  {previewNft.collection_name}
+                </span>
+              </div>
+
+              <div
+                className={`absolute flex w-13 h-5 justify-center items-center rounded-full ${
+                  previewNft.is_testnet ? "bg-red-500/70" : "bg-sky-500/70"
+                } bottom-1 right-1`}
               >
-                {value.metadata.image ? (
-                  <img
-                    src={value.metadata.image}
-                    className="w-full max-h-40 min-h-40 object-cover rounded-t-2xl"
-                  />
-                ) : (
-                  <div />
-                )}
-                <div className="absolute flex bg-[#343434] pl-2 pr-2 h-5 right-1 bottom-12.5 justify-center items-center rounded-full">
-                  <span className="text-[15px] font-mono">
-                    {"# " + value.index}
-                  </span>
-                </div>
-
-                <div className="flex flex-col mb-2 text-start items-start justify-end px-2">
-                  <span className="font-semibold w-[70%] text-sm truncate">
-                    {value.metadata.name}
-                  </span>
-                  <span className="text-[10px] w-[60%] text-gray-400 truncate">
-                    {value.collection_name}
-                  </span>
-                </div>
-
-                <div
-                  className={`absolute flex w-13 h-5 justify-center items-center rounded-full ${
-                    value.is_testnet ? "bg-red-500/70" : "bg-sky-500/70"
-                  } bottom-1 right-1`}
-                >
-                  <span className="text-[10px] font-semibold text-white">
-                    {value.is_testnet ? "Testnet" : "Mainnet"}
-                  </span>
-                </div>
-              </button>
-            ))}
+                <span className="text-[10px] font-semibold text-white">
+                  {previewNft.is_testnet ? "Testnet" : "Mainnet"}
+                </span>
+              </div>
+            </button>
           </div>
           <div className="grid grid-cols-2 w-full px-2 mt-2 gap-2 font-geist font-semibold">
-            {userNftItems?.slice(1).map((value) => (
+            {userNftItems?.map((value) => (
               <button
                 className="relative flex flex-col justify-between bg-white/10 h-52 rounded-2xl border border-white/40 overflow-hidden cursor-pointer"
                 onClick={() => {
@@ -117,8 +144,8 @@ const Feed = ({
                 )}
 
                 <div className="absolute flex bg-[#343434] pl-2 pr-2 h-5 right-1 bottom-12.5 justify-center items-center rounded-full">
-                  <span className="text-[15px] font-mono">
-                    {"# " + value.index}
+                  <span className="text-[13px] font-geist">
+                    {"#" + value.index}
                   </span>
                 </div>
 

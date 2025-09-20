@@ -141,13 +141,13 @@ const NftCardPage = ({
             <div className="flex flex-col ml-4 mt-4 p-2 pl-4 pr-4 min-w-[44.5%] border rounded-3xl items-start ">
               <span className="text-2xl font-clash font-semibold">Index</span>
               <span className="text-lg text-start font-geist">
-                {nftItem?.index}
+                #{nftItem?.index}
               </span>
             </div>
             <div className="flex flex-col mr-4 mt-4 p-2 pl-4 pr-4 w-full min-w-[20%] border rounded-3xl items-start ">
               <span className="text-2xl font-clash font-semibold">Network</span>
               <span className="text-lg text-start font-geist">
-                {nftItem?.is_testnet ? "Testnet" : "Mainnet"}
+                {nftItem?.is_testnet ? "🔴 Testnet" : "🔵 Mainnet"}
               </span>
             </div>
           </div>
